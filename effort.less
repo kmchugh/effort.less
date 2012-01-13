@@ -1,0 +1,192 @@
+// This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
+#effortless
+{
+    /**
+    * All dimension type modifiers should be placed within this namespace
+    */
+    #dimension
+    {
+        /**
+        *  Helper for setting the minimum size of an element
+        */
+        .min-size(@minSize)
+        {
+            #effortless > #dimension > .min-size(@minSize, @minSize);
+        }
+
+        /**
+        *  Helper for setting the minimum size of an element
+        */
+        .min-size(@minWidth, @minHeight)
+        {
+            #effortless > #dimension > .min-width(@minWidth);
+            #effortless > #dimension > .min-height(@minHeight);
+        }
+
+        /**
+        * Cross browser rules for setting the minimum width of an element
+        */
+        .min-width(@minWidth : 800)
+        {
+            min-width: ~"@{minWidth}px"; width:~"expression(document.body.clientWidth < @{minWidth} ? '@{minWidth}px': 'auto' )";
+        }
+
+
+        /**
+        * Cross browser rules for setting the minimum height of an element
+        */
+        .min-height(@minHeight : 600)
+        {
+            min-height: ~"@{minHeight}px"; height:~"expression(document.body.clientHeight < @{minHeight} ? '@{minHeight}px': 'auto' )";
+        }
+
+        /**
+        *  Helper for setting the maximum size of an element
+        */
+        .max-size(@maxSize)
+        {
+            #effortless > #dimension > .max-size(@maxSize, @maxSize);
+        }
+
+        /**
+        *  Helper for setting the maximum size of an element
+        */
+        .max-size(@maxWidth, @maxHeight)
+        {
+            #effortless > #dimension > .max-width(@maxWidth);
+            #effortless > #dimension > .max-height(@maxHeight);
+        }
+
+        /**
+        * Cross browser rules for setting the maximum height of an element
+        */
+        .max-height(@maxHeight : 600)
+        {
+            overflow: hidden;
+            max-height: ~"@{maxHeight}px"; height:~"expression(document.body.clientHeight > @{maxHeight} ? '@{maxHeight}px': 'auto' )";
+        }
+
+        /**
+        * Cross browser rules for setting the maximum width of an element
+        */
+        .max-width(@maxWidth : 600)
+        {
+            overflow: hidden;
+            max-width: ~"@{maxWidth}px"; width:~"expression(document.body.clientWidth > @{maxWidth} ? '@{maxWidth}px': 'auto' )";
+        }
+
+        .size(@width, @height)
+        {
+            width: @width;
+            height: @width;
+        }
+
+        .size(@size)
+        {
+            #effortless > #dimension > .size(@size, @size);
+        }
+    }
+
+    /**
+    * Layout modifiers in this namespace
+    */
+    #layout
+    {
+
+        /**
+        * Horizontally Center the element
+        **/
+        .center()
+        {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    /**
+    * Border related modifiers
+    */
+    #border
+    {
+        /**
+        * Gives an element a rounded border
+        **/
+        .rounded(@size : 1px, @type : solid, @colour : black, @radius : 6px)
+        {
+            border: @size @type @colour;
+            #effortless > #background > .rounded(@radius);
+        }
+    }
+
+    /**
+    * Border related modifiers
+    */
+    #background
+    {
+        /**
+        * Ensures the background area is rounded
+        */
+        .rounded(@radius : 6px)
+        {
+            -webkit-border-radius: @radius;
+            -moz-border-radius: @radius;
+            border-radius: @radius;
+        }
+
+
+        #gradients
+        {
+            // TODO: Implement 2, 3, and four colour gradients
+            /**
+            * Applies a cross browser gradient to the element, ie falls back to using a filter
+            * current valid values for direction are horizontal, vertical, or the degrees, e.g. 45deg
+            */
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            {
+                // TODO : Add parsing for horizontal reverse, and vertical reverse
+                @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
+                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
+                #effortless > #background > #gradients > .chromeArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* W3C */
+                #effortless > #background > #gradients > .ieArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+            }
+            .chromeArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            {
+                // TODO: Implement handling of @direction
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
+            }
+            .ieArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            {
+                // TODO: Implement handling of @direction
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='#87bcea',GradientType=0 )"; /* IE6-8 */        
+            }
+
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, 
+                                @colourTwo, @percentTwo,
+                                @colourThree, @percentThree,
+                                @colourFour, @percentFour,
+                                @colourFive, @percentFive)
+            {
+                background: @baseColour;
+                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive); 
+            }
+
+            .pipe(@baseColour : #0000ff, @basePercent : 50, @modifier : 2, @direction : horizontal)
+            {
+                // TODO: Automate image Generation of pipe gradient
+                #effortless > #background > #gradients > .gradient(@direction, @baseColour,
+                                        lighten(desaturate(@baseColour, 60%), 40%), 0,
+                                        lighten(desaturate(@baseColour, 40%), 15%), (@basePercent / @modifier),
+                                        @baseColour, @basePercent,
+                                        lighten(desaturate(@baseColour, 30%), 10%), (@basePercent + ((100 - @basePercent) / @modifier)),
+                                        lighten(desaturate(@baseColour, 50%), 30%), 100);
+            }
+        }
+    }
+}
+
+
