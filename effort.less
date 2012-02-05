@@ -78,7 +78,7 @@
         .size(@width, @height)
         {
             width: @width;
-            height: @width;
+            height: @height;
         }
 
         .size(@size)
@@ -162,17 +162,17 @@
             .ieArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
             {
                 // TODO: Implement handling of @direction
-                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='#87bcea',GradientType=0 )"; /* IE6-8 */        
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='#87bcea',GradientType=0 )"; /* IE6-8 */
             }
 
-            .gradient(@direction, @baseColour, @colourOne, @percentOne, 
+            .gradient(@direction, @baseColour, @colourOne, @percentOne,
                                 @colourTwo, @percentTwo,
                                 @colourThree, @percentThree,
                                 @colourFour, @percentFour,
                                 @colourFive, @percentFive)
             {
                 background: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive); 
+                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
 
             .pipe(@baseColour : #0000ff, @basePercent : 50, @modifier : 2, @direction : horizontal)
@@ -188,5 +188,119 @@
         }
     }
 }
+
+/**
+ Setup for the grid system
+*/
+
+div.row { height: 1%; }
+div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidden; }
+
+.gridLayout(@size : 748)
+{
+    @gutter : floor(@size *.04);
+    @column : floor((@size - (@gutter * 11)) / 12);
+
+    width: @size*1px;
+
+    #effortless > #layout > .center();
+
+    & .column {float:left; margin-left: @gutter*1px;}
+    & .column:first-child{margin-left: 0;}
+
+    & .column.one {.colWidth(1, @column, @gutter);}
+    & .column.two {.colWidth(2, @column, @gutter);}
+    & .column.three {.colWidth(3, @column, @gutter);}
+    & .column.four {.colWidth(4, @column, @gutter);}
+    & .column.five {.colWidth(5, @column, @gutter);}
+    & .column.six {.colWidth(6, @column, @gutter);}
+    & .column.seven {.colWidth(7, @column, @gutter);}
+    & .column.eight {.colWidth(8, @column, @gutter);}
+    & .column.nine {.colWidth(9, @column, @gutter);}
+    & .column.ten {.colWidth(10, @column, @gutter);}
+    & .column.eleven {.colWidth(11, @column, @gutter);}
+    & .column.twelve {.colWidth(12, @column, @gutter);}
+}
+.rowLayout(@size : 748)
+{
+    #effortless > #layout > .center();
+
+    width: @size*1px;
+
+    & .column {float:none; margin-left: 0;}
+
+    /** This is rewritten because of specificity and the default layout **/
+    & .column.one, & .column.two, & .column.three, & .column.four, & .column.five
+        & .column.six, & .column.seven, & .column.eight, & .column.nine, & .column.ten
+        & .column.eleven, & .column.twelve
+        {width: @size*1px;}
+}
+
+.grid
+{
+    .gridLayout(748);
+}
+
+
+.colWidth(@columns, @size, @gutter)
+{
+    width: (floor((@columns * (@size + @gutter)) - @gutter))*1px;
+}
+
+// X-Large
+@media screen and (min-width: 1378px)
+{
+    .grid
+    {
+        .gridLayout(1378);
+    }
+}
+
+// Large
+@media screen and (max-width: 1377px) and (min-width: 1218px)
+{
+    .grid
+    {
+        .gridLayout(1218);
+    }
+}
+
+// Regular Desktop
+@media screen and (max-width: 1217px) and (min-width: 978px)
+{
+    .grid
+    {
+        .gridLayout(978);
+    }
+}
+
+// Medium Res Desktop (Default for IE 6-8)
+@media screen and (max-width: 977px) and (min-width: 768px)
+{
+    .grid
+    {
+        .gridLayout(768);
+    }
+}
+
+// Low Res Desktop / tablet, mobile landscape
+@media screen and (max-width: 767px) and (min-width: 480px)
+{
+    .grid
+    {
+        .rowLayout(480);
+    }
+}
+
+// Mobile portrait
+@media screen and (max-width: 479px)
+{
+    .grid
+    {
+        .rowLayout(320);
+    }
+}
+
+
 
 
