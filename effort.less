@@ -193,9 +193,6 @@
  Setup for the grid system
 */
 
-div.row { height: 1%; }
-div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidden; }
-
 .gridLayout(@size : 748)
 {
     @gutter : floor(@size *.04);
@@ -239,6 +236,9 @@ div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidd
 .grid
 {
     .gridLayout(748);
+
+    div.row { height: 1%; }
+    div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidden; }
 }
 
 
