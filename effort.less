@@ -134,7 +134,6 @@
             border-radius: @radius;
         }
 
-
         #gradients
         {
             // TODO: Implement 2, 3, and four colour gradients
@@ -189,116 +188,166 @@
     }
 }
 
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+.clearFix() 
+{
+    *zoom:1;
+    & :before, & :after 
+    {
+        content:"";
+        display:table;
+    }
+    &:after 
+    {
+        clear:both;
+    }
+}
+
+// // TODO: Need to include offsetting, left and right margin;
+// // TODO: Need to add subcolumns;
+// // TODO: Look at adding in percentage width;
+
 /**
  Setup for the grid system
 */
+@grid-columns: 12;
+@grid-width: 768;
+@grid-gutter: floor(@grid-width * .04);
 
-.gridLayout(@size : 748)
+// .gridLayout(@size : 748)
+// {
+
+//     @gutter : floor(@size *.04);
+//     @column : floor((@size - (@gutter * 11)) / 12);
+//     @columns : 12;
+
+//     width: @size*1px;
+
+//     #effortless > #layout > .center();
+
+//     & .column {float:left; margin-left: @gutter*1px;}
+//     & .column:first-child{margin-left: 0;}
+
+//     & .column.one {.colWidth(1, @column, @gutter);}
+//     & .column.two {.colWidth(2, @column, @gutter);}
+//     & .column.three {.colWidth(3, @column, @gutter);}
+//     & .column.four {.colWidth(4, @column, @gutter);}
+//     & .column.five {.colWidth(5, @column, @gutter);}
+//     & .column.six {.colWidth(6, @column, @gutter);}
+//     & .column.seven {.colWidth(7, @column, @gutter);}
+//     & .column.eight {.colWidth(8, @column, @gutter);}
+//     & .column.nine {.colWidth(9, @column, @gutter);}
+//     & .column.ten {.colWidth(10, @column, @gutter);}
+//     & .column.eleven {.colWidth(11, @column, @gutter);}
+//     & .column.twelve {.colWidth(12, @column, @gutter);}
+// }
+
+// // Sets up the tag as a grid container
+.row(@columns : @grid-columns)
 {
-    @gutter : floor(@size *.04);
-    @column : floor((@size - (@gutter * 11)) / 12);
-
-    width: @size*1px;
-
     #effortless > #layout > .center();
-
-    & .column {float:left; margin-left: @gutter*1px;}
-    & .column:first-child{margin-left: 0;}
-
-    & .column.one {.colWidth(1, @column, @gutter);}
-    & .column.two {.colWidth(2, @column, @gutter);}
-    & .column.three {.colWidth(3, @column, @gutter);}
-    & .column.four {.colWidth(4, @column, @gutter);}
-    & .column.five {.colWidth(5, @column, @gutter);}
-    & .column.six {.colWidth(6, @column, @gutter);}
-    & .column.seven {.colWidth(7, @column, @gutter);}
-    & .column.eight {.colWidth(8, @column, @gutter);}
-    & .column.nine {.colWidth(9, @column, @gutter);}
-    & .column.ten {.colWidth(10, @column, @gutter);}
-    & .column.eleven {.colWidth(11, @column, @gutter);}
-    & .column.twelve {.colWidth(12, @column, @gutter);}
-}
-.rowLayout(@size : 748)
-{
-    #effortless > #layout > .center();
-
-    width: @size*1px;
-
-    & .column {float:none; margin-left: 0;}
-
-    /** This is rewritten because of specificity and the default layout **/
-    & .column.one, & .column.two, & .column.three, & .column.four, & .column.five
-        & .column.six, & .column.seven, & .column.eight, & .column.nine, & .column.ten
-        & .column.eleven, & .column.twelve
-        {width: @size*1px;}
+    .clearFix();
+    width : 768px;
 }
 
-.grid
-{
-    .gridLayout(748);
+// .rowLayout(@columns : @columns)
+// {
+//     #effortless > #layout > .center();
 
-    div.row { height: 1%; }
-    div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidden; }
+//     width: @size*1px;
+
+//     & .column {float:none; margin-left: 0;}
+
+//     /** This is rewritten because of specificity and the default layout **/
+//     & .column.one, & .column.two, & .column.three, & .column.four, & .column.five
+//         & .column.six, & .column.seven, & .column.eight, & .column.nine, & .column.ten
+//         & .column.eleven, & .column.twelve
+//         {width: @size*1px;}
+// }
+
+// .grid
+// {
+//     .gridLayout(748);
+
+//     div.row { height: 1%; .clearFix();}
+// }
+
+.colWidth(@columns: @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    width : floor(((@size - 1) - (@gutter * @columns))) / @columns *1px;
+}
+.colHeight(@columns : @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    height : floor(((@size - 1) - (@gutter * @columns)) / @columns) *1px;
+}
+.column(@columns : @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    .colWidth(@columns);
+    display: inline-block;
+    margin: 0 ((@gutter - 1)/2)*1px;
 }
 
 
-.colWidth(@columns, @size, @gutter)
-{
-    width: (floor((@columns * (@size + @gutter)) - @gutter))*1px;
-}
 
-// X-Large
-@media screen and (min-width: 1378px)
-{
-    .grid
-    {
-        .gridLayout(1378);
-    }
-}
 
-// Large
-@media screen and (max-width: 1377px) and (min-width: 1218px)
-{
-    .grid
-    {
-        .gridLayout(1218);
-    }
-}
+// // X-Large
+// @media screen and (min-width: 1378px)
+// {
+//     .grid
+//     {
+//         .gridLayout(1378);
+//     }
+// }
 
-// Regular Desktop
-@media screen and (max-width: 1217px) and (min-width: 978px)
-{
-    .grid
-    {
-        .gridLayout(978);
-    }
-}
+// // Large
+// @media screen and (max-width: 1377px) and (min-width: 1218px)
+// {
+//     .grid
+//     {
+//         .gridLayout(1218);
+//     }
+// }
 
-// Medium Res Desktop (Default for IE 6-8)
-@media screen and (max-width: 977px) and (min-width: 768px)
-{
-    .grid
-    {
-        .gridLayout(768);
-    }
-}
+// // Regular Desktop
+// @media screen and (max-width: 1217px) and (min-width: 978px)
+// {
+//     .grid
+//     {
+//         .gridLayout(978);
+//     }
+// }
 
-// Low Res Desktop / tablet, mobile landscape
-@media screen and (max-width: 767px) and (min-width: 480px)
-{
-    .grid
-    {
-        .rowLayout(480);
-    }
-}
+// // Medium Res Desktop (Default for IE 6-8)
+// @media screen and (max-width: 977px) and (min-width: 768px)
+// {
+//     .grid
+//     {
+//         .gridLayout(768);
+//     }
+// }
 
-// Mobile portrait
-@media screen and (max-width: 479px)
+// // Low Res Desktop / tablet, mobile landscape
+// @media screen and (max-width: 767px) and (min-width: 480px)
+// {
+//     .grid
+//     {
+//         .rowLayout(480);
+//     }
+// }
+
+// // Mobile portrait
+// @media screen and (max-width: 479px)
+// {
+//     .grid
+//     {
+//         .rowLayout(320);
+//     }
+// }
+
+body
 {
-    .grid
-    {
-        .rowLayout(320);
-    }
+    width: 100%;
+    .clearFix();
 }
 
 

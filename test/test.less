@@ -1,0 +1,73 @@
+/**
+* Set up the global grid system, leave the calculated measurements
+**/
+@grid-columns: 12;
+@grid-width: 768;
+@grid-gutter: @grid-width * .04;
+
+@import "../effort.less";
+
+// Title area is only 4 column
+.titleArea
+{
+	// Title area we want as 4 column rather than 12
+	@grid-columns: 4;
+
+	.row;
+
+	.menuItem
+	{
+		.column;
+		float: left;
+
+		.button 
+		{
+			#effortless > #border > .rounded(1px, solid, #666666, 6px);
+			background-color: #FFF;
+			margin: 10px 10px 20px 10px;
+			display: block;
+			cursor: pointer;
+			text-align: center;
+			padding: 40px 0px;
+			.colHeight(14);
+			#effortless > #background > #gradients > .pipe(#9d1921, 50, .5);
+
+			&:hover
+			{
+				#effortless > #border > .rounded(1px, solid, #cccccc, 6px);
+				#effortless > #background > #gradients > .pipe(#999999, 50, .5);
+			}
+
+		}
+	}
+}
+
+.contentArea
+{
+	@grid-columns: 12;
+
+	.row;
+
+	#effortless > #dimension > .min-height(400px);
+}
+
+.footerArea
+{
+	@grid-columns: 12;
+
+	.row;
+
+	#effortless > #dimension > .min-height(40px);
+}
+
+.titleArea, .contentArea, .footerArea
+{
+	#effortless > #border > .rounded(1px, solid, #666666, 6px);
+	#effortless > #background > #gradients > .pipe(#999999, 70, 1);
+	margin: 10px auto 10px auto;
+}
+
+body
+{
+	background-color: #999999;
+}
