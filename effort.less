@@ -223,21 +223,9 @@
                 #effortless > #background > #gradients > .gradient(@direction, @colour,
                                         darken(@colour, 7.5), 0%,
                                         @colour, @position, 
-                                        darken(@colour, 17.5), @position+1, 
+                                        darken(@colour, 17.5), @position, 
                                         @colour, 100%);
             }
-
-            /*
-
-background: -moz-linear-gradient(top,  rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); 
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(50%,rgba(41,137,216,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); 
-background: -webkit-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); 
-background: -o-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); 
-background: -ms-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%);
-background: linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); 
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); 
-*/
-
         }
     }
 }
@@ -262,86 +250,87 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 // // TODO: Look at adding in percentage width;
 
 /**
- Setup for the grid system
+ Setup defaults for the grid system
 */
 @grid-columns: 12;
 @grid-width: 768;
-@grid-gutter: floor(@grid-width * .04);
+@grid-gutter: .04;
 
-// .gridLayout(@size : 748)
-// {
+.colWidth(@columnSize : 1, @columns: @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    // .11px is a rounding error helper
+    width : ((@size / @columns * @columnSize) - @gutter * @size) - (.11px * @columns);
+}
+.colHeight(@columnCount : 1, @columns: @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    height : ((@columnCount - 1) * @gutterSize) + (floor((@size - ((@size * @gutter) * @columns)) / @columns)) * @columnCount * 1px;
+}
+.column(@columnCount: 1, @columns : @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+{
+    @marginSize: floor(@size * @gutter / 2px);
+    .colWidth(@columnCount, @columns, @size, @gutter);
+    display: inline-block;
+    margin-left: @marginSize - .11px;
+    margin-right: @marginSize - .11px;
+}
 
-//     @gutter : floor(@size *.04);
-//     @column : floor((@size - (@gutter * 11)) / 12);
-//     @columns : 12;
-
-//     width: @size*1px;
-
-//     #effortless > #layout > .center();
-
-//     & .column {float:left; margin-left: @gutter*1px;}
-//     & .column:first-child{margin-left: 0;}
-
-//     & .column.one {.colWidth(1, @column, @gutter);}
-//     & .column.two {.colWidth(2, @column, @gutter);}
-//     & .column.three {.colWidth(3, @column, @gutter);}
-//     & .column.four {.colWidth(4, @column, @gutter);}
-//     & .column.five {.colWidth(5, @column, @gutter);}
-//     & .column.six {.colWidth(6, @column, @gutter);}
-//     & .column.seven {.colWidth(7, @column, @gutter);}
-//     & .column.eight {.colWidth(8, @column, @gutter);}
-//     & .column.nine {.colWidth(9, @column, @gutter);}
-//     & .column.ten {.colWidth(10, @column, @gutter);}
-//     & .column.eleven {.colWidth(11, @column, @gutter);}
-//     & .column.twelve {.colWidth(12, @column, @gutter);}
-// }
-
-// // Sets up the tag as a grid container
-.row(@columns : @grid-columns, @size : @grid-width)
+.row(@size : @grid-width, @columns: @grid-columns)
 {
     #effortless > #layout > .center();
     .clearFix();
     width : @size * 1px;
+
+    & > .column
+    {
+        .column;
+    }
 }
 
-// .rowLayout(@columns : @columns)
-// {
-//     #effortless > #layout > .center();
-
-//     width: @size*1px;
-
-//     & .column {float:none; margin-left: 0;}
-
-//     /** This is rewritten because of specificity and the default layout **/
-//     & .column.one, & .column.two, & .column.three, & .column.four, & .column.five
-//         & .column.six, & .column.seven, & .column.eight, & .column.nine, & .column.ten
-//         & .column.eleven, & .column.twelve
-//         {width: @size*1px;}
-// }
-
-// .grid
-// {
-//     .gridLayout(748);
-
-//     div.row { height: 1%; .clearFix();}
-// }
-
-.colWidth(@columns: @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
+html .column
 {
-    width : floor(((@size - 2) - (@gutter * @columns))) / @columns *1px;
-}
-.colHeight(@columns : @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
-{
-    height : floor(((@size - 2) - (@gutter * @columns)) / @columns) *1px;
-}
-.column(@columns : @grid-columns, @size : @grid-width, @gutter : @grid-gutter)
-{
-    .colWidth(@columns, @size, @gutter);
-    display: inline-block;
-    margin: 0 ((@gutter - 1)/2)*1px;
+    .column;
 }
 
+html .row
+{
+    .row;
+}
 
+.gridLayout(@size : @grid-width, @columns: @grid-columns, @gutter : @grid-gutter)
+{
+    .row;
+    & .column.one {.column;}
+    & .column.two {.column(2);}
+    & .column.three {.column(3);}
+    & .column.four {.column(4);}
+    & .column.five {.column(5);}
+    & .column.six {.column(6);}
+    & .column.seven {.column(7);}
+    & .column.eight {.column(8);}
+    & .column.nine {.column(9);}
+    & .column.ten {.column(10);}
+    & .column.eleven {.column(11);}
+    & .column.twelve {.column(12);}
+    & .column.thirteen {.column(13);}
+    & .column.fourteen {.column(14);}
+    & .column.fifteen {.column(15);}
+    & .column.sixteen {.column(16);}
+
+    & .column.half {.column(@columns/2);}
+    & .column.third {.column(@columns/3);}
+    & .column.quarter {.column(@columns/4);}
+}
+
+.grid
+{
+    .gridLayout;
+}
+
+body
+{
+    width: 100%;
+    .clearFix();
+}
 
 
 // // X-Large
@@ -398,11 +387,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 //     }
 // }
 
-body
-{
-    width: 100%;
-    .clearFix();
-}
 
 
 

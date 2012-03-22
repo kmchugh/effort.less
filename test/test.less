@@ -5,7 +5,78 @@
 @grid-width: 768;
 @grid-gutter: @grid-width * .04;
 
+@red: #9d1921;
+@grey: #999999;
+
 @import "../effort.less";
+
+html 
+{
+	font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+}
+
+body
+{
+	background: @grey url('../icatalystlogo.png') no-repeat fixed top right;
+}
+
+strong
+{
+	font-weight: bold;
+	font-size: 110%;
+}
+
+.container
+{
+	> span
+	{
+		font-size: 90%;
+		line-height: 120%;
+		color: lighten(@grey, 70);
+		padding: 15px 15px 10px 15px;
+		background-color: darken(@grey, 20);
+		margin-top: 10px;
+		#effortless > #border > .rounded(1px, solid, darken(@grey, 20), 6px);
+
+		label
+		{
+			margin: 0 0 10px 0;
+			padding: .5em .5em .5em 36px;
+			font-size: 120%;
+			font-weight: bold;
+			background: lighten(@grey, 20) url('../effort.less_16.png') no-repeat 10px center;
+			display: block;
+			color: @red; //darken(@grey, 20);
+		}
+
+		pre
+		{
+			#effortless > #border > .rounded(1px, dashed, darken(@grey, 50), 6px);
+			background-color : lighten(@grey, 10);
+			font-size: 80%;
+			margin: 20px 0px 20px 0px;
+		}
+	}
+}
+
+.titleArea, .contentArea, .footerArea
+{
+
+	#effortless > #border > .rounded(1px, solid, darken(@grey, 20), 6px);
+}
+
+.titleArea, .footerArea
+{
+	#effortless > #background > #gradients > .gloss(lighten(white, 30));
+}
+
+.contentArea
+{
+	#effortless > #background > #gradients > .pipe(@grey);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 
 // Title area is only 4 column
 .titleArea
@@ -15,59 +86,57 @@
 
 	.row;
 
-	.menuItem
+	> div
 	{
-		.column;
-		float: left;
+		
+		padding: 40px 0px;
+		margin-top: 20px;
 
-		.button 
+		.column;
+
+		#effortless > #background > .rounded;
+		#effortless > #background > #gradients > .pipe(@red, 50, .5);
+
+		.button
 		{
-			#effortless > #border > .rounded(1px, solid, #666666, 6px);
-			background-color: #FFF;
-			margin: 10px 10px 20px 10px;
 			display: block;
 			cursor: pointer;
 			text-align: center;
-			padding: 40px 0px;
-			.colHeight(14);
-			#effortless > #background > #gradients > .pipe(#9d1921, 50, .5);
-
-			&:hover
-			{
-				#effortless > #border > .rounded(1px, solid, #cccccc, 6px);
-				#effortless > #background > #gradients > .pipe(#999999, 50, .5);
-			}
-
 		}
+
+		&:hover
+		{
+			color: lighten(@grey, 30);
+			font-weight: bold;
+		}
+	}
+
+	div.reflected
+	{
+		margin-top: 1px;
+		margin-bottom: 10px;
+		padding: 20px 0px;
+		#effortless > #background > #gradients > .fade(fade(@red, 50), fade(lighten(@red, 30), 0));
 	}
 }
 
 .contentArea
 {
-	@grid-columns: 12;
 
-	.row;
+	div
+	{
+		span
+		{
+			#effortless > #background > #gradients > .pipe(@red, 50, .5);
+			#effortless > #background > .rounded;
+			text-align: center;
+			display: inline-block;
+			margin-top: 10px;
+			padding: 5px 0px;
 
-	#effortless > #dimension > .min-height(400px);
+			.column;
+
+		}
+	}
 }
 
-.footerArea
-{
-	@grid-columns: 12;
-
-	.row;
-
-	#effortless > #dimension > .min-height(40px);
-}
-
-.titleArea, .contentArea, .footerArea
-{
-	#effortless > #border > .rounded(1px, solid, #666666, 6px);
-	#effortless > #background > #gradients > .pipe(#999999, 70, 1);
-	margin: 10px auto 10px auto;
-}
-
-body
-{
-	background-color: #999999;
-}

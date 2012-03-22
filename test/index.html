@@ -23,19 +23,183 @@
 </head>
 <body>
     <div class="container">
-        <ul class="titleArea">
-            <li class="menuItem"><a class="button">Item 1</a></li>
-            <li class="menuItem"><a class="button">Item 2</a></li>
-            <li class="menuItem"><a class="button">Item 3</a></li>
-            <li class="menuItem"><a class="button">Item 4</a></li>
-        </ul>
+        <span class="row">
+            <label>Alternate Column Setup</label>
+            <strong>effort.less</strong> allows you to set up multiple grid systems on a single page.  This
+            gives you fine grain control over your layouts when you need it.
 
-        <div class="contentArea">
+            Simple override the @grid-columns, @grid-size, or @grid-gutter parameter
+            to adjust your grid.
+
+            Any element that is a direct child and has a class of "column" will be
+            considered to be a single column within the row.
+            Any element within the row can be marked with column specificity e.g.:
+
+            <pre><code>
+                &lt;div class="column four"&gt;Some Content&lt;/div>&gt;
+            </code></pre>
+
+            It is also possible to keep the grid semantics outside the markup by
+            specifying what is to be considered a single column.
+
+            <pre><code>
+                .myRowClass
+                {
+                    // Title area we want as 4 column rather than 12
+                    @grid-columns: 4;
+
+                    // this class as a row, this will prepare the grid
+                    .row;
+
+                    // Then mark that we want any div tag that is a direct child to be a column
+                    > div
+                    {
+                        .column;
+                    }
+
+                    // And for fun, any span would be considered 2 columns
+                    > span
+                    {
+                        .column(2);
+                    }
+                }   
+            </code></pre>
+
+        </span>
+        <div class="titleArea">
+            <div><a class="button">Item 1</a></div>
+            <div><a class="button">Item 2</a></div>
+            <div><a class="button">Item 3</a></div>
+            <div><a class="button">Item 4</a></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+        </div>
+
+        <span class="row">
+            <label>Default Setup</label>
+        </span>
+
+        <div class="contentArea grid">
+
+            <div class="row">
+                <span class="column twelve">12</span>
+            </div>
+            
+            <div class="row">
+                <span class="column one">1</span>
+                <span class="column eleven">11</span>
+            </div>
+
+            <div class="row">
+                <span class="column two">2</span>
+                <span class="column ten">10</span>
+            </div>
+
+            <div class="row">
+                <span class="column three">3</span>
+                <span class="column nine">9</span>
+            </div>
+
+            <div class="row">
+                <span class="column four">4</span>
+                <span class="column eight">8</span>
+            </div>
+
+            <div class="row">
+                <span class="column five">5</span>
+                <span class="column seven">7</span>
+            </div>
+
+            <div class="row">
+                <span class="column six">6</span>
+                <span class="column six">6</span>
+            </div>
+
+            <div class="row">
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+            </div>
+
+            <div class="row">
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+            </div>
+
+            <div class="row">
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+            </div>
+
+            <div class="row">
+                <span class="column four">4</span>
+                <span class="column four">4</span>
+                <span class="column four">4</span>
+            </div>
+
+            <div class="row">
+                <span class="column half">HALF</span>
+                <span class="column half">HALF</span>
+            </div>
+
+            <div class="row">
+                <span class="column third">THIRD</span>
+                <span class="column third">THIRD</span>
+                <span class="column third">THIRD</span>
+            </div>
+
+            <div class="row">
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+            </div>
+
+            <div class="row">
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column half">HALF</span>
+            </div>
+
             
         </div>
 
-        <div class="footerArea">
-            
+        <span class="row">
+            <label>Sub columns and Sub rows</label>
+        </span>
+
+        <div class="footerArea row">
+            <div>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+                <span>11</span>
+                <span>12</span>
+            </div>
         </div>
     </div>
     <!--[if lt IE 7 ]>
