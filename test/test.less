@@ -22,8 +22,13 @@ body
 
 strong
 {
+	color: @red;
+	background: lighten(@grey, 50);
 	font-weight: bold;
 	font-size: 110%;
+	padding: .15em .5em;
+	display: inline-block;
+	#effortless > #border > .rounded(1px, solid, @red, 6px);
 }
 
 .container
@@ -46,7 +51,7 @@ strong
 			font-weight: bold;
 			background: lighten(@grey, 20) url('../effort.less_16.png') no-repeat 10px center;
 			display: block;
-			color: @red; //darken(@grey, 20);
+			color: @red;
 		}
 
 		pre
@@ -61,7 +66,6 @@ strong
 
 .titleArea, .contentArea, .footerArea
 {
-
 	#effortless > #border > .rounded(1px, solid, darken(@grey, 20), 6px);
 }
 
