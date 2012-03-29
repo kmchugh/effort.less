@@ -134,172 +134,272 @@
             border-radius: @radius;
         }
 
-
         #gradients
         {
-            // TODO: Implement 2, 3, and four colour gradients
+            // TODO: implment 3 colour gradients
             /**
             * Applies a cross browser gradient to the element, ie falls back to using a filter
             * current valid values for direction are horizontal, vertical, or the degrees, e.g. 45deg
             */
+            // 2 colour
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo)
+            {
+                // TODO : Add parsing for horizontal reverse, and vertical reverse
+                @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
+                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
+                background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* W3C */
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourTwo}',GradientType=0 )"; /* IE6-8 */
+            }
+            // 4 colour
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour)
+            {
+                // TODO : Add parsing for horizontal reverse, and vertical reverse
+                @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
+                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}))"; /* Chrome,Safari4+ */
+                background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* W3C */
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFour}',GradientType=0 )"; /* IE6-8 */
+            }
+            // 5 colour
             .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
                 background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
-                #effortless > #background > #gradients > .chromeArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
                 background: ~"-ms-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* IE10+ */
                 background: ~"linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* W3C */
-                #effortless > #background > #gradients > .ieArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFive}',GradientType=0 )"; /* IE6-8 */
             }
-            .chromeArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            // 2 colour
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
-                // TODO: Implement handling of @direction
-                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
+                background: @baseColour;
+                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
-            .ieArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            // 4 colour
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
-                // TODO: Implement handling of @direction
-                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='#87bcea',GradientType=0 )"; /* IE6-8 */
+                background: @baseColour;
+                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
-
-            .gradient(@direction, @baseColour, @colourOne, @percentOne,
-                                @colourTwo, @percentTwo,
-                                @colourThree, @percentThree,
-                                @colourFour, @percentFour,
-                                @colourFive, @percentFive)
+            // 5 colour
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background: @baseColour;
                 #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
+
+            
 
             .pipe(@baseColour : #0000ff, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
                 #effortless > #background > #gradients > .gradient(@direction, @baseColour,
                                         lighten(desaturate(@baseColour, 60%), 40%), 0,
-                                        lighten(desaturate(@baseColour, 40%), 15%), (@basePercent / @modifier),
+                                        lighten(desaturate(@baseColour, 40%), 15%), @basePercent / @modifier,
                                         @baseColour, @basePercent,
-                                        lighten(desaturate(@baseColour, 30%), 10%), (@basePercent + ((100 - @basePercent) / @modifier)),
+                                        lighten(desaturate(@baseColour, 30%), 10%), 100 - (@basePercent / @modifier),
                                         lighten(desaturate(@baseColour, 50%), 30%), 100);
+            }
+            .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
+            {
+                #effortless > #background > #gradients > .gradient(@direction, @topColour, 
+                                        @topColour, @topPercent, @bottomColour, @bottomPercent);
+
+            }
+
+            .gloss(@colour: #000000, @position: 50%, @direction : horizontal)
+            {
+                #effortless > #background > #gradients > .gradient(@direction, @colour,
+                                        darken(@colour, 7.5), 0%,
+                                        @colour, @position, 
+                                        darken(@colour, 17.5), @position, 
+                                        @colour, 100%);
             }
         }
     }
 }
 
+// // TODO: Need to include offsetting, left and right margin;
+// // TODO: Need to add subcolumns;
+// // TODO: Look at adding in percentage width;
+
 /**
- Setup for the grid system
+ Setup defaults for the grid system
 */
+@grid-columns: 12;
+@grid-width: 768;
+@grid-gutter: .03;
 
-.gridLayout(@size : 748)
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    @gutter : floor(@size *.04);
-    @column : floor((@size - (@gutter * 11)) / 12);
-
-    width: @size*1px;
-
-    #effortless > #layout > .center();
-
-    & .column {float:left; margin-left: @gutter*1px;}
-    & .column:first-child{margin-left: 0;}
-
-    & .column.one {.colWidth(1, @column, @gutter);}
-    & .column.two {.colWidth(2, @column, @gutter);}
-    & .column.three {.colWidth(3, @column, @gutter);}
-    & .column.four {.colWidth(4, @column, @gutter);}
-    & .column.five {.colWidth(5, @column, @gutter);}
-    & .column.six {.colWidth(6, @column, @gutter);}
-    & .column.seven {.colWidth(7, @column, @gutter);}
-    & .column.eight {.colWidth(8, @column, @gutter);}
-    & .column.nine {.colWidth(9, @column, @gutter);}
-    & .column.ten {.colWidth(10, @column, @gutter);}
-    & .column.eleven {.colWidth(11, @column, @gutter);}
-    & .column.twelve {.colWidth(12, @column, @gutter);}
+    // .11px is a rounding error helper
+    width : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
 }
-.rowLayout(@size : 748)
+.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
+{
+    // .11px is a rounding error helper
+    height : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
+}
+.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    @marginSize: floor(@grid-width * @grid-gutter / 2px);
+    .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
+    display: inline-block;
+    margin-left: floor(@marginSize - .11px);
+    margin-right: floor(@marginSize - .11px);
+}
+
+.row(@grid-width : @grid-width, @grid-columns: @grid-columns)
 {
     #effortless > #layout > .center();
+    width : @grid-width * 1px;
 
-    width: @size*1px;
+    & > .column
+    {
+        .column;
+    }
+}
 
-    & .column {float:none; margin-left: 0;}
+html .column
+{
+    .column;
+}
 
-    /** This is rewritten because of specificity and the default layout **/
-    & .column.one, & .column.two, & .column.three, & .column.four, & .column.five
-        & .column.six, & .column.seven, & .column.eight, & .column.nine, & .column.ten
-        & .column.eleven, & .column.twelve
-        {width: @size*1px;}
+html .row
+{
+   .row;
+}
+
+.gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
+{
+    > *.row
+    {
+        .row;
+    }
+    .row;
+    & .column.one {.column;}
+    & .column.two {.column(2);}
+    & .column.three {.column(3);}
+    & .column.four {.column(4);}
+    & .column.five {.column(5);}
+    & .column.six {.column(6);}
+    & .column.seven {.column(7);}
+    & .column.eight {.column(8);}
+    & .column.nine {.column(9);}
+    & .column.ten {.column(10);}
+    & .column.eleven {.column(11);}
+    & .column.twelve {.column(12);}
+    & .column.thirteen {.column(13);}
+    & .column.fourteen {.column(14);}
+    & .column.fifteen {.column(15);}
+    & .column.sixteen {.column(16);}
+
+    & .column.half {.column(@grid-columns/2);}
+    & .column.third {.column(@grid-columns/3);}
+    & .column.quarter {.column(@grid-columns/4);}
 }
 
 .grid
 {
-    .gridLayout(748);
-
-    div.row { height: 1%; }
-    div.row-end { clear: both; font: 1px/1px sans-serif; height: 1px; overflow: hidden; }
+    .gridLayout;
 }
 
-
-.colWidth(@columns, @size, @gutter)
+// FROM http://nicolasgallagher.com/micro-clearfix-hack/
+.cf
 {
-    width: (floor((@columns * (@size + @gutter)) - @gutter))*1px;
-}
-
-// X-Large
-@media screen and (min-width: 1378px)
-{
-    .grid
+    /* For modern browsers */
+    &:before,
+    &:after 
     {
-        .gridLayout(1378);
+        content:"";
+        display:table;
     }
+
+    &:after 
+    {
+        clear:both;
+    }
+
+    /* For IE 6/7 (trigger hasLayout) */
+    zoom:1;
 }
 
-// Large
-@media screen and (max-width: 1377px) and (min-width: 1218px)
+/*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}h1{font-size:2em}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+body
 {
-    .grid
-    {
-        .gridLayout(1218);
-    }
+    width: 100%;
+
+    * {.cf;}
 }
 
-// Regular Desktop
-@media screen and (max-width: 1217px) and (min-width: 978px)
-{
-    .grid
-    {
-        .gridLayout(978);
-    }
-}
 
-// Medium Res Desktop (Default for IE 6-8)
-@media screen and (max-width: 977px) and (min-width: 768px)
-{
-    .grid
-    {
-        .gridLayout(768);
-    }
-}
+// // X-Large
+// @media screen and (min-width: 1378px)
+// {
+//     .grid
+//     {
+//         .gridLayout(1378);
+//     }
+// }
 
-// Low Res Desktop / tablet, mobile landscape
-@media screen and (max-width: 767px) and (min-width: 480px)
-{
-    .grid
-    {
-        .rowLayout(480);
-    }
-}
+// // Large
+// @media screen and (max-width: 1377px) and (min-width: 1218px)
+// {
+//     .grid
+//     {
+//         .gridLayout(1218);
+//     }
+// }
 
-// Mobile portrait
-@media screen and (max-width: 479px)
-{
-    .grid
-    {
-        .rowLayout(320);
-    }
-}
+// // Regular Desktop
+// @media screen and (max-width: 1217px) and (min-width: 978px)
+// {
+//     .grid
+//     {
+//         .gridLayout(978);
+//     }
+// }
+
+// // Medium Res Desktop (Default for IE 6-8)
+// @media screen and (max-width: 977px) and (min-width: 768px)
+// {
+//     .grid
+//     {
+//         .gridLayout(768);
+//     }
+// }
+
+// // Low Res Desktop / tablet, mobile landscape
+// @media screen and (max-width: 767px) and (min-width: 480px)
+// {
+//     .grid
+//     {
+//         .rowLayout(480);
+//     }
+// }
+
+// // Mobile portrait
+// @media screen and (max-width: 479px)
+// {
+//     .grid
+//     {
+//         .rowLayout(320);
+//     }
+// }
+
 
 
 
