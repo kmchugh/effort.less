@@ -1,14 +1,14 @@
+@import "../effort.less";
+
 /**
 * Set up the global grid system, leave the calculated measurements
 **/
 @grid-columns: 12;
 @grid-width: 768;
-@grid-gutter: @grid-width * .04;
+@grid-gutter: .03;
 
 @red: #9d1921;
 @grey: #999999;
-
-@import "../effort.less";
 
 html 
 {
@@ -29,6 +29,13 @@ strong
 	padding: .15em .5em;
 	display: inline-block;
 	#effortless > #border > .rounded(1px, solid, @red, 6px);
+}
+
+.grid.large
+{
+	@grid-width: 976;
+
+	.gridLayout;
 }
 
 .container
@@ -117,7 +124,7 @@ strong
 
 	div.reflected
 	{
-		margin-top: 1px;
+		margin-top: 2px;
 		margin-bottom: 10px;
 		padding: 20px 0px;
 		#effortless > #background > #gradients > .fade(fade(@red, 50), fade(lighten(@red, 30), 0));

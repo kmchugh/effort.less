@@ -37,61 +37,22 @@
         </span>
 
         <span class="row">
-            <label>Alternate Column Setup</label>
-            <strong>effort.less</strong> allows you to set up multiple grid systems on a single page.  This
-            gives you fine grain control over your layouts when you need it.
-
-            Simply override the @grid-columns, @grid-size, or @grid-gutter parameter
-            to adjust your grid.
-
-            Any element that is a direct child and has a class of "column" will be
-            considered to be a single column within the row.
-            Any element within the row can be marked with column specificity e.g.:
-
-            <pre><code>
-                &lt;div class="column four"&gt;Some Content&lt;/div>&gt;
-            </code></pre>
-
-            It is also possible to keep the grid semantics outside the markup by
-            specifying what is to be considered a single column.
-
-            <pre><code>
-                .myRowClass
-                {
-                    // Title area we want as 4 column rather than 12
-                    @grid-columns: 4;
-
-                    // this class as a row, this will prepare the grid
-                    .row;
-
-                    // Then mark that we want any div tag that is a direct child to be a column
-                    > div
-                    {
-                        .column;
-                    }
-
-                    // And for fun, any span would be considered 2 columns
-                    > span
-                    {
-                        .column(2);
-                    }
-                }   
-            </code></pre>
-
-        </span>
-        <div class="titleArea">
-            <div><a class="button">Item 1</a></div>
-            <div><a class="button">Item 2</a></div>
-            <div><a class="button">Item 3</a></div>
-            <div><a class="button">Item 4</a></div>
-            <div class="reflected"></div>
-            <div class="reflected"></div>
-            <div class="reflected"></div>
-            <div class="reflected"></div>
-        </div>
-
-        <span class="row">
             <label>Default Setup</label>
+            The <strong>effort.less</strong> grid system allows you to set your own grid parameters.  By default <strong>effort.less</strong> is configured for 12 columns, 768 pixel total width, and
+            3% gutters.  These settings can be overridden by simply setting them in your own .less files:
+
+            <pre><code>
+                @import "../effort.less";
+
+                @grid-columns: 12;
+                @grid-width: 768;
+                @grid-gutter: .03;
+
+                // ... your own styles here
+            </code></pre>
+
+            The following is an example of the default grid:
+            
         </span>
 
         <div class="contentArea grid">
@@ -193,6 +154,255 @@
 
             
         </div>
+
+        <span class="row">
+            And an example of an overridden grid.  This has been overridden by
+            giving the grid a class of .large and then changing the parameters for .large in
+            the .css:
+
+            <pre><code>
+
+                &lt;style&gt;
+
+                .grid.large
+                {
+                    @grid-width: 976;
+
+                    .gridLayout;
+                }
+
+
+                &lt;\style&gt;
+
+
+                &lt;div class="contentArea grid large"&gt;
+
+                    ... rows go here
+
+                &lt;\div&gt;
+
+            </code></pre>
+        </span>
+
+        <div class="contentArea grid large">
+
+            <div class="row">
+                <span class="column twelve">12</span>
+            </div>
+            
+            <div class="row">
+                <span class="column one">1</span>
+                <span class="column eleven">11</span>
+            </div>
+
+            <div class="row">
+                <span class="column two">2</span>
+                <span class="column ten">10</span>
+            </div>
+
+            <div class="row">
+                <span class="column three">3</span>
+                <span class="column nine">9</span>
+            </div>
+
+            <div class="row">
+                <span class="column four">4</span>
+                <span class="column eight">8</span>
+            </div>
+
+            <div class="row">
+                <span class="column five">5</span>
+                <span class="column seven">7</span>
+            </div>
+
+            <div class="row">
+                <span class="column six">6</span>
+                <span class="column six">6</span>
+            </div>
+
+            <div class="row">
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+                <span class="column one">1</span>
+            </div>
+
+            <div class="row">
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+                <span class="column two">2</span>
+            </div>
+
+            <div class="row">
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+                <span class="column three">3</span>
+            </div>
+
+            <div class="row">
+                <span class="column four">4</span>
+                <span class="column four">4</span>
+                <span class="column four">4</span>
+            </div>
+
+            <div class="row">
+                <span class="column half">HALF</span>
+                <span class="column half">HALF</span>
+            </div>
+
+            <div class="row">
+                <span class="column third">THIRD</span>
+                <span class="column third">THIRD</span>
+                <span class="column third">THIRD</span>
+            </div>
+
+            <div class="row">
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+            </div>
+
+            <div class="row">
+                <span class="column quarter">QUARTER</span>
+                <span class="column quarter">QUARTER</span>
+                <span class="column half">HALF</span>
+            </div>
+
+            
+        </div>
+
+        <span class="row">
+            <label>Alternate Column Setup</label>
+            <strong>effort.less</strong> allows you to set up multiple grid systems on a single page.  This
+            gives you fine grain control over your layouts when you need it.
+
+            Simply override the @grid-columns, @grid-size, or @grid-gutter parameter
+            to adjust your grid.
+
+            Any element that is a direct child and has a class of "column" will be
+            considered to be a single column within the row.
+            Any element within the row can be marked with column specificity e.g.:
+
+            <pre><code>
+                &lt;div class="column four"&gt;Some Content&lt;/div>&gt;
+            </code></pre>
+
+            It is also possible to keep the grid semantics outside the markup by
+            specifying what is to be considered a single column.
+
+            <pre><code>
+                .myRowClass
+                {
+                    // Title area we want as 4 column rather than 12
+                    @grid-columns: 4;
+
+                    // this class as a row, this will prepare the grid
+                    .row;
+
+                    // Then mark that we want any div tag that is a direct child to be a column
+                    > div
+                    {
+                        .column;
+                    }
+
+                    // And for fun, any span would be considered 2 columns
+                    > span
+                    {
+                        .column(2);
+                    }
+                }   
+            </code></pre>
+
+            As exampled by the following mimicing of reflection:
+
+            <pre><code>
+
+                &lt;style&gt;
+
+                .titleArea
+                {
+                    @grid-columns: 4;
+
+                    .row;
+
+                    > div
+                    {
+                        
+                        padding: 40px 0px;
+                        margin-top: 20px;
+
+                        .column;
+
+                        #effortless > #background > .rounded;
+                        #effortless > #background > #gradients > .pipe(@red, 50, .5);
+
+                        .button
+                        {
+                            display: block;
+                            cursor: pointer;
+                            text-align: center;
+                        }
+
+                        &:hover
+                        {
+                            color: lighten(@grey, 30);
+                            font-weight: bold;
+                        }
+                    }
+
+                    div.reflected
+                    {
+                        margin-top: 1px;
+                        margin-bottom: 10px;
+                        padding: 20px 0px;
+                        #effortless > #background > #gradients > .fade(fade(@red, 50), fade(lighten(@red, 30), 0));
+                    }
+                }
+                &lt;\style&gt;
+
+                &lt;div class="titleArea"&gt;
+                    &lt;div&gt;&lt;a class="button"&gt;Item 1&lt;/a&gt;&lt;/div&gt;
+                    &lt;div&gt;&lt;a class="button"&gt;Item 2&lt;/a&gt;&lt;/div&gt;
+                    &lt;div&gt;&lt;a class="button"&gt;Item 3&lt;/a&gt;&lt;/div&gt;
+                    &lt;div&gt;&lt;a class="button"&gt;Item 4&lt;/a&gt;&lt;/div&gt;
+                    &lt;div class="reflected"&gt;&lt;/div&gt;
+                    &lt;div class="reflected"&gt;&lt;/div&gt;
+                    &lt;div class="reflected"&gt;&lt;/div&gt;
+                    &lt;div class="reflected"&gt;&lt;/div&gt;
+                &lt;/div&gt;
+
+
+
+            </code></pre>
+
+
+
+        </span>
+        <div class="titleArea">
+            <div><a class="button">Item 1</a></div>
+            <div><a class="button">Item 2</a></div>
+            <div><a class="button">Item 3</a></div>
+            <div><a class="button">Item 4</a></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+            <div class="reflected"></div>
+        </div>
+
+        
 
         <span class="row">
             <label>Sub columns and Sub rows (in progress)</label>
