@@ -251,6 +251,18 @@
     // .11px is a rounding error helper
     height : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
 }
+.column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
+}
+.column(third, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
+}
+.column(quarter, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
+}
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
     @marginSize: floor(@grid-width * @grid-gutter / 2px);
@@ -305,9 +317,9 @@ html .row
     & .column.fifteen {.column(15);}
     & .column.sixteen {.column(16);}
 
-    & .column.half {.column(@grid-columns/2);}
-    & .column.third {.column(@grid-columns/3);}
-    & .column.quarter {.column(@grid-columns/4);}
+    & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
 }
 
 .grid
