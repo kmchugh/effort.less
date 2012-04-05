@@ -119,6 +119,78 @@
         }
     }
 
+    #transform
+    {
+        // TODO: Convert all transforms to direct matrix functions;
+        .rotate3D(X, @degrees: 180)
+        {
+            @actualDegrees : @degrees * 1deg;
+            transform: rotateX(@actualDegrees);
+            -webkit-transform: rotateX(@actualDegrees); /* Safari and Chrome */
+            -moz-transform: rotateX(@actualDegrees); /* Firefox */
+        }
+
+        // TODO: Convert all transforms to direct matrix functions;
+        .rotate3D(Y, @degrees: 180)
+        {
+            @actualDegrees : @degrees * 1deg;
+            transform: rotateY(@actualDegrees);
+            -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
+            -moz-transform: rotateY(@actualDegrees); /* Firefox */
+        }
+    }
+    -webkit-transform: rotateY(180deg);
+
+    #animation
+    {
+        .bezier(@p1X: 0, @p1Y: 0, @p2X: 1, @p2Y: 1)
+        {
+            transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -moz-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -webkit-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -o-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+        }
+
+        .period(@millis: 500)
+        {
+            @acutalMillis: @millis * 1ms;
+            transition-duration: @acutalMillis;
+            -moz-transition-duration: @acutalMillis; /* Firefox 4 */
+            -webkit-transition-duration: @acutalMillis; /* Safari and Chrome */
+            -o-transition-duration: @acutalMillis; /* Opera */
+        }
+
+        .linear(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 1, 1);
+        }
+
+        .ease(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .ease-in(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 1, 1);
+        }
+
+        .ease-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 0.58, 1);
+        }
+
+        .ease-in-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 0.58, 1);
+        }
+    }
+
     /**
     * Border related modifiers
     */
@@ -227,6 +299,16 @@
                                         @colour, 100%);
             }
         }
+    }
+
+    .opacity(@opacity : .5)
+    {
+        @intOpacity: @opacity * 100;
+        -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
+        filter: alpha(opacity=@intOpacity); /* IE 5-7 */
+        -moz-opacity: @opacity; /* Netscape */
+        -khtml-opacity: @opacity; /* Safari 1.x */
+        opacity: @opacity; /* Good browsers */
     }
 }
 
