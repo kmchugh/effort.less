@@ -121,6 +121,34 @@
 
     #transform
     {
+        .matrix(@a  :1,  @b  :0, 
+                @c  :0,  @d  :1, 
+                @tx : 0, @ty :0)
+        {
+            transform: matrix(@a, @b, @c, @d, @tx, @ty);
+            -webkit-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+            -moz-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+        }
+
+        .matrix3d(@lx :1, @ly : 0, @lz : 0,
+                  @wx :0, @wy : 1, @wz : 0,
+                  @ax :0, @ay : 0, @az : 1,
+                  @sx :0, @sy : 0, @sz : 0)
+        {
+            transform: matrix3d(@lx, @ly, @lz, 0,
+                                @wx, @wy, @wz, 0,
+                                @ax, @ay, @az, 0,
+                                @sx, @sy, @sz, 1);
+            -webkit-transform: matrix3d(@lx, @ly, @lz, 0,
+                                        @wx, @wy, @wz, 0,
+                                        @ax, @ay, @az, 0,
+                                        @sx, @sy, @sz, 1);
+            -moz-transform: matrix3d(@lx, @ly, @lz, 0,
+                                     @wx, @wy, @wz, 0,
+                                     @ax, @ay, @az, 0,
+                                     @sx, @sy, @sz, 1);
+        }
+
         // TODO: Convert all transforms to direct matrix functions;
         .rotate3D(X, @degrees: 180)
         {
@@ -137,6 +165,33 @@
             transform: rotateY(@actualDegrees);
             -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
             -moz-transform: rotateY(@actualDegrees); /* Firefox */
+        }
+
+        .scale(@factor : 1.5)
+        {
+            .scale(@factor, @factor);
+        }
+
+        .scale(@Xfactor : 1.5, @Yfactor : 1.5)
+        {   
+            transform: scale(@Xfactor, @Yfactor);
+            -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
+            -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
+        }
+
+        // TODO: These is to be removed when implemented in the matrix3d;
+        .spin(@scaleFactor: 1, @degrees: 359.9)
+        {
+            transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+            -moz-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+        }
+
+        .twist(@scaleFactor: 1, @degrees: 359.9)
+        {
+            transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+            -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
         }
     }
     -webkit-transform: rotateY(180deg);
