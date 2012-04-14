@@ -119,6 +119,133 @@
         }
     }
 
+    #transform
+    {
+        .matrix(@a  :1,  @b  :0, 
+                @c  :0,  @d  :1, 
+                @tx : 0, @ty :0)
+        {
+            transform: matrix(@a, @b, @c, @d, @tx, @ty);
+            -webkit-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+            -moz-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+        }
+
+        .matrix3d(@lx :1, @ly : 0, @lz : 0,
+                  @wx :0, @wy : 1, @wz : 0,
+                  @ax :0, @ay : 0, @az : 1,
+                  @sx :0, @sy : 0, @sz : 0)
+        {
+            transform: matrix3d(@lx, @ly, @lz, 0,
+                                @wx, @wy, @wz, 0,
+                                @ax, @ay, @az, 0,
+                                @sx, @sy, @sz, 1);
+            -webkit-transform: matrix3d(@lx, @ly, @lz, 0,
+                                        @wx, @wy, @wz, 0,
+                                        @ax, @ay, @az, 0,
+                                        @sx, @sy, @sz, 1);
+            -moz-transform: matrix3d(@lx, @ly, @lz, 0,
+                                     @wx, @wy, @wz, 0,
+                                     @ax, @ay, @az, 0,
+                                     @sx, @sy, @sz, 1);
+        }
+
+        // TODO: Convert all transforms to direct matrix functions;
+        .rotate3D(X, @degrees: 180)
+        {
+            @actualDegrees : @degrees * 1deg;
+            transform: rotateX(@actualDegrees);
+            -webkit-transform: rotateX(@actualDegrees); /* Safari and Chrome */
+            -moz-transform: rotateX(@actualDegrees); /* Firefox */
+        }
+
+        // TODO: Convert all transforms to direct matrix functions;
+        .rotate3D(Y, @degrees: 180)
+        {
+            @actualDegrees : @degrees * 1deg;
+            transform: rotateY(@actualDegrees);
+            -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
+            -moz-transform: rotateY(@actualDegrees); /* Firefox */
+        }
+
+        .scale(@factor : 1.5)
+        {
+            .scale(@factor, @factor);
+        }
+
+        .scale(@Xfactor : 1.5, @Yfactor : 1.5)
+        {   
+            transform: scale(@Xfactor, @Yfactor);
+            -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
+            -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
+        }
+
+        // TODO: These is to be removed when implemented in the matrix3d;
+        .spin(@scaleFactor: 1, @degrees: 359.9)
+        {
+            transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+            -moz-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+        }
+
+        .twist(@scaleFactor: 1, @degrees: 359.9)
+        {
+            transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+            -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+        }
+    }
+    -webkit-transform: rotateY(180deg);
+
+    #animation
+    {
+        .bezier(@p1X: 0, @p1Y: 0, @p2X: 1, @p2Y: 1)
+        {
+            transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -moz-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -webkit-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -o-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+        }
+
+        .period(@millis: 500)
+        {
+            @acutalMillis: @millis * 1ms;
+            transition-duration: @acutalMillis;
+            -moz-transition-duration: @acutalMillis; /* Firefox 4 */
+            -webkit-transition-duration: @acutalMillis; /* Safari and Chrome */
+            -o-transition-duration: @acutalMillis; /* Opera */
+        }
+
+        .linear(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 1, 1);
+        }
+
+        .ease(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .ease-in(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 1, 1);
+        }
+
+        .ease-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 0.58, 1);
+        }
+
+        .ease-in-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 0.58, 1);
+        }
+    }
+
     /**
     * Border related modifiers
     */
@@ -227,6 +354,16 @@
                                         @colour, 100%);
             }
         }
+    }
+
+    .opacity(@opacity : .5)
+    {
+        @intOpacity: @opacity * 100;
+        -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
+        filter: alpha(opacity=@intOpacity); /* IE 5-7 */
+        -moz-opacity: @opacity; /* Netscape */
+        -khtml-opacity: @opacity; /* Safari 1.x */
+        opacity: @opacity; /* Good browsers */
     }
 }
 
