@@ -273,7 +273,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Opera 11.10+ */
@@ -286,7 +286,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Opera 11.10+ */
@@ -299,7 +299,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
