@@ -128,6 +128,7 @@
             transform: matrix(@a, @b, @c, @d, @tx, @ty);
             -webkit-transform: matrix(@a, @b, @c, @d, @tx, @ty);
             -moz-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+            -o-transform: matrix(@a, @b, @c, @d, @tx, @ty);
         }
 
         .matrix3d(@lx :1, @ly : 0, @lz : 0,
@@ -147,6 +148,10 @@
                                      @wx, @wy, @wz, 0,
                                      @ax, @ay, @az, 0,
                                      @sx, @sy, @sz, 1);
+            -o-transform: matrix3d(@lx, @ly, @lz, 0,
+                                     @wx, @wy, @wz, 0,
+                                     @ax, @ay, @az, 0,
+                                     @sx, @sy, @sz, 1);
         }
 
         // TODO: Convert all transforms to direct matrix functions;
@@ -156,6 +161,7 @@
             transform: rotateX(@actualDegrees);
             -webkit-transform: rotateX(@actualDegrees); /* Safari and Chrome */
             -moz-transform: rotateX(@actualDegrees); /* Firefox */
+            -o-transform: rotateX(@actualDegrees); /* Opera */
         }
 
         // TODO: Convert all transforms to direct matrix functions;
@@ -165,6 +171,7 @@
             transform: rotateY(@actualDegrees);
             -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
             -moz-transform: rotateY(@actualDegrees); /* Firefox */
+            -o-transform: rotateY(@actualDegrees); /* Opera */
         }
 
         .scale(@factor : 1.5)
@@ -177,6 +184,7 @@
             transform: scale(@Xfactor, @Yfactor);
             -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
             -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
+            -o-transform: scale(@Xfactor, @Yfactor);
         }
 
         // TODO: These is to be removed when implemented in the matrix3d;
@@ -185,6 +193,7 @@
             transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
             -webkit-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
             -moz-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+            -o-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
         }
 
         .twist(@scaleFactor: 1, @degrees: 359.9)
@@ -192,6 +201,7 @@
             transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
             -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
             -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+            -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
         }
     }
     -webkit-transform: rotateY(180deg);
@@ -273,7 +283,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Opera 11.10+ */
@@ -286,7 +296,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Opera 11.10+ */
@@ -299,7 +309,7 @@
             {
                 // TODO : Add parsing for horizontal reverse, and vertical reverse
                 @standardDirection : ~`"@{direction}" == 'horizontal' ? 'top' : "@{direction}" == 'vertical' ? 'left' : "@{direction}"`;
-                background: ~"-moz-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
+                background: ~"-moz-linear-gradient(center @{standardDirection}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
                 background: ~"-o-linear-gradient(@{standardDirection}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
@@ -310,25 +320,25 @@
             // 2 colour
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
-                background: @baseColour;
+                background-color: @baseColour;
                 #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
             // 4 colour
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
-                background: @baseColour;
+                background-color: @baseColour;
                 #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             // 5 colour
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
-                background: @baseColour;
+                background-color: @baseColour;
                 #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
 
             
 
-            .pipe(@baseColour : #0000ff, @basePercent : 50, @modifier : 2, @direction : horizontal)
+            .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
                 #effortless > #background > #gradients > .gradient(@direction, @baseColour,
@@ -342,7 +352,6 @@
             {
                 #effortless > #background > #gradients > .gradient(@direction, @topColour, 
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
-
             }
 
             .gloss(@colour: #000000, @position: 50%, @direction : horizontal)
@@ -363,6 +372,7 @@
         filter: alpha(opacity=@intOpacity); /* IE 5-7 */
         -moz-opacity: @opacity; /* Netscape */
         -khtml-opacity: @opacity; /* Safari 1.x */
+        -o-opacity: @opacity; /* Opera */
         opacity: @opacity; /* Good browsers */
     }
 }
