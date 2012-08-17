@@ -366,8 +366,6 @@
 
 
 
-            
-
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
@@ -399,7 +397,7 @@
     {
         @intOpacity: @opacity * 100;
         -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
-        filter: alpha(opacity=@intOpacity); /* IE 5-7 */
+        filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
         -moz-opacity: @opacity; /* Netscape */
         -khtml-opacity: @opacity; /* Safari 1.x */
         -o-opacity: @opacity; /* Opera */
@@ -440,7 +438,7 @@
 {
     .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
 }
-.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
     @marginSize: floor(@grid-width * @grid-gutter / 2px);
     .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
