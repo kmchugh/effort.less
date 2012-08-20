@@ -493,11 +493,11 @@
 }
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
-    @marginSize: floor((@grid-width * @grid-gutter) / 4px);
+    @marginSize: floor((@grid-width * @grid-gutter) / 2px);
     .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
     display: inline-block;
-    margin-left: @marginSize;
-    margin-right: @marginSize;
+    margin-left: 0px;
+    margin-right: 0px;
     padding-left: @marginSize;
     padding-right: @marginSize;
 }
