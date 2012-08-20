@@ -1,3 +1,48 @@
+
+/**
+ * When including effort.less in a page, the following variables must be defined to set up the defaults
+ * This will remain this way until the lessphp compiler allows the overridding of variables like the .js compiler does
+ *
+ * @grid-columns: 12;       // This would mean a base grid of 12 columns
+ * @grid-width: 768;           // This will fix a row at 768 pixels
+ * @grid-gutter: .03;           // This will create gutters of .03%
+ * @corner-radius: 6px;     // All corner would have a 6px radius by default
+ * @base-colour: red;   // The base colour scheme would be red, a colour scheme would be created from that
+ * @text-colour: #blue; // Default text colour would be blue, a default would be created from that
+ * @background-colour: white;   // Background colour would be blue a scheme would be created  from that
+ * */
+
+
+// Colour definitions :
+// BASE colour scheme
+@colour: @base-colour;      // Base colour
+@lighter: lighten(spin(@colour, 5), 10%);
+@lightest: lighten(spin(@colour, 10), 20%);
+@darker: darken(spin(@colour, -5), 10%);
+@darkest: darken(spin(@colour, -10), 20%);
+
+// COMPLIMENT colour scheme
+@comp: spin(@colour, 180);
+@comp-lighter: lighten(spin(@comp, 5), 10%);
+@comp-lightest: lighten(spin(@comp, 10), 20%);
+@comp-darker: darken(spin(@comp, -5), 10%);
+@comp-darkest: darken(spin(@comp, -10), 20%);
+
+// TEXT colour scheme
+@text: @text-colour;
+@text-lighter: lighten(spin(@text, 5), 10%);
+@text-lightest: lighten(spin(@text, 10), 20%);
+@text-darker: darken(spin(@text, -5), 10%);
+@text-darkest: darken(spin(@text, -10), 20%);
+
+// Background colour scheme
+@background: @background-colour;
+@background-lighter: lighten(spin(@background, 5), 10%);
+@background-lightest: lighten(spin(@background, 10), 20%);
+@background-darker: darken(spin(@background, -5), 10%);
+@background-darkest: darken(spin(@background, -10), 20%);
+
+
 // This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
 #effortless
 {
@@ -112,10 +157,12 @@
         /**
         * Gives an element a rounded border
         **/
-        .rounded(@size : 1px, @type : solid, @colour : black, @radius : 6px)
+        .rounded(@size : 1px, @type : solid, @colour : black, @radius : @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @radius, @radius, @radius, @radius);}
+        .rounded(@size : 1px, @type : solid, @colour : black, @left: @corner-radius, @right: @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @left, @right, @right, @left);}
+        .rounded(@size : 1px, @type : solid, @colour : black, @topLeft : @corner-radius, @topRight : @corner-radius, @bottomRight, @bottomLeft)
         {
             border: @size @type @colour;
-            #effortless > #background > .rounded(@radius);
+            #effortless > #background > .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft);
         }
     }
 
@@ -204,7 +251,6 @@
             -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
         }
     }
-    -webkit-transform: rotateY(180deg);
 
     #animation
     {
@@ -264,12 +310,26 @@
         /**
         * Ensures the background area is rounded
         */
-        .rounded(@radius : 6px)
-        {
-            -webkit-border-radius: @radius;
-            -moz-border-radius: @radius;
-            border-radius: @radius;
+        .rounded(@radius : @corner-radius){.rounded(@radius, @radius, @radius, @radius);}
+        .rounded(@left : @corner-radius, @right : @corner-radius){.rounded(@left, @right, @right, @left);}
+
+        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
+       {
+            #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
+            background-color: @colour; 
         }
+
+        .rounded(@topLeft: @corner-radius, 
+            @topRight: @corner-radius,
+            @bottomRight: @corner-radius,
+            @bottomLeft: @corner-radius)
+        {
+            -webkit-border-radius: @arguments;
+            -moz-border-radius: @arguments;
+            border-radius: @arguments;
+        }
+
+        // TODO: Add support for multi value radii
 
         #gradients
         {
@@ -366,8 +426,6 @@
 
 
 
-            
-
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
@@ -399,7 +457,7 @@
     {
         @intOpacity: @opacity * 100;
         -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
-        filter: alpha(opacity=@intOpacity); /* IE 5-7 */
+        filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
         -moz-opacity: @opacity; /* Netscape */
         -khtml-opacity: @opacity; /* Safari 1.x */
         -o-opacity: @opacity; /* Opera */
@@ -411,22 +469,15 @@
 // // TODO: Need to add subcolumns;
 // // TODO: Look at adding in percentage width;
 
-/**
- Setup defaults for the grid system
-*/
-@grid-columns: 12;
-@grid-width: 768;
-@grid-gutter: .03;
-
 .colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    // .11px is a rounding error helper
-    width : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
+    width:  ((@columnSize * @grid-width/@grid-columns) - (@grid-width * @grid-gutter))* 1px;
+    //width : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
 }
 .colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
 {
     // .11px is a rounding error helper
-    height : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
+    height:  ((@columnSize * @grid-width/@grid-columns) - (@grid-width * @grid-gutter))* 1px;
 }
 .column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
@@ -440,19 +491,25 @@
 {
     .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
 }
-.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
-    @marginSize: floor(@grid-width * @grid-gutter / 2px);
+    @marginSize: floor((@grid-width * @grid-gutter) / 2px);
     .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
     display: inline-block;
-    margin-left: floor(@marginSize - .11px);
-    margin-right: floor(@marginSize - .11px);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: @marginSize;
+    padding-right: @marginSize;
 }
 
 .row(@grid-width : @grid-width, @grid-columns: @grid-columns)
 {
     #effortless > #layout > .center();
     width : @grid-width * 1px;
+
+    &.twoColumn > div {.column(half, @grid-columns, @grid-width, @grid-gutter);}
+    &.threeColumn > div {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+    &.fourColumn > div {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
 
     & > .column
     {
@@ -525,7 +582,15 @@ html .row
 }
 
 /*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}h1{font-size:2em}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+h1{font-size: 250%;}
+h2{font-size: 225%;}
+h3{font-size: 200%;}
+h4{font-size: 175%;}
+h5{font-size: 150%;}
+h6{font-size: 125%;}
+
 
 body
 {
