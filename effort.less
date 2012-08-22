@@ -501,10 +501,12 @@
     margin-right: 0px;
     padding-left: @marginSize;
     padding-right: @marginSize;
+    float: left;
 }
 
 .row(@grid-width : @grid-width, @grid-columns: @grid-columns)
 {
+    .cf;
     #effortless > #layout > .center();
     width : @grid-width * 1px;
 
