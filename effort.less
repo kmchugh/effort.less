@@ -310,8 +310,8 @@
         /**
         * Ensures the background area is rounded
         */
-        .rounded(@radius : @corner-radius){.rounded(@radius, @radius, @radius, @radius);}
-        .rounded(@left : @corner-radius, @right : @corner-radius){.rounded(@left, @right, @right, @left);}
+        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
 
         .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
        {
@@ -319,10 +319,7 @@
             background-color: @colour; 
         }
 
-        .rounded(@topLeft: @corner-radius, 
-            @topRight: @corner-radius,
-            @bottomRight: @corner-radius,
-            @bottomLeft: @corner-radius)
+        .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
         {
             -webkit-border-radius: @arguments;
             -moz-border-radius: @arguments;
@@ -442,13 +439,13 @@
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
             }
 
-            .gloss(@colour: #000000, @position: 50%, @direction : horizontal)
+            .gloss(@colour: #000000, @position: 50, @direction : horizontal)
             {
                 #effortless > #background > #gradients > .gradient(@direction, @colour,
-                                        darken(@colour, 7.5), 0%,
+                                        darken(@colour, 7.5), 0,
                                         @colour, @position, 
                                         darken(@colour, 17.5), @position, 
-                                        @colour, 100%);
+                                        @colour, 100);
             }
         }
     }
@@ -491,6 +488,10 @@
 {
     .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
 }
+.column(whole, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
+}
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
     @marginSize: floor((@grid-width * @grid-gutter) / 2px);
@@ -500,10 +501,12 @@
     margin-right: 0px;
     padding-left: @marginSize;
     padding-right: @marginSize;
+    float: left;
 }
 
 .row(@grid-width : @grid-width, @grid-columns: @grid-columns)
 {
+    .cf;
     #effortless > #layout > .center();
     width : @grid-width * 1px;
 
@@ -554,6 +557,7 @@ html .row
     & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
     & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
     & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
 }
 
 .grid
