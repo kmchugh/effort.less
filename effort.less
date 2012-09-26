@@ -464,16 +464,6 @@
 // // TODO: Need to add subcolumns;
 // // TODO: Look at adding in percentage width;
 
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-    width:  ((@columnSize * @grid-width/@grid-columns) - (@grid-width * @grid-gutter))* 1px;
-    //width : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
-}
-.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
-{
-    // .11px is a rounding error helper
-    height:  ((@columnSize * @grid-width/@grid-columns) - (@grid-width * @grid-gutter))* 1px;
-}
 .column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
     .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
@@ -490,6 +480,17 @@
 {
     .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
 }
+
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    // because we are using border: box, don't substract padding.
+    width : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+}
+.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
+{
+    height : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+}
+
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
     @marginSize: floor((@grid-width * @grid-gutter) / 2px);
@@ -500,8 +501,8 @@
     padding-left: @marginSize;
     padding-right: @marginSize;
     float: left;
+    .cf;
 }
-
 .row(@grid-width : @grid-width, @grid-columns: @grid-columns)
 {
     .cf;
@@ -575,6 +576,13 @@ h3{font-size: 175%;}
 h4{font-size: 150%;}
 h5{font-size: 125%;}
 h6{font-size: 100%;}
+
+*
+{
+    -moz-box-sizing : border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 
 body
