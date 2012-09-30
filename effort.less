@@ -224,7 +224,7 @@
         .scale(@factor : 1.5){.scale(@factor, @factor);}
 
         .scale(@Xfactor : 1.5, @Yfactor : 1.5)
-        {   
+        {
             transform: scale(@Xfactor, @Yfactor);
             -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
             -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
@@ -246,6 +246,15 @@
             -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
             -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
             -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+        }
+
+        .transform(@rotate: 90deg, @scale: 1, @skew: 1deg, @translate: 10px) 
+        {
+            -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
         }
     }
 
@@ -321,6 +330,9 @@
             -webkit-border-radius: @arguments;
             -moz-border-radius: @arguments;
             border-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
         }
 
         // TODO: Add support for multi value radii
@@ -442,23 +454,74 @@
         }
     }
 
-    .opacity(@opacity : .5)
+    #shadow
     {
-        @intOpacity: @opacity * 100;
-        -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
-        filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
-        -moz-opacity: @opacity; /* Netscape */
-        -khtml-opacity: @opacity; /* Safari 1.x */
-        -o-opacity: @opacity; /* Opera */
-        opacity: @opacity; /* Good browsers */
+        .drop(@colour : @darkest)
+        {
+            #effortless > #shadow > .drop(3px, 3px, 5px, @colour);
+        }
+
+        .drop(@x: 3px, @y: 3px, @blur: 5px, @colour)
+        {
+            -webkit-box-shadow: @x @y @blur @colour;
+            -moz-box-shadow: @x @y @blur @colour;
+            box-shadow: @x @y @blur @colour;
+
+            // TODO: Calculate angle from 0, 0 -> x, y;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
+            filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
+        }
+
+        .text(@colour : @text-darkest){#effortless > #shadow > .text(3px, 3px, 5px, @colour);}
+
+        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
+
+        .letterpress(@colour : @text-lightest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
+
+        .hard(@colour: @text-darkest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, 0px, @colour);}
+
+        // TODO: The rules below should be calling the base rule
+        .double(@colour1 : @text-lightest, @colour2: @text-darker, @offset : 2px)
+        {
+            text-shadow: @offset @offset 0px @colour1,
+                                    @offset*2 @offset*2 0px @colour2;
+        }
+
+        .far(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px @colour, 
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
+                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .close(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .glow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
+    }
+
+    #effects
+    {
+        .opacity(@opacity : .5)
+        {
+            @intOpacity: @opacity * 100;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
+            filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
+            -moz-opacity: @opacity; /* Netscape */
+            -khtml-opacity: @opacity; /* Safari 1.x */
+            -o-opacity: @opacity; /* Opera */
+            opacity: @opacity; /* Good browsers */
+        }
     }
 }
 
 // Helper for centering
-.center
-{
-    #effortless > #layout > .center();
-}
+.center{#effortless > #layout > .center();}
 
 // // TODO: Need to include offsetting, left and right margin;
 // // TODO: Need to add subcolumns;
