@@ -456,12 +456,29 @@
 
     #shadow
     {
-        .drop(@colour : @darkest)
+        .shadow(@values)
         {
-            #effortless > #shadow > .drop(3px, 3px, 5px, @colour);
+            -webkit-box-shadow : @values;
+            -moz-box-shadow : @values;
+            box-shadow : @values;
         }
 
-        .drop(@x: 3px, @y: 3px, @blur: 5px, @colour)
+        .shadow(@x, @y, @blur, @spread, @colour)
+        {
+            #effortless > #shadow > .drop(@x, @y, @blur, @spread, @colour);
+        }
+
+        .shadow(@x, @y, @blur, @spread, @colour, @inset)
+        {
+            #effortless > #shadow > .inner(@x, @y, @blur, @spread, @colour);
+        }
+
+        .drop(@colour : @darkest)
+        {
+            #effortless > #shadow > .drop(3px, 3px, 5px, 5px, @colour);
+        }
+
+        .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
         {
             -webkit-box-shadow: @x @y @blur @colour;
             -moz-box-shadow: @x @y @blur @colour;
@@ -471,6 +488,20 @@
             -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
             filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
         }
+
+        .inner(@colour : @darkest)
+        {
+            #effortless > #shadow > .inner(3px, 3px, 5px, 5px, @colour);
+        }
+
+        .inner(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
+        {
+            -webkit-box-shadow: inset @x @y @blur @spread @colour;
+            -moz-box-shadow: inset @x @y @blur @spread @colour;
+            box-shadow: inset @x @y @blur @spread @colour;
+        }
+
+
 
         .text(@colour : @text-darkest){#effortless > #shadow > .text(3px, 3px, 5px, @colour);}
 
@@ -516,6 +547,114 @@
             -khtml-opacity: @opacity; /* Safari 1.x */
             -o-opacity: @opacity; /* Opera */
             opacity: @opacity; /* Good browsers */
+        }
+    }
+
+    #button
+    {
+        .default(@colour : @colour, @text : @text)
+        {
+            #effortless > #dimension > .min-size(50, 30);
+            text-decoration: none;
+            #effortless > #background > .rounded(@colour);
+            border : 1px solid darken(@colour, 10);
+            padding : .5em 1.5em;
+
+            @highlight : lighten(@colour, 30);
+            @dark : darken(@colour, 10);
+            @shadow : darken(@colour, 30);
+            #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
+            color: @text;
+
+            #effortless > #shadow > .hard(darken(@text, 50), 1px);
+
+            text-align: center;
+            font-weight: bold;
+
+            &:visited{color: darken(@text, 10);}
+
+            &:hover, &:active
+            {
+                @hoverHighlight: lighten(@highlight, 10);
+                color: lighten(@text, 10);
+                @highlight : lighten(@colour, 50);
+                @dark : darken(@colour, 5);
+                @shadow : darken(@colour, 15);
+                #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
+            }
+        }
+
+        .gloss(@colour : @colour, @text : @text)
+        {
+            #effortless > #button > .default(@colour, @text);
+            #effortless > #border > .rounded(1px, solid, @shadow);
+            #effortless > #background > #gradients > .gloss(@colour, 55);
+
+            &:hover, &:active
+            {
+                #effortless > #background > #gradients > .gloss(lighten(@colour, 10), 55);
+            }
+        }
+
+        .round(@colour : @colour, @text : @text)
+        {
+            #effortless > #button > .default(@colour, @text);
+            @highlight : lighten(@colour, 30);
+            @dark : darken(@colour, 10);
+            @shadow : darken(@colour, 30);
+            #effortless > #shadow > .shadow(~"inset 1px 6px 12px @{highlight}, inset -1px -10px 5px @{dark}, 1px 1px 1px @{shadow}");
+
+             &:hover, &:active
+            {
+                @highlight : lighten(@colour, 50);
+                @dark : darken(@colour, 5);
+                @shadow : darken(@colour, 15);
+                #effortless > #shadow > .shadow(~"inset 1px 6px 12px @{highlight}, inset -1px -10px 5px @{dark}, 1px 1px 1px @{shadow}");
+            }
+        }
+
+        .soft(@colour : @colour)
+        {
+            #effortless > #button > .default(@colour, @text);
+            color: @colour;
+            border: 1px solid @colour;
+
+            @highlight : lighten(@colour, 50);
+            @dark : darken(@colour, 3);
+            @shadow : darken(@colour, 50);
+            #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -15px @{dark}, 0px 0px 3px @{shadow}");
+
+             &:hover, &:active
+            {
+                @highlight : lighten(@colour, 80);
+                @dark : darken(@colour, 1);
+                @shadow : darken(@colour, 25);
+                #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -15px @{dark}, 0px 0px 3px @{shadow}");
+            }
+        }
+
+        .glass(@colour : @colour, @text : @text)
+        {
+            #effortless > #button > .button(fadeout(@colour, 90), @text);
+
+            @highlight1 : fadeout(lighten(@colour, 80), 50);
+            @highlight2 : fadeout(lighten(@colour, 80), 60);
+            @highlight3 : fadeout(lighten(@colour, 80), 70);
+            @highlight4 : fadeout(lighten(@colour, 80), 65);
+            @shadow : fadeout(darken(@colour, 90), 75);
+
+            border: 1px solid @shadow;
+            #effortless > #shadow > .shadow(~"0px 2px 6px @{highlight1}, inset 0px 1px @{highlight2}, inset 0px 10px @{highlight3}, inset 0px 10px 20px @{highlight4}, inset 0px -15px 30px @{shadow}");
+
+            &:hover, &:active
+            {
+                @highlight1 : fadeout(lighten(@colour, 80), 30);
+                @highlight2 : fadeout(lighten(@colour, 80), 40);
+                @highlight3 : fadeout(lighten(@colour, 80), 50);
+                @highlight4 : fadeout(lighten(@colour, 80), 45);
+                @shadow : fadeout(darken(@colour, 90), 75);
+                #effortless > #shadow > .shadow(~"0px 2px 6px @{highlight1}, inset 0px 1px @{highlight2}, inset 0px 10px @{highlight3}, inset 0px 10px 20px @{highlight4}, inset 0px -15px 30px @{shadow}");
+            }
         }
     }
 }
