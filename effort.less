@@ -158,8 +158,8 @@
         * Gives an element a rounded border
         **/
         .rounded(@size : 1px, @type : solid, @colour : black, @radius : @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @radius, @radius, @radius, @radius);}
-        .rounded(@size : 1px, @type : solid, @colour : black, @left: @corner-radius, @right: @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @left, @right, @right, @left);}
-        .rounded(@size : 1px, @type : solid, @colour : black, @topLeft : @corner-radius, @topRight : @corner-radius, @bottomRight, @bottomLeft)
+        .rounded(@size : 1px, @type : solid, @colour : black, @left, @right){#effortless > #border > .rounded(@size, @type, @colour, @left, @right, @right, @left);}
+        .rounded(@size : 1px, @type : solid, @colour : black, @topLeft, @topRight, @bottomRight, @bottomLeft)
         {
             border: @size @type @colour;
             #effortless > #background > .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft);
@@ -587,6 +587,8 @@
         .gloss(@colour : @colour, @text : @text)
         {
             #effortless > #button > .default(@colour, @text);
+
+            @shadow : darken(@colour, 15);
             #effortless > #border > .rounded(1px, solid, @shadow);
             #effortless > #background > #gradients > .gloss(@colour, 55);
 
