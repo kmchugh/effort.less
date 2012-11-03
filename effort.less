@@ -42,6 +42,9 @@
 @background-darker: darken(spin(@background, -5), 10%);
 @background-darkest: darken(spin(@background, -10), 20%);
 
+// Gutter size in pixels
+@gutterSize: floor((@grid-width * @grid-gutter) / 2px);
+
 
 // This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
 #effortless
@@ -489,6 +492,11 @@
             filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
         }
 
+        .glow(@colour : white, @blur : 5px)
+        {
+            #effortless > #shadow > .drop(0, 0, @blur, @blur, @colour);
+        }
+
         .inner(@colour : @darkest)
         {
             #effortless > #shadow > .inner(3px, 3px, 5px, 5px, @colour);
@@ -533,7 +541,7 @@
                                     @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
         }
 
-        .glow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
+        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
     }
 
     #effects
@@ -676,9 +684,17 @@
 {
     .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
 }
+.column(twoThirds, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column((@grid-columns/3)*2, @grid-columns, @grid-width, @grid-gutter);
+}
 .column(quarter, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
     .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
+}
+.column(threeQuarters, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column((@grid-columns/4)*3, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(whole, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
@@ -748,7 +764,9 @@ html .row{.row;}
 
     & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
     & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.twoThirds {.column(twoThirds, @grid-columns, @grid-width, @grid-gutter);}
     & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.threeQuarters {.column(threeQuarters, @grid-columns, @grid-width, @grid-gutter);}
     & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
 }
 
