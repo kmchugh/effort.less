@@ -1,4 +1,3 @@
-
 /**
  * When including effort.less in a page, the following variables must be defined to set up the defaults
  * This will remain this way until the lessphp compiler allows the overridding of variables like the .js compiler does
@@ -12,35 +11,37 @@
  * @background-colour: white;   // Background colour would be blue a scheme would be created  from that
  * */
 
+@colour-step1 : 10%;
+@colour-step2: 20%;
 
 // Colour definitions :
 // BASE colour scheme
 @colour: @base-colour;      // Base colour
-@lighter: lighten(spin(@colour, 5), 10%);
-@lightest: lighten(spin(@colour, 10), 20%);
-@darker: darken(spin(@colour, -5), 10%);
-@darkest: darken(spin(@colour, -10), 20%);
+@lighter: lighten(spin(@colour, 5), @colour-step1);
+@lightest: lighten(spin(@colour, 10), @colour-step2);
+@darker: darken(spin(@colour, -5), @colour-step1);
+@darkest: darken(spin(@colour, -10), @colour-step2);
 
 // COMPLIMENT colour scheme
 @comp: spin(@colour, 180);
-@comp-lighter: lighten(spin(@comp, 5), 10%);
-@comp-lightest: lighten(spin(@comp, 10), 20%);
-@comp-darker: darken(spin(@comp, -5), 10%);
-@comp-darkest: darken(spin(@comp, -10), 20%);
+@comp-lighter: lighten(spin(@comp, 5), @colour-step1);
+@comp-lightest: lighten(spin(@comp, 10), @colour-step2);
+@comp-darker: darken(spin(@comp, -5), @colour-step1);
+@comp-darkest: darken(spin(@comp, -10), @colour-step2);
 
 // TEXT colour scheme
 @text: @text-colour;
-@text-lighter: lighten(spin(@text, 5), 10%);
-@text-lightest: lighten(spin(@text, 10), 20%);
-@text-darker: darken(spin(@text, -5), 10%);
-@text-darkest: darken(spin(@text, -10), 20%);
+@text-lighter: lighten(spin(@text, 5), @colour-step1);
+@text-lightest: lighten(spin(@text, 10), @colour-step2);
+@text-darker: darken(spin(@text, -5), @colour-step1);
+@text-darkest: darken(spin(@text, -10), @colour-step2);
 
 // Background colour scheme
 @background: @background-colour;
-@background-lighter: lighten(spin(@background, 5), 10%);
-@background-lightest: lighten(spin(@background, 10), 20%);
-@background-darker: darken(spin(@background, -5), 10%);
-@background-darkest: darken(spin(@background, -10), 20%);
+@background-lighter: lighten(spin(@background, 5), @colour-step1);
+@background-lightest: lighten(spin(@background, 10), @colour-step2);
+@background-darker: darken(spin(@background, -5), @colour-step1);
+@background-darkest: darken(spin(@background, -10), @colour-step2);
 
 // Gutter size in pixels
 @gutterSize: floor((@grid-width * @grid-gutter) / 2px);
@@ -149,6 +150,26 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .textColumns(@columns: 2, @gap: 2em)
+        {
+            -webkit-column-count: @columns;
+            -webkit-column-gap:@gap;
+            -moz-column-count: @columns;
+            -moz-column-gap: 2em;
+            -moz-column-rule: 5px solid black;
+            -column-count: @columns;
+            -column-gap:@gap;
+            -column-rule: 5px solid black;
+        }
+
+        .textColumns(@columns: 2, @gap: 2em, @ruleSize, @ruleType, @ruleColour)
+        {
+            #effortless > #layout > .textColumns(@columns, @gap);
+            -webkit-column-rule: @ruleSize @ruleType @ruleColour;
+            -moz-column-rule: @ruleSize @ruleType @ruleColour;
+            -column-rule: @ruleSize @ruleType @ruleColour;
         }
     }
 
@@ -338,6 +359,46 @@
             background-clip: padding-box; 
         }
 
+        .rounded-topLeft(@radius : @corner-radius)
+        {
+            -webkit-border-top-left-radius: @arguments;
+            -moz-border-top-left-radius: @arguments;
+            border-top-left-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-bottomLeft(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-left-radius: @arguments;
+            -moz-border-bottom-left-radius: @arguments;
+            border-bottom-left-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-topRight(@radius : @corner-radius)
+        {
+            -webkit-border-top-right-radius: @arguments;
+            -moz-border-top-right-radius: @arguments;
+            border-top-right-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-bottomRight(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-right-radius: @arguments;
+            -moz-border-bottom-right-radius: @arguments;
+            border-bottom-right-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
         // TODO: Add support for multi value radii
 
         #gradients
@@ -442,7 +503,7 @@
             }
             .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @topColour, 
+                #effortless > #background > #gradients > .gradient(@direction, @topColour,
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
             }
 
@@ -490,6 +551,15 @@
             // TODO: Calculate angle from 0, 0 -> x, y;
             -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
             filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
+        }
+
+        .reset()
+        {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            -ms-filter: none;
+            filter: none;
         }
 
         .glow(@colour : white, @blur : 5px)
@@ -558,115 +628,7 @@
         }
     }
 
-    #button
-    {
-        .default(@colour : @colour, @text : @text)
-        {
-            #effortless > #dimension > .min-size(50, 30);
-            text-decoration: none;
-            #effortless > #background > .rounded(@colour);
-            border : 1px solid darken(@colour, 10);
-            padding : .5em 1.5em;
-
-            @highlight : lighten(@colour, 30);
-            @dark : darken(@colour, 10);
-            @shadow : darken(@colour, 30);
-            #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
-            color: @text;
-
-            #effortless > #shadow > .hard(darken(@text, 50), 1px);
-
-            text-align: center;
-            font-weight: bold;
-
-            &:visited{color: darken(@text, 10);}
-
-            &:hover, &:active
-            {
-                @hoverHighlight: lighten(@highlight, 10);
-                color: lighten(@text, 10);
-                @highlight : lighten(@colour, 50);
-                @dark : darken(@colour, 5);
-                @shadow : darken(@colour, 15);
-                #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
-            }
-        }
-
-        .gloss(@colour : @colour, @text : @text)
-        {
-            #effortless > #button > .default(@colour, @text);
-
-            @shadow : darken(@colour, 15);
-            #effortless > #border > .rounded(1px, solid, @shadow);
-            #effortless > #background > #gradients > .gloss(@colour, 55);
-
-            &:hover, &:active
-            {
-                #effortless > #background > #gradients > .gloss(lighten(@colour, 10), 55);
-            }
-        }
-
-        .round(@colour : @colour, @text : @text)
-        {
-            #effortless > #button > .default(@colour, @text);
-            @highlight : lighten(@colour, 30);
-            @dark : darken(@colour, 10);
-            @shadow : darken(@colour, 30);
-            #effortless > #shadow > .shadow(~"inset 1px 6px 12px @{highlight}, inset -1px -10px 5px @{dark}, 1px 1px 1px @{shadow}");
-
-             &:hover, &:active
-            {
-                @highlight : lighten(@colour, 50);
-                @dark : darken(@colour, 5);
-                @shadow : darken(@colour, 15);
-                #effortless > #shadow > .shadow(~"inset 1px 6px 12px @{highlight}, inset -1px -10px 5px @{dark}, 1px 1px 1px @{shadow}");
-            }
-        }
-
-        .soft(@colour : @colour)
-        {
-            #effortless > #button > .default(@colour, @text);
-            color: @colour;
-            border: 1px solid @colour;
-
-            @highlight : lighten(@colour, 50);
-            @dark : darken(@colour, 3);
-            @shadow : darken(@colour, 50);
-            #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -15px @{dark}, 0px 0px 3px @{shadow}");
-
-             &:hover, &:active
-            {
-                @highlight : lighten(@colour, 80);
-                @dark : darken(@colour, 1);
-                @shadow : darken(@colour, 25);
-                #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -15px @{dark}, 0px 0px 3px @{shadow}");
-            }
-        }
-
-        .glass(@colour : @colour, @text : @text)
-        {
-            #effortless > #button > .default(fadeout(@colour, 90), @text);
-
-            @highlight1 : fadeout(lighten(@colour, 80), 50);
-            @highlight2 : fadeout(lighten(@colour, 80), 60);
-            @highlight3 : fadeout(lighten(@colour, 80), 70);
-            @highlight4 : fadeout(lighten(@colour, 80), 65);
-            @shadow : fadeout(darken(@colour, 90), 75);
-
-            border: 1px solid @shadow;
-            #effortless > #shadow > .shadow(~"0px 2px 6px @{highlight1}, inset 0px 1px @{highlight2}, inset 0px 10px @{highlight3}, inset 0px 10px 20px @{highlight4}, inset 0px -15px 30px @{shadow}");
-
-            &:hover, &:active
-            {
-                @highlight1 : fadeout(lighten(@colour, 80), 30);
-                @highlight2 : fadeout(lighten(@colour, 80), 40);
-                @highlight3 : fadeout(lighten(@colour, 80), 50);
-                @highlight4 : fadeout(lighten(@colour, 80), 45);
-                @shadow : fadeout(darken(@colour, 90), 75);
-                #effortless > #shadow > .shadow(~"0px 2px 6px @{highlight1}, inset 0px 1px @{highlight2}, inset 0px 10px @{highlight3}, inset 0px 10px 20px @{highlight4}, inset 0px -15px 30px @{shadow}");
-            }
-        }
-    }
+    
 }
 
 // Helper for centering
@@ -723,7 +685,7 @@
     float: left;
     .cf;
 }
-.row(@grid-width : @grid-width, @grid-columns: @grid-columns)
+.row(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
     .cf;
     #effortless > #layout > .center();
@@ -742,9 +704,12 @@ html .row{.row;}
 
 .gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
-    > *.row{.row;}
+    .cf;
+    width: @grid-width;
+    .center;
 
-    .row;
+    > *.row{.row(@grid-width, @grid-columns, @grid-gutter);}
+
     & .column.one {.column;}
     & .column.two {.column(2);}
     & .column.three {.column(3);}
@@ -775,29 +740,28 @@ html .row{.row;}
 // FROM http://nicolasgallagher.com/micro-clearfix-hack/
 .cf
 {
+    /* For IE 6/7 (trigger hasLayout) */
+      *zoom: 1;
     /* For modern browsers */
     &:before,
-    &:after 
+    &:after
     {
         content:"";
-        display:table;
+        display: table;
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0;
     }
-
-    &:after {clear:both;}
-
-    /* For IE 6/7 (trigger hasLayout) */
-    zoom:1;
+    &:after
+    {
+        clear: both;
+    }
 }
+
+.more:after{content: "\00A0\000BB";}
 
 /*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
-
-h1{font-size: 250%;}
-h2{font-size: 200%;}
-h3{font-size: 175%;}
-h4{font-size: 150%;}
-h5{font-size: 125%;}
-h6{font-size: 100%;}
 
 *
 {
@@ -806,13 +770,6 @@ h6{font-size: 100%;}
     box-sizing: border-box;
 }
 
-
-body
-{
-    width: 100%;
-
-    * {.cf;}
-}
 
 
 // // X-Large

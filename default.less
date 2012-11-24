@@ -1,0 +1,115 @@
+/**
+ * A default typgraphic application to each element.
+ * The font and line-hights are based on the font size at the current element.
+ */
+body
+{
+    width: 100%;
+    h1
+    {
+        font-size: 1.875em;
+        line-height: 1em;
+        margin-bottom: 1em;
+    }
+
+    h2
+    {
+        font-size: 1.6em;
+        line-height: (1.875/1.6)em;
+        margin-bottom: (1.875/1.6)em;
+    }
+
+    h3
+    {
+        font-size: 1.4em;
+        line-height: (1.875/1.4)em;
+        margin-bottom: (1.875/1.4)em;
+    }
+
+    h4
+    {
+        font-size: 1.2em;
+        line-height: (1.875/1.2)em;
+        margin-bottom: (1.875/1.2)em;
+    }
+
+    h5, h6
+    {
+        font-size: 1em;
+        line-height: (1.875/1)em;
+        margin-bottom: (1.875/1)em;
+    }
+
+    .title
+    {
+        font-size: 1.4em;
+        line-height: (1.875/1.4)em;
+        margin-bottom: (1.875/1.4)em;
+        font-weight: bold;
+    }
+
+    h1, h2, h3, h4, h5, h6{font-weight: bold;}
+
+    sup, sub{font-size: .9em;}
+    aside{font-size: .8em;}
+    small{font-size: .7em;}
+
+    strong, bold{font-weight: bold;}
+    em, i{font-style: italic;}
+
+    p{margin-bottom: 1.875em;}
+    p+p
+    {
+        text-indent: 1.875em;
+        margin-top: -1.875em;
+    }
+
+    ul, ol
+    {
+        margin-bottom: 1.875em;
+
+        ul, ol{margin: 0 0 0 60px;}
+    }
+
+    ul{list-style: square inside;}
+
+    ol{list-style: decimal inside;}
+
+    blockquote
+    {
+        margin: 0 60px 0 45px;
+        padding-left: 10px;
+        text-indent: -0.4em;
+        font-style: italic;
+
+        author
+        {
+            display: block;
+            font-weight: bold;
+            font-style: normal;
+        }
+    }
+
+    a
+    {
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        padding: .25em .5em;
+        color: @text;
+
+        &:hover
+        {
+            text-decoration: underline;
+            color: @darker;
+        }
+
+        &:focus
+        {
+            position: relative;
+            top: 1px;
+        }
+
+        > *{cursor: pointer;}
+    }
+}
