@@ -1,3 +1,52 @@
+/**
+ * When including effort.less in a page, the following variables must be defined to set up the defaults
+ * This will remain this way until the lessphp compiler allows the overridding of variables like the .js compiler does
+ *
+ * @grid-columns: 12;       // This would mean a base grid of 12 columns
+ * @grid-width: 768;           // This will fix a row at 768 pixels
+ * @grid-gutter: .03;           // This will create gutters of .03%
+ * @corner-radius: 6px;     // All corner would have a 6px radius by default
+ * @base-colour: red;   // The base colour scheme would be red, a colour scheme would be created from that
+ * @text-colour: #blue; // Default text colour would be blue, a default would be created from that
+ * @background-colour: white;   // Background colour would be blue a scheme would be created  from that
+ * */
+
+@colour-step1 : 10%;
+@colour-step2: 20%;
+
+// Colour definitions :
+// BASE colour scheme
+@colour: @base-colour;      // Base colour
+@lighter: lighten(spin(@colour, 5), @colour-step1);
+@lightest: lighten(spin(@colour, 10), @colour-step2);
+@darker: darken(spin(@colour, -5), @colour-step1);
+@darkest: darken(spin(@colour, -10), @colour-step2);
+
+// COMPLIMENT colour scheme
+@comp: spin(@colour, 180);
+@comp-lighter: lighten(spin(@comp, 5), @colour-step1);
+@comp-lightest: lighten(spin(@comp, 10), @colour-step2);
+@comp-darker: darken(spin(@comp, -5), @colour-step1);
+@comp-darkest: darken(spin(@comp, -10), @colour-step2);
+
+// TEXT colour scheme
+@text: @text-colour;
+@text-lighter: lighten(spin(@text, 5), @colour-step1);
+@text-lightest: lighten(spin(@text, 10), @colour-step2);
+@text-darker: darken(spin(@text, -5), @colour-step1);
+@text-darkest: darken(spin(@text, -10), @colour-step2);
+
+// Background colour scheme
+@background: @background-colour;
+@background-lighter: lighten(spin(@background, 5), @colour-step1);
+@background-lightest: lighten(spin(@background, 10), @colour-step2);
+@background-darker: darken(spin(@background, -5), @colour-step1);
+@background-darkest: darken(spin(@background, -10), @colour-step2);
+
+// Gutter size in pixels
+@gutterSize: floor((@grid-width * @grid-gutter) / 2px);
+
+
 // This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
 #effortless
 {
@@ -102,6 +151,26 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .textColumns(@columns: 2, @gap: 2em)
+        {
+            -webkit-column-count: @columns;
+            -webkit-column-gap:@gap;
+            -moz-column-count: @columns;
+            -moz-column-gap: 2em;
+            -moz-column-rule: 5px solid black;
+            -column-count: @columns;
+            -column-gap:@gap;
+            -column-rule: 5px solid black;
+        }
+
+        .textColumns(@columns: 2, @gap: 2em, @ruleSize, @ruleType, @ruleColour)
+        {
+            #effortless > #layout > .textColumns(@columns, @gap);
+            -webkit-column-rule: @ruleSize @ruleType @ruleColour;
+            -moz-column-rule: @ruleSize @ruleType @ruleColour;
+            -column-rule: @ruleSize @ruleType @ruleColour;
+        }
     }
 
     /**
@@ -112,10 +181,12 @@
         /**
         * Gives an element a rounded border
         **/
-        .rounded(@size : 1px, @type : solid, @colour : black, @radius : 6px)
+        .rounded(@size : 1px, @type : solid, @colour : black, @radius : @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @radius, @radius, @radius, @radius);}
+        .rounded(@size : 1px, @type : solid, @colour : black, @left, @right){#effortless > #border > .rounded(@size, @type, @colour, @left, @right, @right, @left);}
+        .rounded(@size : 1px, @type : solid, @colour : black, @topLeft, @topRight, @bottomRight, @bottomLeft)
         {
             border: @size @type @colour;
-            #effortless > #background > .rounded(@radius);
+            #effortless > #background > .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft);
         }
     }
 
@@ -174,13 +245,10 @@
             -o-transform: rotateY(@actualDegrees); /* Opera */
         }
 
-        .scale(@factor : 1.5)
-        {
-            .scale(@factor, @factor);
-        }
+        .scale(@factor : 1.5){.scale(@factor, @factor);}
 
         .scale(@Xfactor : 1.5, @Yfactor : 1.5)
-        {   
+        {
             transform: scale(@Xfactor, @Yfactor);
             -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
             -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
@@ -203,8 +271,16 @@
             -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
             -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
         }
+
+        .transform(@rotate: 90deg, @scale: 1, @skew: 0deg, @translate: 0px) 
+        {
+            -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+            transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+        }
     }
-    -webkit-transform: rotateY(180deg);
 
     #animation
     {
@@ -264,12 +340,66 @@
         /**
         * Ensures the background area is rounded
         */
-        .rounded(@radius : 6px)
-        {
-            -webkit-border-radius: @radius;
-            -moz-border-radius: @radius;
-            border-radius: @radius;
+        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
+
+        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
+       {
+            #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
+            background-color: @colour; 
         }
+
+        .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
+        {
+            -webkit-border-radius: @arguments;
+            -moz-border-radius: @arguments;
+            border-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-topLeft(@radius : @corner-radius)
+        {
+            -webkit-border-top-left-radius: @arguments;
+            -moz-border-top-left-radius: @arguments;
+            border-top-left-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-bottomLeft(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-left-radius: @arguments;
+            -moz-border-bottom-left-radius: @arguments;
+            border-bottom-left-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-topRight(@radius : @corner-radius)
+        {
+            -webkit-border-top-right-radius: @arguments;
+            -moz-border-top-right-radius: @arguments;
+            border-top-right-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        .rounded-bottomRight(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-right-radius: @arguments;
+            -moz-border-bottom-right-radius: @arguments;
+            border-bottom-right-radius: @arguments;
+            -moz-background-clip: padding; 
+            -webkit-background-clip: padding-box; 
+            background-clip: padding-box; 
+        }
+
+        // TODO: Add support for multi value radii
 
         #gradients
         {
@@ -325,11 +455,6 @@
                 background-color: @baseColour;
                 #effortless > #background > #gradients > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
-            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
-            {
-                background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo);
-            }
 
             // 4 colour
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
@@ -366,8 +491,6 @@
 
 
 
-            
-
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
@@ -380,54 +503,141 @@
             }
             .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @topColour, 
+                #effortless > #background > #gradients > .gradient(@direction, @topColour,
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
             }
 
-            .gloss(@colour: #000000, @position: 50%, @direction : horizontal)
+            .gloss(@colour: #000000, @position: 50, @direction : horizontal)
             {
                 #effortless > #background > #gradients > .gradient(@direction, @colour,
-                                        darken(@colour, 7.5), 0%,
+                                        darken(@colour, 7.5), 0,
                                         @colour, @position, 
                                         darken(@colour, 17.5), @position, 
-                                        @colour, 100%);
+                                        @colour, 100);
             }
         }
     }
 
-    .opacity(@opacity : .5)
+    #shadow
     {
-        @intOpacity: @opacity * 100;
-        -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
-        filter: alpha(opacity=@intOpacity); /* IE 5-7 */
-        -moz-opacity: @opacity; /* Netscape */
-        -khtml-opacity: @opacity; /* Safari 1.x */
-        -o-opacity: @opacity; /* Opera */
-        opacity: @opacity; /* Good browsers */
+        .shadow(@values)
+        {
+            -webkit-box-shadow : @values;
+            -moz-box-shadow : @values;
+            box-shadow : @values;
+        }
+
+        .shadow(@x, @y, @blur, @spread, @colour)
+        {
+            #effortless > #shadow > .drop(@x, @y, @blur, @spread, @colour);
+        }
+
+        .shadow(@x, @y, @blur, @spread, @colour, @inset)
+        {
+            #effortless > #shadow > .inner(@x, @y, @blur, @spread, @colour);
+        }
+
+        .drop(@colour : @darkest)
+        {
+            #effortless > #shadow > .drop(3px, 3px, 5px, 5px, @colour);
+        }
+
+        .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
+        {
+            -webkit-box-shadow: @x @y @blur @colour;
+            -moz-box-shadow: @x @y @blur @colour;
+            box-shadow: @x @y @blur @colour;
+
+            // TODO: Calculate angle from 0, 0 -> x, y;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
+            filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
+        }
+
+        .reset()
+        {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            -ms-filter: none;
+            filter: none;
+        }
+
+        .glow(@colour : white, @blur : 5px)
+        {
+            #effortless > #shadow > .drop(0, 0, @blur, @blur, @colour);
+        }
+
+        .inner(@colour : @darkest)
+        {
+            #effortless > #shadow > .inner(3px, 3px, 5px, 5px, @colour);
+        }
+
+        .inner(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
+        {
+            -webkit-box-shadow: inset @x @y @blur @spread @colour;
+            -moz-box-shadow: inset @x @y @blur @spread @colour;
+            box-shadow: inset @x @y @blur @spread @colour;
+        }
+
+
+
+        .text(@colour : @text-darkest){#effortless > #shadow > .text(3px, 3px, 5px, @colour);}
+
+        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
+
+        .letterpress(@colour : @text-lightest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
+
+        .hard(@colour: @text-darkest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, 0px, @colour);}
+
+        // TODO: The rules below should be calling the base rule
+        .double(@colour1 : @text-lightest, @colour2: @text-darker, @offset : 2px)
+        {
+            text-shadow: @offset @offset 0px @colour1,
+                                    @offset*2 @offset*2 0px @colour2;
+        }
+
+        .far(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px @colour, 
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
+                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .close(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
     }
+
+    #effects
+    {
+        .opacity(@opacity : .5)
+        {
+            @intOpacity: @opacity * 100;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
+            filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
+            -moz-opacity: @opacity; /* Netscape */
+            -khtml-opacity: @opacity; /* Safari 1.x */
+            -o-opacity: @opacity; /* Opera */
+            opacity: @opacity; /* Good browsers */
+        }
+    }
+
+    
 }
+
+// Helper for centering
+.center{#effortless > #layout > .center();}
 
 // // TODO: Need to include offsetting, left and right margin;
 // // TODO: Need to add subcolumns;
 // // TODO: Look at adding in percentage width;
 
-/**
- Setup defaults for the grid system
-*/
-@grid-columns: 12;
-@grid-width: 768;
-@grid-gutter: .03;
-
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-    // .11px is a rounding error helper
-    width : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
-}
-.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
-{
-    // .11px is a rounding error helper
-    height : floor(((@grid-width / @grid-columns * @columnSize) - @grid-gutter * @grid-width) - (.1px * @grid-columns));
-}
 .column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
     .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
@@ -436,47 +646,70 @@
 {
     .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
 }
+.column(twoThirds, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column((@grid-columns/3)*2, @grid-columns, @grid-width, @grid-gutter);
+}
 .column(quarter, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
     .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
 }
-.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+.column(threeQuarters, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    @marginSize: floor(@grid-width * @grid-gutter / 2px);
-    .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
-    display: inline-block;
-    margin-left: floor(@marginSize - .11px);
-    margin-right: floor(@marginSize - .11px);
+    .column((@grid-columns/4)*3, @grid-columns, @grid-width, @grid-gutter);
+}
+.column(whole, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+    .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
 }
 
-.row(@grid-width : @grid-width, @grid-columns: @grid-columns)
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
+    // because we are using border: box, don't substract padding.
+    width : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+}
+.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
+{
+    height : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+}
+
+.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
+{
+    @marginSize: floor((@grid-width * @grid-gutter) / 2px);
+    .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
+    display: inline-block;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: @marginSize;
+    padding-right: @marginSize;
+    float: left;
+    .cf;
+}
+.row(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
+{
+    .cf;
     #effortless > #layout > .center();
     width : @grid-width * 1px;
 
-    & > .column
-    {
-        .column;
-    }
+    &.twoColumn > div {.column(half, @grid-columns, @grid-width, @grid-gutter);}
+    &.threeColumn > div {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+    &.fourColumn > div {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+
+    & > .column{.column;}
 }
 
-html .column
-{
-    .column;
-}
+html .column{.column;}
 
-html .row
-{
-   .row;
-}
+html .row{.row;}
 
 .gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
-    > *.row
-    {
-        .row;
-    }
-    .row;
+    .cf;
+    width: @grid-width*1px;
+    .center;
+
+    > *.row{.row(@grid-width, @grid-columns, @grid-gutter);}
+
     & .column.one {.column;}
     & .column.two {.column(2);}
     & .column.three {.column(3);}
@@ -496,43 +729,47 @@ html .row
 
     & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
     & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.twoThirds {.column(twoThirds, @grid-columns, @grid-width, @grid-gutter);}
     & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.threeQuarters {.column(threeQuarters, @grid-columns, @grid-width, @grid-gutter);}
+    & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
 }
 
-.grid
-{
-    .gridLayout;
-}
+.grid{.gridLayout;}
 
 // FROM http://nicolasgallagher.com/micro-clearfix-hack/
 .cf
 {
+    /* For IE 6/7 (trigger hasLayout) */
+      *zoom: 1;
     /* For modern browsers */
     &:before,
-    &:after 
+    &:after
     {
         content:"";
-        display:table;
+        display: table;
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0;
     }
-
-    &:after 
+    &:after
     {
-        clear:both;
+        clear: both;
     }
-
-    /* For IE 6/7 (trigger hasLayout) */
-    zoom:1;
 }
+
+.more:after{content: "\00A0\000BB";}
 
 /*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}h1{font-size:2em}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
-body
+*
 {
-    width: 100%;
-
-    * {.cf;}
+    -moz-box-sizing : border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 
 
 // // X-Large
