@@ -705,7 +705,7 @@ html .row{.row;}
 .gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
     .cf;
-    width: @grid-width;
+    width: @grid-width*1px;
     .center;
 
     > *.row{.row(@grid-width, @grid-columns, @grid-gutter);}
