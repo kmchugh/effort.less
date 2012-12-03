@@ -2,9 +2,13 @@
  * A default typgraphic application to each element.
  * The font and line-hights are based on the font size at the current element.
  */
-body
+html > body
 {
+    font-size: @fontBase;
+    .defaultFont;
     width: 100%;
+    line-height: 1.25em;
+
     h1
     {
         font-size: 1.875em;
@@ -15,36 +19,36 @@ body
     h2
     {
         font-size: 1.6em;
-        line-height: (1.875/1.6)em;
-        margin-bottom: (1.875/1.6)em;
+        line-height: (1.875/1.6) * 1em;
+        margin-bottom: (1.875/1.6) * 1em;
     }
 
     h3
     {
         font-size: 1.4em;
-        line-height: (1.875/1.4)em;
-        margin-bottom: (1.875/1.4)em;
+        line-height: (1.875/1.4) * 1em;
+        margin-bottom: (1.875/1.4) * 1em;
     }
 
     h4
     {
         font-size: 1.2em;
-        line-height: (1.875/1.2)em;
-        margin-bottom: (1.875/1.2)em;
+        line-height: (1.875/1.2) * 1em;
+        margin-bottom: (1.875/1.2) * 1em;
     }
 
     h5, h6
     {
         font-size: 1em;
-        line-height: (1.875/1)em;
-        margin-bottom: (1.875/1)em;
+        line-height: (1.875/1) * 1em;
+        margin-bottom: (1.875/1) * 1em;
     }
 
     .title
     {
         font-size: 1.4em;
-        line-height: (1.875/1.4)em;
-        margin-bottom: (1.875/1.4)em;
+        line-height: (1.875/1.4) * 1em;
+        margin-bottom: (1.875/1.4) * 1em;
         font-weight: bold;
     }
 
@@ -58,26 +62,30 @@ body
     em, i{font-style: italic;}
 
     p{margin-bottom: 1.875em;}
-    p+p
-    {
-        text-indent: 1.875em;
-        margin-top: -1.875em;
-    }
 
     ul, ol
     {
         margin-bottom: 1.875em;
-
-        ul, ol{margin: 0 0 0 60px;}
+        margin-left: 4 - @gutterSize * .5px;
     }
 
-    ul{list-style: square inside;}
+    ul{list-style: square outside;}
 
-    ol{list-style: decimal inside;}
+    ol{list-style: decimal outside;}
+
+    li
+    {
+        padding-left: -4 + @gutterSize * .5em;
+
+        > ol, ul
+        {
+            margin-left: 4+ (@gutterSize * .5px) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns);
+        }
+    }
 
     blockquote
     {
-        margin: 0 60px 0 45px;
+        margin: 1em 2em;
         padding-left: 10px;
         text-indent: -0.4em;
         font-style: italic;
@@ -88,28 +96,5 @@ body
             font-weight: bold;
             font-style: normal;
         }
-    }
-
-    a
-    {
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        padding: .25em .5em;
-        color: @text;
-
-        &:hover
-        {
-            text-decoration: underline;
-            color: @darker;
-        }
-
-        &:focus
-        {
-            position: relative;
-            top: 1px;
-        }
-
-        > *{cursor: pointer;}
     }
 }
