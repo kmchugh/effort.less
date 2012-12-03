@@ -545,9 +545,9 @@
 
         .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
         {
-            -webkit-box-shadow: @x @y @blur @colour;
-            -moz-box-shadow: @x @y @blur @colour;
-            box-shadow: @x @y @blur @colour;
+            -webkit-box-shadow: @x @y @blur @colour, @x @y @blur @colour;
+            -moz-box-shadow: @x @y @blur @colour, @x @y @blur @colour;
+            box-shadow: @x @y @blur @colour, @x @y @blur @colour;
 
             // TODO: Calculate angle from 0, 0 -> x, y;
             -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
@@ -565,7 +565,7 @@
 
         .glow(@colour : white, @blur : 5px)
         {
-            #effortless > #shadow > .drop(0, 0, @blur, @blur, @colour);
+            #effortless > #shadow > .drop(0, 0, @blur, 5px, @colour);
         }
 
         .inner(@colour : @darkest)
@@ -612,7 +612,7 @@
                                     @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
         }
 
-        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
+        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
     }
 
     #effects
