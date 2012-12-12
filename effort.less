@@ -401,8 +401,7 @@
         }
 
         // TODO: Add support for multi value radii
-
-        #gradients
+        #gradient
         {
             // TODO: implment 3 colour gradients
             /**
@@ -449,45 +448,45 @@
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
 
             // 4 colour
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             // 5 colour
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
 
 
@@ -495,7 +494,7 @@
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
-                #effortless > #background > #gradients > .gradient(@direction, @baseColour,
+                #effortless > #background > #gradient > .gradient(@direction, @baseColour,
                                         lighten(desaturate(@baseColour, 60%), 40%), 0,
                                         lighten(desaturate(@baseColour, 40%), 15%), @basePercent / @modifier,
                                         @baseColour, @basePercent,
@@ -504,13 +503,13 @@
             }
             .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @topColour,
+                #effortless > #background > #gradient > .gradient(@direction, @topColour,
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
             }
 
             .gloss(@colour: #000000, @position: 50, @direction : horizontal)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @colour,
+                #effortless > #background > #gradient > .gradient(@direction, @colour,
                                         darken(@colour, 7.5), 0,
                                         @colour, @position, 
                                         darken(@colour, 17.5), @position, 
