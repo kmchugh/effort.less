@@ -51,6 +51,21 @@
 #effortless
 {
     /**
+    * Fix for placeholder colours
+    **/
+    .placeholder(@colour)
+    {
+
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-moz-placeholder
+        &:-ms-placeholder
+      {
+        color: @colour;
+      }
+    }
+
+    /**
     * All dimension type modifiers should be placed within this namespace
     */
     #dimension
