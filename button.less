@@ -3,6 +3,20 @@
  */
 #effortless
 {
+    .placeholder(@colour)
+    {
+      /**
+      * Fix for placeholder colours
+      **/
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-moz-placeholder
+      &:-ms-placeholder
+      {
+        color: @colour;
+      }
+    }
+
     #button
     {
         .default(@colour : @colour, @text : @text)
