@@ -58,10 +58,23 @@
 
       &::-webkit-input-placeholder,
       &::-moz-placeholder,
-      &:-moz-placeholder
-        &:-ms-placeholder
+      &:-moz-placeholder,
+      &:-ms-placeholder
       {
         color: @colour;
+      }
+    }
+
+    #text
+    {
+      .antialiased
+      {
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+        -ms-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+
       }
     }
 
