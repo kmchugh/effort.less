@@ -2,99 +2,95 @@
  * A default typgraphic application to each element.
  * The font and line-hights are based on the font size at the current element.
  */
-html > body
+html
 {
-    font-size: @fontBase;
-    .defaultFont;
-    width: 100%;
-    line-height: 1.25em;
+  background-color: @background;
+  > body
+  {
+      font-size: 62.5%;
+      line-height: 2em;
+      width: 100%;
 
-    h1
-    {
-        font-size: 1.875em;
-        line-height: 1em;
-        margin-bottom: 1em;
-    }
+      h1{.font-reset(3.2);}
+      h2{.font-reset(2.4);}
+      h3{.font-reset(1.872);}
+      h4{.font-reset(1.6);}
+      h5{.font-reset(1.32);}
+      h6{.font-reset(1.2);}
 
-    h2
-    {
-        font-size: 1.6em;
-        line-height: (1.875/1.6) * 1em;
-        margin-bottom: (1.875/1.6) * 1em;
-    }
-
-    h3
-    {
-        font-size: 1.4em;
-        line-height: (1.875/1.4) * 1em;
-        margin-bottom: (1.875/1.4) * 1em;
-    }
-
-    h4
-    {
-        font-size: 1.2em;
-        line-height: (1.875/1.2) * 1em;
-        margin-bottom: (1.875/1.2) * 1em;
-    }
-
-    h5, h6
-    {
-        font-size: 1em;
-        line-height: (1.875/1) * 1em;
-        margin-bottom: (1.875/1) * 1em;
-    }
-
-    .title
-    {
-        font-size: 1.4em;
-        line-height: (1.875/1.4) * 1em;
-        margin-bottom: (1.875/1.4) * 1em;
+      .title
+      {
+        .font-reset(2.24);
         font-weight: bold;
-    }
+      }
 
-    h1, h2, h3, h4, h5, h6{font-weight: bold;}
+      // Font size of minimum 16px for body copy
+      label, p, strong, aside, ul, ol, a {font-size: 1.6em;}
 
-    sup, sub{font-size: .9em;}
-    aside{font-size: .8em;}
-    small{font-size: .7em;}
+      ul ul, ul ol, ol ol, ol  ul{font-size: 100%;}
 
-    strong, bold{font-weight: bold;}
-    em, i{font-style: italic;}
+      em {font-size: 1.2em;}
 
-    p{margin-bottom: 1.875em;}
+      aside, sup, sub{font-size: 0.9em;}
+      small{font-size: 0.7em;}
 
-    ul, ol
-    {
-        margin-bottom: 1.875em;
-        margin-left: 4 - @gutterSize * .5px;
-    }
+      strong, bold{font-weight: bold;}
+      em, i{font-style: italic;}
 
-    ul{list-style: square outside;}
+      p{margin-bottom: 1.875em;}
 
-    ol{list-style: decimal outside;}
+      ul, ol
+      {
+          margin-bottom: 1.875em;
+          margin-left: 4 - @gutterSize * .5px;
+      }
 
-    li
-    {
-        padding-left: -4 + @gutterSize * .5em;
+      ul{list-style: square outside;}
 
-        > ol, ul
-        {
-            margin-left: 4+ (@gutterSize * .5px) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns);
-        }
-    }
+      ol{list-style: decimal outside;}
 
-    blockquote
-    {
-        margin: 1em 2em;
-        padding-left: 10px;
-        text-indent: -0.4em;
-        font-style: italic;
+      li
+      {
+          padding-left: -4 + @gutterSize * .5em;
 
-        author
-        {
-            display: block;
-            font-weight: bold;
-            font-style: normal;
-        }
-    }
+          > ol, ul
+          {
+              margin-left: 4+ (@gutterSize * .5px) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns);
+          }
+      }
+
+      blockquote
+      {
+          margin: 1em 2em;
+          padding-left: 10px;
+          text-indent: -0.4em;
+          font-style: italic;
+
+          author
+          {
+              display: block;
+              font-weight: bold;
+              font-style: normal;
+          }
+      }
+
+      a
+      {
+        cursor: pointer;
+        display: inline-block;
+        padding: .25em .5em;
+
+        > *{cursor: pointer;}
+      }
+  }
+}
+
+/**
+* resets the font size and line height
+**/
+.font-reset(@size : 1.875, @base : 3.2)
+{
+  font-size: @size * 1em;
+  line-height: (@base/@size) * 1em;
+  margin-bottom: (@base/@size) * 1em;
 }
