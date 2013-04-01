@@ -25,9 +25,12 @@ html
       }
 
       // Font size of minimum 16px for body copy
-      label, p, strong, aside, ul, ol, a {font-size: 1.6em;}
+      label, p, strong, aside, ul, ol, a
+      {
+        font-size: 1.6em;
 
-      ul ul, ul ol, ol ol, ol  ul{font-size: 100%;}
+        label, p, strong, aside, ul, ol, a{font-size: 1em;}
+      }
 
       em {font-size: 1.2em;}
 
@@ -43,13 +46,11 @@ html
       {
           margin-bottom: 1.875em;
           margin-left: 4 - @gutterSize * .5px;
+          font-size: 1.6em;
       }
 
       ul
-      {
-        list-style: square outside;
-        font-size: 1em;
-      }
+      {list-style: square outside;}
 
       ol{list-style: decimal outside;}
 
@@ -69,6 +70,7 @@ html
           padding-left: 10px;
           text-indent: -0.4em;
           font-style: italic;
+          font-size: 1.6em;
 
           author
           {

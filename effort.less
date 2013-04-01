@@ -569,9 +569,9 @@
 
         .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
         {
-            -webkit-box-shadow: @x @y @blur @colour, @x @y @blur @colour;
-            -moz-box-shadow: @x @y @blur @colour, @x @y @blur @colour;
-            box-shadow: @x @y @blur @colour, @x @y @blur @colour;
+            -webkit-box-shadow: @x @y @blur @colour;
+            -moz-box-shadow: @x @y @blur @colour;
+            box-shadow: @x @y @blur @colour;
 
             // TODO: Calculate angle from 0, 0 -> x, y;
             -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
