@@ -660,12 +660,17 @@
 // Helper for centering
 .center{#effortless > #layout > .center();}
 
-.gridWidth(@grid-width)
+.gridWidth(@grid-width, false)
+{
+  width: @grid-width * 1px;
+}
+
+.gridWidth(@grid-width, true)
 {
   width: @grid-width * 1px;
 
   // Mobile portrait
-  @media screen and (max-width: @mobileScreen * 1px)
+  @media screen and (max-width: @smallScreen * 1px)
   {
     width: @grid-width * (@mobileScreen/@grid-width) * 1px;
   }
@@ -702,13 +707,19 @@
 
 }
 
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, false)
+{
+  @gutterSize : @grid-width * @grid-gutter;
+  width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+}
+
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, true)
 {
   @gutterSize : @grid-width * @grid-gutter;
   width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
 
   // Mobile portrait
-  @media screen and (max-width: @mobileScreen * 1px)
+  @media screen and (max-width: @smallScreen * 1px)
   {
     @actualGutter = (@grid-gutter * @grid-width)/@mobileScreen;
     @actualWidth = @grid-width * (@mobileScreen/@grid-width);
@@ -806,7 +817,7 @@
   @marginSize: (@grid-width * @grid-gutter) / 2px;
   .cf;
   #effortless > #layout > .center();
-  .gridWidth(@grid-width);
+  .gridWidth(@grid-width, @responsive);
   padding-left: floor(@marginSize);
   padding-right: ceil(@marginSize);
 
@@ -826,7 +837,7 @@
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
   @marginSize: (@grid-width * @grid-gutter) / 2px;
-  .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
+  .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter, @responsive);
   display: inline-block;
   margin-left: floor(@marginSize);
   margin-right: ceil(@marginSize);
@@ -840,6 +851,44 @@
   }
 }
 
+html
+{
+  // Mobile portrait
+  @media screen and (max-width: @smallScreen * 1px)
+  {
+    .mobileScreen;
+  }
+
+  // Low Res Desktop / tablet, mobile landscape
+  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
+  {
+    .smallScreen;
+  }
+
+  // Medium Res Desktop (Default for IE 6-8)
+  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
+  {
+    .mediumScreen;
+  }
+
+  // Regular Desktop
+  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
+  {
+    .regularScreen;
+  }
+
+  // Large
+  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
+  {
+    .largeScreen;
+  }
+
+  // X-Large
+  @media screen and (min-width: @extraLargeScreen * 1px)
+  {
+    .extraLargeScreen;
+  }
+}
 
 html .column{.column;}
 
@@ -848,7 +897,7 @@ html .row{.row;}
 .gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
   .cf;
-  .gridWidth(@grid-width);
+  .gridWidth(@grid-width, @responsive);
   .center;
 
   > *{.row(@grid-width, @grid-columns, @grid-gutter);}
