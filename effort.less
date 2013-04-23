@@ -665,7 +665,7 @@
   width: @grid-width * 1px;
 
   // Mobile portrait
-  @media screen and (max-width: @smallScreen * 1px)
+  @media screen and (max-width: @mobileScreen * 1px)
   {
     width: @grid-width * (@mobileScreen/@grid-width) * 1px;
   }
@@ -708,10 +708,10 @@
   width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
 
   // Mobile portrait
-  @media screen and (max-width: @smallScreen * 1px)
+  @media screen and (max-width: @mobileScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@mobileScreen;
-  @actualWidth = @grid-width * (@mobileScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@mobileScreen;
+    @actualWidth = @grid-width * (@mobileScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     display: block;
     width: @actualWidth - (@gutterSize*2) * 1px;
@@ -720,8 +720,8 @@
   // Low Res Desktop / tablet, mobile landscape
   @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@smallScreen;
-  @actualWidth = @grid-width * (@smallScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@smallScreen;
+    @actualWidth = @grid-width * (@smallScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     display: block;
     width: @actualWidth - (@gutterSize*2) * 1px;
@@ -730,8 +730,8 @@
   // Medium Res Desktop (Default for IE 6-8)
   @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@mediumScreen;
-  @actualWidth = @grid-width * (@mediumScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@mediumScreen;
+    @actualWidth = @grid-width * (@mediumScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
   }
@@ -739,8 +739,8 @@
   // Regular Desktop
   @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@regularScreen;
-  @actualWidth = @grid-width * (@regularScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@regularScreen;
+    @actualWidth = @grid-width * (@regularScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
   }
@@ -748,8 +748,8 @@
   // Large
   @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@largeScreen;
-  @actualWidth = @grid-width * (@largeScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@largeScreen;
+    @actualWidth = @grid-width * (@largeScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
   }
@@ -757,8 +757,8 @@
   // X-Large
   @media screen and (min-width: @extraLargeScreen * 1px)
   {
-  @actualGutter = (@grid-gutter * @grid-width)/@extraLargeScreen;
-  @actualWidth = @grid-width * (@extraLargeScreen/@grid-width);
+    @actualGutter = (@grid-gutter * @grid-width)/@extraLargeScreen;
+    @actualWidth = @grid-width * (@extraLargeScreen/@grid-width);
     @gutterSize : @actualWidth * @actualGutter;
     width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
   }
