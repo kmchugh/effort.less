@@ -7,7 +7,7 @@
  * @grid-gutter: .03;           // This will create gutters of .03%
  * @corner-radius: 6px;     // All corner would have a 6px radius by default
  * @base-colour: red;   // The base colour scheme would be red, a colour scheme would be created from that
- * @text-colour: #blue; // Default text colour would be blue, a default would be created from that
+ * @text-colour: blue; // Default text colour would be blue, a default would be created from that
  * @background-colour: white;   // Background colour would be blue a scheme would be created  from that
  * */
 
@@ -43,13 +43,43 @@
 @background-darker: darken(spin(@background, -5), @colour-step1);
 @background-darkest: darken(spin(@background, -10), @colour-step2);
 
+// Gutter percentage
+@grid-gutter: 24/@grid-width;
+
 // Gutter size in pixels
-@gutterSize: floor((@grid-width * @grid-gutter) / 2px);
+@gutterSize: floor((@grid-width * @grid-gutter) * 1px);
 
 
 // This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
 #effortless
 {
+    /**
+    * Fix for placeholder colours
+    **/
+    .placeholder(@colour)
+    {
+
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-moz-placeholder,
+      &:-ms-placeholder
+      {
+        color: @colour;
+      }
+    }
+
+    #text
+    {
+      .antialiased()
+      {
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+        -ms-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+    }
+
     /**
     * All dimension type modifiers should be placed within this namespace
     */
@@ -152,24 +182,23 @@
             margin-right: auto;
         }
 
-        .textColumns(@columns: 2, @gap: 2em)
+        .textColumns(@columns: 2, @style : none, @colour : @text-lightest, @width : 1px, @gap: 2em)
         {
-            -webkit-column-count: @columns;
-            -webkit-column-gap:@gap;
-            -moz-column-count: @columns;
-            -moz-column-gap: 2em;
-            -moz-column-rule: 5px solid black;
-            -column-count: @columns;
-            -column-gap:@gap;
-            -column-rule: 5px solid black;
-        }
-
-        .textColumns(@columns: 2, @gap: 2em, @ruleSize, @ruleType, @ruleColour)
-        {
-            #effortless > #layout > .textColumns(@columns, @gap);
-            -webkit-column-rule: @ruleSize @ruleType @ruleColour;
-            -moz-column-rule: @ruleSize @ruleType @ruleColour;
-            -column-rule: @ruleSize @ruleType @ruleColour;
+          -webkit-column-count: @columns;
+          -webkit-column-gap:@gap;
+          -webkit-column-rule-style: @style;
+          -webkit-column-rule-width: @width;
+          -webkit-column-rule-color: @colour;
+          -moz-column-count: @columns;
+          -moz-column-gap: @gap;
+          -moz-column-rule-style: @style;
+          -moz-column-rule-width: @width;
+          -moz-column-rule-color: @colour;
+          -column-count: @columns;
+          -column-gap:@gap;
+          -column-rule-style: @style;
+          -column-rule-width: @width;
+          -column-rule-color: @colour;
         }
     }
 
@@ -337,6 +366,19 @@
     */
     #background
     {
+        .cover(@image)
+        {
+          background-image: url(@image);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+
         /**
         * Ensures the background area is rounded
         */
@@ -400,8 +442,7 @@
         }
 
         // TODO: Add support for multi value radii
-
-        #gradients
+        #gradient
         {
             // TODO: implment 3 colour gradients
             /**
@@ -448,45 +489,45 @@
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
             }
 
             // 4 colour
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
             }
             // 5 colour
             .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
             .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
             .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
             {
                 background-color: @baseColour;
-                #effortless > #background > #gradients > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
 
 
@@ -494,7 +535,7 @@
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
-                #effortless > #background > #gradients > .gradient(@direction, @baseColour,
+                #effortless > #background > #gradient > .gradient(@direction, @baseColour,
                                         lighten(desaturate(@baseColour, 60%), 40%), 0,
                                         lighten(desaturate(@baseColour, 40%), 15%), @basePercent / @modifier,
                                         @baseColour, @basePercent,
@@ -503,13 +544,13 @@
             }
             .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @topColour,
+                #effortless > #background > #gradient > .gradient(@direction, @topColour,
                                         @topColour, @topPercent, @bottomColour, @bottomPercent);
             }
 
             .gloss(@colour: #000000, @position: 50, @direction : horizontal)
             {
-                #effortless > #background > #gradients > .gradient(@direction, @colour,
+                #effortless > #background > #gradient > .gradient(@direction, @colour,
                                         darken(@colour, 7.5), 0,
                                         @colour, @position, 
                                         darken(@colour, 17.5), @position, 
@@ -564,7 +605,7 @@
 
         .glow(@colour : white, @blur : 5px)
         {
-            #effortless > #shadow > .drop(0, 0, @blur, @blur, @colour);
+            #effortless > #shadow > .drop(0, 0, @blur, 5px, @colour);
         }
 
         .inner(@colour : @darkest)
@@ -611,7 +652,7 @@
                                     @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
         }
 
-        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size fadeout(@colour,  30);}
+        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
     }
 
     #effects
@@ -627,12 +668,127 @@
             opacity: @opacity; /* Good browsers */
         }
     }
-
-    
 }
 
 // Helper for centering
 .center{#effortless > #layout > .center();}
+
+.gridWidth(@grid-width, false)
+{
+  width: @grid-width * 1px;
+}
+
+.gridWidth(@grid-width, true)
+{
+  width: @grid-width * 1px;
+
+  // Mobile portrait
+  @media screen and (max-width: @smallScreen * 1px)
+  {
+    width: @grid-width * (@mobileScreen/@grid-width) * 1px;
+  }
+
+  // Low Res Desktop / tablet, mobile landscape
+  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
+  {
+    width: @grid-width * (@smallScreen/@grid-width) * 1px;
+  }
+
+  // Medium Res Desktop (Default for IE 6-8)
+  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
+  {
+    width: @grid-width * (@mediumScreen/@grid-width) * 1px;
+  }
+
+  // Regular Desktop
+  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
+  {
+    width: @grid-width * (@regularScreen/@grid-width) * 1px;
+  }
+
+  // Large
+  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
+  {
+    width: @grid-width * (@largeScreen/@grid-width) * 1px;
+  }
+
+  // X-Large
+  @media screen and (min-width: @extraLargeScreen * 1px)
+  {
+    width: @grid-width * (@extraLargeScreen/@grid-width) * 1px;
+  }
+
+}
+
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, false)
+{
+  @gutterSize : @grid-width * @grid-gutter;
+  width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+}
+
+.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, true)
+{
+  @gutterSize : @grid-width * @grid-gutter;
+  width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+
+  // Mobile portrait
+  @media screen and (max-width: @smallScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@mobileScreen;
+    @actualWidth = @grid-width * (@mobileScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    display: block;
+    width: @actualWidth - (@gutterSize*2) * 1px;
+  }
+
+  // Low Res Desktop / tablet, mobile landscape
+  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@smallScreen;
+    @actualWidth = @grid-width * (@smallScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    display: block;
+    width: @actualWidth - (@gutterSize*2) * 1px;
+  }
+
+  // Medium Res Desktop (Default for IE 6-8)
+  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@mediumScreen;
+    @actualWidth = @grid-width * (@mediumScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+  }
+
+  // Regular Desktop
+  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@regularScreen;
+    @actualWidth = @grid-width * (@regularScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+  }
+
+  // Large
+  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@largeScreen;
+    @actualWidth = @grid-width * (@largeScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+  }
+
+  // X-Large
+  @media screen and (min-width: @extraLargeScreen * 1px)
+  {
+    @actualGutter = (@grid-gutter * @grid-width)/@extraLargeScreen;
+    @actualWidth = @grid-width * (@extraLargeScreen/@grid-width);
+    @gutterSize : @actualWidth * @actualGutter;
+    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
+  }
+}
+
+.grid{.gridLayout;}
 
 // // TODO: Need to include offsetting, left and right margin;
 // // TODO: Need to add subcolumns;
@@ -640,62 +796,111 @@
 
 .column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
+  .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
+}
+.column(eighth, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+{
+  .column(@grid-columns/8, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(third, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
+  .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(twoThirds, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column((@grid-columns/3)*2, @grid-columns, @grid-width, @grid-gutter);
+  .column((@grid-columns/3)*2, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(quarter, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
+  .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(threeQuarters, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column((@grid-columns/4)*3, @grid-columns, @grid-width, @grid-gutter);
+  .column((@grid-columns/4)*3, @grid-columns, @grid-width, @grid-gutter);
 }
 .column(whole, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
 {
-    .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
+  .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
 }
 
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
+
+
+.row(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
-    // because we are using border: box, don't substract padding.
-    width : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+  @marginSize: (@grid-width * @grid-gutter) / 2px;
+  .cf;
+  #effortless > #layout > .center();
+  .gridWidth(@grid-width, @responsive);
+  padding-left: floor(@marginSize);
+  padding-right: ceil(@marginSize);
+
+  &.twoColumn > div {.column(half, @grid-columns, @grid-width, @grid-gutter);}
+  &.threeColumn > div {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+  &.fourColumn > div {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+
+  & > .column{.column;}
 }
+
 .colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
 {
-    height : floor((@grid-width / @grid-columns) * @columnSize) * 1px;
+  @gutterSize : @grid-width * @grid-gutter;
+  height: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
 }
 
 .column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
 {
-    @marginSize: floor((@grid-width * @grid-gutter) / 2px);
-    .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter);
-    display: inline-block;
-    margin-left: 0px;
-    margin-right: 0px;
+  @marginSize: (@grid-width * @grid-gutter) / 2px;
+  .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter, @responsive);
+  display: inline-block;
+  margin-left: floor(@marginSize);
+  margin-right: ceil(@marginSize);
+  float: left;
+  .cf;
+
+  &.padded
+  {
     padding-left: @marginSize;
     padding-right: @marginSize;
-    float: left;
-    .cf;
+  }
 }
-.row(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
+
+html
 {
-    .cf;
-    #effortless > #layout > .center();
-    width : @grid-width * 1px;
+  // Mobile portrait
+  @media screen and (max-width: @smallScreen * 1px)
+  {
+    .mobileScreen;
+  }
 
-    &.twoColumn > div {.column(half, @grid-columns, @grid-width, @grid-gutter);}
-    &.threeColumn > div {.column(third, @grid-columns, @grid-width, @grid-gutter);}
-    &.fourColumn > div {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+  // Low Res Desktop / tablet, mobile landscape
+  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
+  {
+    .smallScreen;
+  }
 
-    & > .column{.column;}
+  // Medium Res Desktop (Default for IE 6-8)
+  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
+  {
+    .mediumScreen;
+  }
+
+  // Regular Desktop
+  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
+  {
+    .regularScreen;
+  }
+
+  // Large
+  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
+  {
+    .largeScreen;
+  }
+
+  // X-Large
+  @media screen and (min-width: @extraLargeScreen * 1px)
+  {
+    .extraLargeScreen;
+  }
 }
 
 html .column{.column;}
@@ -704,38 +909,37 @@ html .row{.row;}
 
 .gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
 {
-    .cf;
-    width: @grid-width*1px;
-    .center;
+  .cf;
+  .gridWidth(@grid-width, @responsive);
+  .center;
 
-    > *.row{.row(@grid-width, @grid-columns, @grid-gutter);}
+  > *{.row(@grid-width, @grid-columns, @grid-gutter);}
 
-    & .column.one {.column;}
-    & .column.two {.column(2);}
-    & .column.three {.column(3);}
-    & .column.four {.column(4);}
-    & .column.five {.column(5);}
-    & .column.six {.column(6);}
-    & .column.seven {.column(7);}
-    & .column.eight {.column(8);}
-    & .column.nine {.column(9);}
-    & .column.ten {.column(10);}
-    & .column.eleven {.column(11);}
-    & .column.twelve {.column(12);}
-    & .column.thirteen {.column(13);}
-    & .column.fourteen {.column(14);}
-    & .column.fifteen {.column(15);}
-    & .column.sixteen {.column(16);}
+  & .column.one {.column;}
+  & .column.two {.column(2);}
+  & .column.three {.column(3);}
+  & .column.four {.column(4);}
+  & .column.five {.column(5);}
+  & .column.six {.column(6);}
+  & .column.seven {.column(7);}
+  & .column.eight {.column(8);}
+  & .column.nine {.column(9);}
+  & .column.ten {.column(10);}
+  & .column.eleven {.column(11);}
+  & .column.twelve {.column(12);}
+  & .column.thirteen {.column(13);}
+  & .column.fourteen {.column(14);}
+  & .column.fifteen {.column(15);}
+  & .column.sixteen {.column(16);}
 
-    & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
-    & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
-    & .column.twoThirds {.column(twoThirds, @grid-columns, @grid-width, @grid-gutter);}
-    & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
-    & .column.threeQuarters {.column(threeQuarters, @grid-columns, @grid-width, @grid-gutter);}
-    & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.twoThirds {.column(twoThirds, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.eighth {.column(eighth, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.threeQuarters {.column(threeQuarters, @grid-columns, @grid-width, @grid-gutter);}
+  & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
 }
-
-.grid{.gridLayout;}
 
 // FROM http://nicolasgallagher.com/micro-clearfix-hack/
 .cf
@@ -761,7 +965,7 @@ html .row{.row;}
 .more:after{content: "\00A0\000BB";}
 
 /*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:sans-serif}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:inherit}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:inherit;_font-family:inherit;}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
 *
 {
@@ -770,62 +974,9 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display
     box-sizing: border-box;
 }
 
+span{display: inline-block;}  // Fix for firefox
 
-
-// // X-Large
-// @media screen and (min-width: 1378px)
-// {
-//     .grid
-//     {
-//         .gridLayout(1378);
-//     }
-// }
-
-// // Large
-// @media screen and (max-width: 1377px) and (min-width: 1218px)
-// {
-//     .grid
-//     {
-//         .gridLayout(1218);
-//     }
-// }
-
-// // Regular Desktop
-// @media screen and (max-width: 1217px) and (min-width: 978px)
-// {
-//     .grid
-//     {
-//         .gridLayout(978);
-//     }
-// }
-
-// // Medium Res Desktop (Default for IE 6-8)
-// @media screen and (max-width: 977px) and (min-width: 768px)
-// {
-//     .grid
-//     {
-//         .gridLayout(768);
-//     }
-// }
-
-// // Low Res Desktop / tablet, mobile landscape
-// @media screen and (max-width: 767px) and (min-width: 480px)
-// {
-//     .grid
-//     {
-//         .rowLayout(480);
-//     }
-// }
-
-// // Mobile portrait
-// @media screen and (max-width: 479px)
-// {
-//     .grid
-//     {
-//         .rowLayout(320);
-//     }
-// }
-
+@import "default.less";
 
 
 
