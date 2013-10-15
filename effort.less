@@ -1,3 +1,5 @@
+@import "default.less";
+
 #effortless
 {
     /**
@@ -21,14 +23,16 @@
         /**
         * Ensures the background area is rounded
         */
-        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
-        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
 
-        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
-       {
+        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+
+        .rounded(@colour, @radius: @corner-radius) //when (iscolor(@colour))
+        {
             #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
             background-color: @colour; 
         }
+
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
 
         .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
         {
