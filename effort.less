@@ -15,6 +15,41 @@
         -ms-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
       }
+
+      #shadow
+      {
+        .text(@colour : black){#effortless > #text > #shadow > .text(3px, 3px, 5px, @colour);}
+
+        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
+
+        .letterpress(@colour : white, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
+
+        .hard(@colour: black, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, 0px, @colour);}
+
+        // TODO: The rules below should be calling the base rule
+        .double(@colour1 : white, @colour2: black, @offset : 2px)
+        {
+            text-shadow: @offset @offset 0px @colour1,
+                                    @offset*2 @offset*2 0px @colour2;
+        }
+
+        .far(@colour : black, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px @colour, 
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
+                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .close(@colour : black, @x-offset : 0px, @y-offset : 2px)
+        {
+            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
+        }
+
+        .glow(@colour: white, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
+      }
     }
 
 
@@ -360,3 +395,37 @@
     }
 }
 
+.column-1 {#effortless > .makeColumn(1);}
+.column-2 {#effortless > .makeColumn(2);}
+.column-3 {#effortless > .makeColumn(3);}
+.column-4 {#effortless > .makeColumn(4);}
+.column-5 {#effortless > .makeColumn(5);}
+.column-6 {#effortless > .makeColumn(6);}
+.column-7 {#effortless > .makeColumn(7);}
+.column-8 {#effortless > .makeColumn(8);}
+.column-9 {#effortless > .makeColumn(9);}
+.column-10 {#effortless > .makeColumn(10);}
+.column-11 {#effortless > .makeColumn(11);}
+.column-12 {#effortless > .makeColumn(12);}
+
+.push-1 {#effortless > .push(1);}
+.push-2 {#effortless > .push(2);}
+.push-3 {#effortless > .push(3);}
+.push-4 {#effortless > .push(4);}
+.push-5 {#effortless > .push(5);}
+.push-6 {#effortless > .push(6);}
+.push-7 {#effortless > .push(7);}
+.push-8 {#effortless > .push(8);}
+.push-9 {#effortless > .push(9);}
+.push-10 {#effortless > .push(10);}
+.push-11 {#effortless > .push(11);}
+.push-12 {#effortless > .push(12);}
+
+*
+{
+    -moz-box-sizing : border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+span{display: inline-block;}  // Fix for firefox
