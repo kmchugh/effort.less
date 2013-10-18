@@ -3,7 +3,23 @@
 #effortless
 {
     /**
-    * Border related modifiers
+    * Text related modifiers
+    */
+    #text
+    {
+      .antialiased()
+      {
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+        -ms-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+    }
+
+
+    /**
+    * Background related modifiers
     */
     #background
     {
@@ -26,7 +42,7 @@
 
         .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
 
-        .rounded(@colour, @radius: @corner-radius) //when (iscolor(@colour))
+        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
         {
             #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
             background-color: @colour; 
@@ -83,5 +99,264 @@
             -webkit-background-clip: padding-box; 
             background-clip: padding-box; 
         }
+
+        // TODO: Add support for multi value radii
+        #gradient
+        {
+            // TODO: implment 3 colour gradients
+            /**
+            * Applies a cross browser gradient to the element, ie falls back to using a filter
+            * current valid values for direction are horizontal, vertical, or the degrees, e.g. 45deg
+            */
+            // 2 colour
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo)
+            {
+                background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
+                background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* W3C */
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourTwo}',GradientType=0 )"; /* IE6-8 */
+            }
+            // 4 colour
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour)
+            {
+                // TODO : Add parsing for horizontal reverse, and vertical reverse
+                background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}))"; /* Chrome,Safari4+ */
+                background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* W3C */
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFour}',GradientType=0 )"; /* IE6-8 */
+            }
+            // 5 colour
+            .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+            {
+                // TODO : Add parsing for horizontal reverse, and vertical reverse
+                background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
+                background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
+                background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
+                background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
+                background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* IE10+ */
+                background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* W3C */
+                filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFive}',GradientType=0 )"; /* IE6-8 */
+            }
+            // 2 colour
+            .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
+            }
+            .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
+            }
+
+            // 4 colour
+            .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+            }
+            .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+            }
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+            }
+            // 5 colour
+            .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+            }
+            .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+            }
+            .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+            {
+                background-color: @baseColour;
+                #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+            }
+
+            .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
+            {
+                // TODO: Automate image Generation of pipe gradient
+                #effortless > #background > #gradient > .gradient(@direction, @baseColour,
+                                        lighten(desaturate(@baseColour, 60%), 40%), 0,
+                                        lighten(desaturate(@baseColour, 40%), 15%), @basePercent / @modifier,
+                                        @baseColour, @basePercent,
+                                        lighten(desaturate(@baseColour, 30%), 10%), 100 - (@basePercent / @modifier),
+                                        lighten(desaturate(@baseColour, 50%), 30%), 100);
+            }
+            .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
+            {
+                #effortless > #background > #gradient > .gradient(@direction, @topColour,
+                                        @topColour, @topPercent, @bottomColour, @bottomPercent);
+            }
+
+            .gloss(@colour: #000000, @position: 50, @direction : horizontal)
+            {
+                #effortless > #background > #gradient > .gradient(@direction, @colour,
+                                        darken(@colour, 7.5), 0,
+                                        @colour, @position, 
+                                        darken(@colour, 17.5), @position, 
+                                        @colour, 100);
+            }
+        }
+    }
+
+    /**
+    * Layout modifiers in this namespace
+    */
+    #layout
+    {
+
+        /**
+        * Horizontally Center the element
+        **/
+        .center()
+        {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .textColumns(@columns: 2, @style : none, @colour : @text-lightest, @width : 1px, @gap: 2em)
+        {
+          -webkit-column-count: @columns;
+          -webkit-column-gap:@gap;
+          -webkit-column-rule-style: @style;
+          -webkit-column-rule-width: @width;
+          -webkit-column-rule-color: @colour;
+          -moz-column-count: @columns;
+          -moz-column-gap: @gap;
+          -moz-column-rule-style: @style;
+          -moz-column-rule-width: @width;
+          -moz-column-rule-color: @colour;
+          -column-count: @columns;
+          -column-gap:@gap;
+          -column-rule-style: @style;
+          -column-rule-width: @width;
+          -column-rule-color: @colour;
+        }
+    }
+
+    /**
+    * Animation helpers
+    **/
+    #animation
+    {
+        .bezier(@p1X: 0, @p1Y: 0, @p2X: 1, @p2Y: 1)
+        {
+            transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -moz-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -webkit-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -o-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+        }
+
+        .period(@millis: 500)
+        {
+            @acutalMillis: @millis * 1ms;
+            transition-duration: @acutalMillis;
+            -moz-transition-duration: @acutalMillis; /* Firefox 4 */
+            -webkit-transition-duration: @acutalMillis; /* Safari and Chrome */
+            -o-transition-duration: @acutalMillis; /* Opera */
+        }
+
+        .linear(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 1, 1);
+        }
+
+        .ease(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .ease-in(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 1, 1);
+        }
+
+        .ease-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 0.58, 1);
+        }
+
+        .ease-in-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 0.58, 1);
+        }
+    }
+
+    // Helper for twitter bootstrap make-row
+    .makeRow(@gutter: @grid-gutter-width)
+    {
+        .make-row(@gutter);
+    }
+
+    // Helper for twitter bootstrap make-column 
+    .makeColumn(@columns)
+    {
+        .make-sm-column(@columns, @grid-gutter-width);
+        .make-md-column(@columns, @grid-gutter-width);
+        .make-lg-column(@columns, @grid-gutter-width);
+    }
+
+    // Helper for pushing columns using bootstrap
+    .push(@columns)
+    {
+        .make-sm-column-push(@columns);
+        .make-md-column-push(@columns);
+        .make-lg-column-push(@columns);
+    }
+
+    // Helper for pulling columns using bootstrap
+    .pull(@columns)
+    {
+        .make-sm-column-pull(@columns);
+        .make-md-column-pull(@columns);
+        .make-lg-column-pull(@columns);
     }
 }
+
+/**
+* Global helpers
+**/
+
+// FROM http://nicolasgallagher.com/micro-clearfix-hack/
+.cf
+{
+    /* For IE 6/7 (trigger hasLayout) */
+      *zoom: 1;
+    /* For modern browsers */
+    &:before,
+    &:after
+    {
+        content:"";
+        display: table;
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0;
+    }
+    &:after
+    {
+        clear: both;
+    }
+}
+
