@@ -155,24 +155,6 @@
     }
 
     
-
-    /**
-    * Border related modifiers
-    */
-    #border
-    {
-        /**
-        * Gives an element a rounded border
-        **/
-        .rounded(@size : 1px, @type : solid, @colour : black, @radius : @corner-radius){#effortless > #border > .rounded(@size, @type, @colour, @radius, @radius, @radius, @radius);}
-        .rounded(@size : 1px, @type : solid, @colour : black, @left, @right){#effortless > #border > .rounded(@size, @type, @colour, @left, @right, @right, @left);}
-        .rounded(@size : 1px, @type : solid, @colour : black, @topLeft, @topRight, @bottomRight, @bottomLeft)
-        {
-            border: @size @type @colour;
-            #effortless > #background > .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft);
-        }
-    }
-
     #transform
     {
         .matrix(@a  :1,  @b  :0, 
@@ -266,68 +248,7 @@
     }
 
 
-    #shadow
-    {
-        .shadow(@values)
-        {
-            -webkit-box-shadow : @values;
-            -moz-box-shadow : @values;
-            box-shadow : @values;
-        }
-
-        .shadow(@x, @y, @blur, @spread, @colour)
-        {
-            #effortless > #shadow > .drop(@x, @y, @blur, @spread, @colour);
-        }
-
-        .shadow(@x, @y, @blur, @spread, @colour, @inset)
-        {
-            #effortless > #shadow > .inner(@x, @y, @blur, @spread, @colour);
-        }
-
-        .drop(@colour : @darkest)
-        {
-            #effortless > #shadow > .drop(3px, 3px, 5px, 5px, @colour);
-        }
-
-        .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
-        {
-            -webkit-box-shadow: @x @y @blur @colour;
-            -moz-box-shadow: @x @y @blur @colour;
-            box-shadow: @x @y @blur @colour;
-
-            // TODO: Calculate angle from 0, 0 -> x, y;
-            -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
-            filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
-        }
-
-        .reset()
-        {
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-            -ms-filter: none;
-            filter: none;
-        }
-
-        .glow(@colour : white, @blur : 5px)
-        {
-            #effortless > #shadow > .drop(0, 0, @blur, 5px, @colour);
-        }
-
-        .inner(@colour : @darkest)
-        {
-            #effortless > #shadow > .inner(3px, 3px, 5px, 5px, @colour);
-        }
-
-        .inner(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
-        {
-            -webkit-box-shadow: inset @x @y @blur @spread @colour;
-            -moz-box-shadow: inset @x @y @blur @spread @colour;
-            box-shadow: inset @x @y @blur @spread @colour;
-        }
-        
-    }
+    
 
     #effects
     {
