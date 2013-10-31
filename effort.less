@@ -494,6 +494,20 @@
     }
 }
 
+.icon(@icon) {
+  .icon-FontAwesome();
+  content: @icon;
+}
+
+.icon-FontAwesome() {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+}
+
 .column-1 {#effortless > .makeColumn(1);}
 .column-2 {#effortless > .makeColumn(2);}
 .column-3 {#effortless > .makeColumn(3);}
