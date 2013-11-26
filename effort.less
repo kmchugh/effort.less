@@ -35,7 +35,7 @@
 
         .far(@colour : black, @x-offset : 0px, @y-offset : 2px)
         {
-            text-shadow: @x-offset @y-offset 0px @colour, 
+            text-shadow: @x-offset @y-offset 0px @colour,
                                     @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
                                     @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
                                     @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
@@ -97,7 +97,7 @@
         .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
         {
             #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
-            background-color: @colour; 
+            background-color: @colour;
         }
 
         .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
@@ -107,9 +107,9 @@
             -webkit-border-radius: @arguments;
             -moz-border-radius: @arguments;
             border-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-topLeft(@radius : @corner-radius)
@@ -117,9 +117,9 @@
             -webkit-border-top-left-radius: @arguments;
             -moz-border-top-left-radius: @arguments;
             border-top-left-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-bottomLeft(@radius : @corner-radius)
@@ -127,9 +127,9 @@
             -webkit-border-bottom-left-radius: @arguments;
             -moz-border-bottom-left-radius: @arguments;
             border-bottom-left-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-topRight(@radius : @corner-radius)
@@ -137,9 +137,9 @@
             -webkit-border-top-right-radius: @arguments;
             -moz-border-top-right-radius: @arguments;
             border-top-right-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-bottomRight(@radius : @corner-radius)
@@ -147,9 +147,9 @@
             -webkit-border-bottom-right-radius: @arguments;
             -moz-border-bottom-right-radius: @arguments;
             border-bottom-right-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         // TODO: Add support for multi value radii
@@ -260,8 +260,8 @@
             {
                 #effortless > #background > #gradient > .gradient(@direction, @colour,
                                         darken(@colour, 7.5), 0,
-                                        @colour, @position, 
-                                        darken(@colour, 17.5), @position, 
+                                        @colour, @position,
+                                        darken(@colour, 17.5), @position,
                                         @colour, 100);
             }
         }
@@ -435,7 +435,6 @@
             -moz-box-shadow: inset @x @y @blur @spread @colour;
             box-shadow: inset @x @y @blur @spread @colour;
         }
-        
     }
 
     // Helper for twitter bootstrap make-row
@@ -444,7 +443,7 @@
         .make-row(@gutter);
     }
 
-    // Helper for twitter bootstrap make-column 
+    // Helper for twitter bootstrap make-column
     .makeColumn(@columns)
     {
         .make-sm-column(@columns, @grid-gutter-width);
