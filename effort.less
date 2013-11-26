@@ -1,73 +1,10 @@
-/**
- * When including effort.less in a page, the following variables must be defined to set up the defaults
- * This will remain this way until the lessphp compiler allows the overridding of variables like the .js compiler does
- *
- * @grid-columns: 12;       // This would mean a base grid of 12 columns
- * @grid-width: 768;           // This will fix a row at 768 pixels
- * @grid-gutter: .03;           // This will create gutters of .03%
- * @corner-radius: 6px;     // All corner would have a 6px radius by default
- * @base-colour: red;   // The base colour scheme would be red, a colour scheme would be created from that
- * @text-colour: blue; // Default text colour would be blue, a default would be created from that
- * @background-colour: white;   // Background colour would be blue a scheme would be created  from that
- * */
+@import "default.less";
 
-@colour-step1 : 10%;
-@colour-step2: 20%;
-
-// Colour definitions :
-// BASE colour scheme
-@colour: @base-colour;      // Base colour
-@lighter: lighten(spin(@colour, 5), @colour-step1);
-@lightest: lighten(spin(@colour, 10), @colour-step2);
-@darker: darken(spin(@colour, -5), @colour-step1);
-@darkest: darken(spin(@colour, -10), @colour-step2);
-
-// COMPLIMENT colour scheme
-@comp: spin(@colour, 180);
-@comp-lighter: lighten(spin(@comp, 5), @colour-step1);
-@comp-lightest: lighten(spin(@comp, 10), @colour-step2);
-@comp-darker: darken(spin(@comp, -5), @colour-step1);
-@comp-darkest: darken(spin(@comp, -10), @colour-step2);
-
-// TEXT colour scheme
-@text: @text-colour;
-@text-lighter: lighten(spin(@text, 5), @colour-step1);
-@text-lightest: lighten(spin(@text, 10), @colour-step2);
-@text-darker: darken(spin(@text, -5), @colour-step1);
-@text-darkest: darken(spin(@text, -10), @colour-step2);
-
-// Background colour scheme
-@background: @background-colour;
-@background-lighter: lighten(spin(@background, 5), @colour-step1);
-@background-lightest: lighten(spin(@background, 10), @colour-step2);
-@background-darker: darken(spin(@background, -5), @colour-step1);
-@background-darkest: darken(spin(@background, -10), @colour-step2);
-
-// Gutter percentage
-@grid-gutter: 24/@grid-width;
-
-// Gutter size in pixels
-@gutterSize: floor((@grid-width * @grid-gutter) * 1px);
-
-
-// This should be used in conjunction with normalize.css (http://necolas.github.com/normalize.css/)
 #effortless
 {
     /**
-    * Fix for placeholder colours
-    **/
-    .placeholder(@colour)
-    {
-
-      &::-webkit-input-placeholder,
-      &::-moz-placeholder,
-      &:-moz-placeholder,
-      &:-ms-placeholder
-      {
-        color: @colour;
-      }
-    }
-
+    * Text related modifiers
+    */
     #text
     {
       .antialiased()
@@ -78,128 +15,41 @@
         -ms-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
       }
-    }
 
-    /**
-    * All dimension type modifiers should be placed within this namespace
-    */
-    #dimension
-    {
-        /**
-        *  Helper for setting the minimum size of an element
-        */
-        .min-size(@minSize)
+      #shadow
+      {
+        .text(@colour : black){#effortless > #text > #shadow > .text(3px, 3px, 5px, @colour);}
+
+        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
+
+        .letterpress(@colour : white, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
+
+        .hard(@colour: black, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, 0px, @colour);}
+
+        // TODO: The rules below should be calling the base rule
+        .double(@colour1 : white, @colour2: black, @offset : 2px)
         {
-            #effortless > #dimension > .min-size(@minSize, @minSize);
+            text-shadow: @offset @offset 0px @colour1,
+                                    @offset*2 @offset*2 0px @colour2;
         }
 
-        /**
-        *  Helper for setting the minimum size of an element
-        */
-        .min-size(@minWidth, @minHeight)
+        .far(@colour : black, @x-offset : 0px, @y-offset : 2px)
         {
-            #effortless > #dimension > .min-width(@minWidth);
-            #effortless > #dimension > .min-height(@minHeight);
+            text-shadow: @x-offset @y-offset 0px @colour,
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
+                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
         }
 
-        /**
-        * Cross browser rules for setting the minimum width of an element
-        */
-        .min-width(@minWidth : 800)
+        .close(@colour : black, @x-offset : 0px, @y-offset : 2px)
         {
-            min-width: ~"@{minWidth}px"; width:~"expression(document.body.clientWidth < @{minWidth} ? '@{minWidth}px': 'auto' )";
+            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
+                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
+                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
         }
 
-
-        /**
-        * Cross browser rules for setting the minimum height of an element
-        */
-        .min-height(@minHeight : 600)
-        {
-            min-height: ~"@{minHeight}px"; height:~"expression(document.body.clientHeight < @{minHeight} ? '@{minHeight}px': 'auto' )";
-        }
-
-        /**
-        *  Helper for setting the maximum size of an element
-        */
-        .max-size(@maxSize)
-        {
-            #effortless > #dimension > .max-size(@maxSize, @maxSize);
-        }
-
-        /**
-        *  Helper for setting the maximum size of an element
-        */
-        .max-size(@maxWidth, @maxHeight)
-        {
-            #effortless > #dimension > .max-width(@maxWidth);
-            #effortless > #dimension > .max-height(@maxHeight);
-        }
-
-        /**
-        * Cross browser rules for setting the maximum height of an element
-        */
-        .max-height(@maxHeight : 600)
-        {
-            overflow: hidden;
-            max-height: ~"@{maxHeight}px"; height:~"expression(document.body.clientHeight > @{maxHeight} ? '@{maxHeight}px': 'auto' )";
-        }
-
-        /**
-        * Cross browser rules for setting the maximum width of an element
-        */
-        .max-width(@maxWidth : 600)
-        {
-            overflow: hidden;
-            max-width: ~"@{maxWidth}px"; width:~"expression(document.body.clientWidth > @{maxWidth} ? '@{maxWidth}px': 'auto' )";
-        }
-
-        .size(@width, @height)
-        {
-            width: @width;
-            height: @height;
-        }
-
-        .size(@size)
-        {
-            #effortless > #dimension > .size(@size, @size);
-        }
-    }
-
-    /**
-    * Layout modifiers in this namespace
-    */
-    #layout
-    {
-
-        /**
-        * Horizontally Center the element
-        **/
-        .center()
-        {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .textColumns(@columns: 2, @style : none, @colour : @text-lightest, @width : 1px, @gap: 2em)
-        {
-          -webkit-column-count: @columns;
-          -webkit-column-gap:@gap;
-          -webkit-column-rule-style: @style;
-          -webkit-column-rule-width: @width;
-          -webkit-column-rule-color: @colour;
-          -moz-column-count: @columns;
-          -moz-column-gap: @gap;
-          -moz-column-rule-style: @style;
-          -moz-column-rule-width: @width;
-          -moz-column-rule-color: @colour;
-          -column-count: @columns;
-          -column-gap:@gap;
-          -column-rule-style: @style;
-          -column-rule-width: @width;
-          -column-rule-color: @colour;
-        }
+        .glow(@colour: white, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
+      }
     }
 
     /**
@@ -219,150 +69,9 @@
         }
     }
 
-    #transform
-    {
-        .matrix(@a  :1,  @b  :0, 
-                @c  :0,  @d  :1, 
-                @tx : 0, @ty :0)
-        {
-            transform: matrix(@a, @b, @c, @d, @tx, @ty);
-            -webkit-transform: matrix(@a, @b, @c, @d, @tx, @ty);
-            -moz-transform: matrix(@a, @b, @c, @d, @tx, @ty);
-            -o-transform: matrix(@a, @b, @c, @d, @tx, @ty);
-        }
-
-        .matrix3d(@lx :1, @ly : 0, @lz : 0,
-                  @wx :0, @wy : 1, @wz : 0,
-                  @ax :0, @ay : 0, @az : 1,
-                  @sx :0, @sy : 0, @sz : 0)
-        {
-            transform: matrix3d(@lx, @ly, @lz, 0,
-                                @wx, @wy, @wz, 0,
-                                @ax, @ay, @az, 0,
-                                @sx, @sy, @sz, 1);
-            -webkit-transform: matrix3d(@lx, @ly, @lz, 0,
-                                        @wx, @wy, @wz, 0,
-                                        @ax, @ay, @az, 0,
-                                        @sx, @sy, @sz, 1);
-            -moz-transform: matrix3d(@lx, @ly, @lz, 0,
-                                     @wx, @wy, @wz, 0,
-                                     @ax, @ay, @az, 0,
-                                     @sx, @sy, @sz, 1);
-            -o-transform: matrix3d(@lx, @ly, @lz, 0,
-                                     @wx, @wy, @wz, 0,
-                                     @ax, @ay, @az, 0,
-                                     @sx, @sy, @sz, 1);
-        }
-
-        // TODO: Convert all transforms to direct matrix functions;
-        .rotate3D(X, @degrees: 180)
-        {
-            @actualDegrees : @degrees * 1deg;
-            transform: rotateX(@actualDegrees);
-            -webkit-transform: rotateX(@actualDegrees); /* Safari and Chrome */
-            -moz-transform: rotateX(@actualDegrees); /* Firefox */
-            -o-transform: rotateX(@actualDegrees); /* Opera */
-        }
-
-        // TODO: Convert all transforms to direct matrix functions;
-        .rotate3D(Y, @degrees: 180)
-        {
-            @actualDegrees : @degrees * 1deg;
-            transform: rotateY(@actualDegrees);
-            -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
-            -moz-transform: rotateY(@actualDegrees); /* Firefox */
-            -o-transform: rotateY(@actualDegrees); /* Opera */
-        }
-
-        .scale(@factor : 1.5){.scale(@factor, @factor);}
-
-        .scale(@Xfactor : 1.5, @Yfactor : 1.5)
-        {
-            transform: scale(@Xfactor, @Yfactor);
-            -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
-            -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
-            -o-transform: scale(@Xfactor, @Yfactor);
-        }
-
-        // TODO: These is to be removed when implemented in the matrix3d;
-        .spin(@scaleFactor: 1, @degrees: 359.9)
-        {
-            transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
-            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
-            -moz-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
-            -o-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
-        }
-
-        .twist(@scaleFactor: 1, @degrees: 359.9)
-        {
-            transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
-            -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
-            -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
-            -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
-        }
-
-        .transform(@rotate: 90deg, @scale: 1, @skew: 0deg, @translate: 0px) 
-        {
-            -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-            -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-            -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-            -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-            transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-        }
-    }
-
-    #animation
-    {
-        .bezier(@p1X: 0, @p1Y: 0, @p2X: 1, @p2Y: 1)
-        {
-            transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
-            -moz-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
-            -webkit-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
-            -o-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
-        }
-
-        .period(@millis: 500)
-        {
-            @acutalMillis: @millis * 1ms;
-            transition-duration: @acutalMillis;
-            -moz-transition-duration: @acutalMillis; /* Firefox 4 */
-            -webkit-transition-duration: @acutalMillis; /* Safari and Chrome */
-            -o-transition-duration: @acutalMillis; /* Opera */
-        }
-
-        .linear(@millis: 500)
-        {
-            #effortless > #animation > .period(@millis);
-            #effortless > #animation > .bezier(0, 0, 1, 1);
-        }
-
-        .ease(@millis: 500)
-        {
-            #effortless > #animation > .period(@millis);
-            #effortless > #animation > .bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        .ease-in(@millis: 500)
-        {
-            #effortless > #animation > .period(@millis);
-            #effortless > #animation > .bezier(0.42, 0, 1, 1);
-        }
-
-        .ease-out(@millis: 500)
-        {
-            #effortless > #animation > .period(@millis);
-            #effortless > #animation > .bezier(0, 0, 0.58, 1);
-        }
-
-        .ease-in-out(@millis: 500)
-        {
-            #effortless > #animation > .period(@millis);
-            #effortless > #animation > .bezier(0.42, 0, 0.58, 1);
-        }
-    }
 
     /**
-    * Border related modifiers
+    * Background related modifiers
     */
     #background
     {
@@ -382,23 +91,25 @@
         /**
         * Ensures the background area is rounded
         */
+
         .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
-        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
 
         .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
-       {
+        {
             #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
-            background-color: @colour; 
+            background-color: @colour;
         }
+
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
 
         .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
         {
             -webkit-border-radius: @arguments;
             -moz-border-radius: @arguments;
             border-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-topLeft(@radius : @corner-radius)
@@ -406,9 +117,9 @@
             -webkit-border-top-left-radius: @arguments;
             -moz-border-top-left-radius: @arguments;
             border-top-left-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-bottomLeft(@radius : @corner-radius)
@@ -416,9 +127,9 @@
             -webkit-border-bottom-left-radius: @arguments;
             -moz-border-bottom-left-radius: @arguments;
             border-bottom-left-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-topRight(@radius : @corner-radius)
@@ -426,9 +137,9 @@
             -webkit-border-top-right-radius: @arguments;
             -moz-border-top-right-radius: @arguments;
             border-top-right-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         .rounded-bottomRight(@radius : @corner-radius)
@@ -436,9 +147,9 @@
             -webkit-border-bottom-right-radius: @arguments;
             -moz-border-bottom-right-radius: @arguments;
             border-bottom-right-radius: @arguments;
-            -moz-background-clip: padding; 
-            -webkit-background-clip: padding-box; 
-            background-clip: padding-box; 
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
         }
 
         // TODO: Add support for multi value radii
@@ -452,7 +163,6 @@
             // 2 colour
             .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo)
             {
-                // TODO : Add parsing for horizontal reverse, and vertical reverse
                 background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
                 background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
                 background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
@@ -530,8 +240,6 @@
                 #effortless > #background > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
             }
 
-
-
             .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
             {
                 // TODO: Automate image Generation of pipe gradient
@@ -552,10 +260,118 @@
             {
                 #effortless > #background > #gradient > .gradient(@direction, @colour,
                                         darken(@colour, 7.5), 0,
-                                        @colour, @position, 
-                                        darken(@colour, 17.5), @position, 
+                                        @colour, @position,
+                                        darken(@colour, 17.5), @position,
                                         @colour, 100);
             }
+        }
+    }
+
+    /**
+    * Layout modifiers in this namespace
+    */
+    #layout
+    {
+
+        /**
+        * Horizontally Center the element
+        **/
+        .center()
+        {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .centerContentVertical()
+        {
+            text-align: center;
+
+            &:before{
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -0.25em;
+            }
+
+            > *
+            {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .textColumns(@columns: 2, @style : none, @colour : @text-lightest, @width : 1px, @gap: 2em)
+        {
+          -webkit-column-count: @columns;
+          -webkit-column-gap:@gap;
+          -webkit-column-rule-style: @style;
+          -webkit-column-rule-width: @width;
+          -webkit-column-rule-color: @colour;
+          -moz-column-count: @columns;
+          -moz-column-gap: @gap;
+          -moz-column-rule-style: @style;
+          -moz-column-rule-width: @width;
+          -moz-column-rule-color: @colour;
+          -column-count: @columns;
+          -column-gap:@gap;
+          -column-rule-style: @style;
+          -column-rule-width: @width;
+          -column-rule-color: @colour;
+        }
+    }
+
+    /**
+    * Animation helpers
+    **/
+    #animation
+    {
+        .bezier(@p1X: 0, @p1Y: 0, @p2X: 1, @p2Y: 1)
+        {
+            transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -moz-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -webkit-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+            -o-transition-timing-function: bezier(@p1X, @p1Y, @p2X, @p2Y);
+        }
+
+        .period(@millis: 500)
+        {
+            @acutalMillis: @millis * 1ms;
+            transition-duration: @acutalMillis;
+            -moz-transition-duration: @acutalMillis; /* Firefox 4 */
+            -webkit-transition-duration: @acutalMillis; /* Safari and Chrome */
+            -o-transition-duration: @acutalMillis; /* Opera */
+        }
+
+        .linear(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 1, 1);
+        }
+
+        .ease(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .ease-in(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 1, 1);
+        }
+
+        .ease-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0, 0, 0.58, 1);
+        }
+
+        .ease-in-out(@millis: 500)
+        {
+            #effortless > #animation > .period(@millis);
+            #effortless > #animation > .bezier(0.42, 0, 0.58, 1);
         }
     }
 
@@ -578,7 +394,7 @@
             #effortless > #shadow > .inner(@x, @y, @blur, @spread, @colour);
         }
 
-        .drop(@colour : @darkest)
+        .drop(@colour : @black)
         {
             #effortless > #shadow > .drop(3px, 3px, 5px, 5px, @colour);
         }
@@ -608,338 +424,53 @@
             #effortless > #shadow > .drop(0, 0, @blur, 5px, @colour);
         }
 
-        .inner(@colour : @darkest)
+        .inner(@colour : black)
         {
-            #effortless > #shadow > .inner(3px, 3px, 5px, 5px, @colour);
+            #effortless > #shadow > .inner(2px, 2px, 3px, 3px, @colour);
         }
 
-        .inner(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
+        .inner(@x, @y, @blur, @spread, @colour)
         {
             -webkit-box-shadow: inset @x @y @blur @spread @colour;
             -moz-box-shadow: inset @x @y @blur @spread @colour;
             box-shadow: inset @x @y @blur @spread @colour;
         }
-
-
-
-        .text(@colour : @text-darkest){#effortless > #shadow > .text(3px, 3px, 5px, @colour);}
-
-        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
-
-        .letterpress(@colour : @text-lightest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
-
-        .hard(@colour: @text-darkest, @offset : 2px){#effortless > #shadow > .text(@offset, @offset, 0px, @colour);}
-
-        // TODO: The rules below should be calling the base rule
-        .double(@colour1 : @text-lightest, @colour2: @text-darker, @offset : 2px)
-        {
-            text-shadow: @offset @offset 0px @colour1,
-                                    @offset*2 @offset*2 0px @colour2;
-        }
-
-        .far(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
-        {
-            text-shadow: @x-offset @y-offset 0px @colour, 
-                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
-                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
-                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
-        }
-
-        .close(@colour : @text-darkest, @x-offset : 0px, @y-offset : 2px)
-        {
-            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
-                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
-                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
-        }
-
-        .textGlow(@colour: @text-lightest, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
     }
 
-    #effects
+    // Helper for twitter bootstrap make-row
+    .makeRow(@gutter: @grid-gutter-width)
     {
-        .opacity(@opacity : .5)
-        {
-            @intOpacity: @opacity * 100;
-            -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
-            filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
-            -moz-opacity: @opacity; /* Netscape */
-            -khtml-opacity: @opacity; /* Safari 1.x */
-            -o-opacity: @opacity; /* Opera */
-            opacity: @opacity; /* Good browsers */
-        }
+        .make-row(@gutter);
+    }
+
+    // Helper for twitter bootstrap make-column
+    .makeColumn(@columns)
+    {
+        .make-sm-column(@columns, @grid-gutter-width);
+        .make-md-column(@columns, @grid-gutter-width);
+        .make-lg-column(@columns, @grid-gutter-width);
+    }
+
+    // Helper for pushing columns using bootstrap
+    .push(@columns)
+    {
+        .make-sm-column-push(@columns);
+        .make-md-column-push(@columns);
+        .make-lg-column-push(@columns);
+    }
+
+    // Helper for pulling columns using bootstrap
+    .pull(@columns)
+    {
+        .make-sm-column-pull(@columns);
+        .make-md-column-pull(@columns);
+        .make-lg-column-pull(@columns);
     }
 }
 
-// Helper for centering
-.center{#effortless > #layout > .center();}
-
-.gridWidth(@grid-width, false)
-{
-  width: @grid-width * 1px;
-}
-
-.gridWidth(@grid-width, true)
-{
-  width: @grid-width * 1px;
-
-  // Mobile portrait
-  @media screen and (max-width: @smallScreen * 1px)
-  {
-    width: @grid-width * (@mobileScreen/@grid-width) * 1px;
-  }
-
-  // Low Res Desktop / tablet, mobile landscape
-  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
-  {
-    width: @grid-width * (@smallScreen/@grid-width) * 1px;
-  }
-
-  // Medium Res Desktop (Default for IE 6-8)
-  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
-  {
-    width: @grid-width * (@mediumScreen/@grid-width) * 1px;
-  }
-
-  // Regular Desktop
-  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
-  {
-    width: @grid-width * (@regularScreen/@grid-width) * 1px;
-  }
-
-  // Large
-  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
-  {
-    width: @grid-width * (@largeScreen/@grid-width) * 1px;
-  }
-
-  // X-Large
-  @media screen and (min-width: @extraLargeScreen * 1px)
-  {
-    width: @grid-width * (@extraLargeScreen/@grid-width) * 1px;
-  }
-
-}
-
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, false)
-{
-  @gutterSize : @grid-width * @grid-gutter;
-  width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-}
-
-.colWidth(@columnSize : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter, true)
-{
-  @gutterSize : @grid-width * @grid-gutter;
-  width: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-
-  // Mobile portrait
-  @media screen and (max-width: @smallScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@mobileScreen;
-    @actualWidth = @grid-width * (@mobileScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    display: block;
-    width: @actualWidth - (@gutterSize*2) * 1px;
-  }
-
-  // Low Res Desktop / tablet, mobile landscape
-  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@smallScreen;
-    @actualWidth = @grid-width * (@smallScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    display: block;
-    width: @actualWidth - (@gutterSize*2) * 1px;
-  }
-
-  // Medium Res Desktop (Default for IE 6-8)
-  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@mediumScreen;
-    @actualWidth = @grid-width * (@mediumScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-  }
-
-  // Regular Desktop
-  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@regularScreen;
-    @actualWidth = @grid-width * (@regularScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-  }
-
-  // Large
-  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@largeScreen;
-    @actualWidth = @grid-width * (@largeScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-  }
-
-  // X-Large
-  @media screen and (min-width: @extraLargeScreen * 1px)
-  {
-    @actualGutter = (@grid-gutter * @grid-width)/@extraLargeScreen;
-    @actualWidth = @grid-width * (@extraLargeScreen/@grid-width);
-    @gutterSize : @actualWidth * @actualGutter;
-    width: (@gutterSize * (@columnSize -1)) + (((@actualWidth - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-  }
-}
-
-.grid{.gridLayout;}
-
-// // TODO: Need to include offsetting, left and right margin;
-// // TODO: Need to add subcolumns;
-// // TODO: Look at adding in percentage width;
-
-.column(half, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column(@grid-columns/2, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(eighth, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column(@grid-columns/8, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(third, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column(@grid-columns/3, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(twoThirds, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column((@grid-columns/3)*2, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(quarter, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column(@grid-columns/4, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(threeQuarters, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column((@grid-columns/4)*3, @grid-columns, @grid-width, @grid-gutter);
-}
-.column(whole, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter)
-{
-  .column(@grid-columns, @grid-columns, @grid-width, @grid-gutter);
-}
-
-
-
-.row(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
-{
-  @marginSize: (@grid-width * @grid-gutter) / 2px;
-  .cf;
-  #effortless > #layout > .center();
-  .gridWidth(@grid-width, @responsive);
-  padding-left: floor(@marginSize);
-  padding-right: ceil(@marginSize);
-
-  &.twoColumn > div {.column(half, @grid-columns, @grid-width, @grid-gutter);}
-  &.threeColumn > div {.column(third, @grid-columns, @grid-width, @grid-gutter);}
-  &.fourColumn > div {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
-
-  & > .column{.column;}
-}
-
-.colHeight(@columnCount : 1, @grid-columns: @grid-columns, @grid-width : @grid-width, @gutter : @grid-gutter)
-{
-  @gutterSize : @grid-width * @grid-gutter;
-  height: (@gutterSize * (@columnSize -1)) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns * 1px * @columnSize);
-}
-
-.column(@columnCount: 1, @grid-columns : @grid-columns, @grid-width : @grid-width, @grid-gutter : @grid-gutter) when (isnumber(@columnCount))
-{
-  @marginSize: (@grid-width * @grid-gutter) / 2px;
-  .colWidth(@columnCount, @grid-columns, @grid-width, @grid-gutter, @responsive);
-  display: inline-block;
-  margin-left: floor(@marginSize);
-  margin-right: ceil(@marginSize);
-  float: left;
-  .cf;
-
-  &.padded
-  {
-    padding-left: @marginSize;
-    padding-right: @marginSize;
-  }
-}
-
-html
-{
-  // Mobile portrait
-  @media screen and (max-width: @smallScreen * 1px)
-  {
-    .mobileScreen;
-  }
-
-  // Low Res Desktop / tablet, mobile landscape
-  @media screen and (max-width: @mediumScreen - 1px) and (min-width: @smallScreen * 1px)
-  {
-    .smallScreen;
-  }
-
-  // Medium Res Desktop (Default for IE 6-8)
-  @media screen and (max-width: @regularScreen - 1px) and (min-width: @mediumScreen * 1px)
-  {
-    .mediumScreen;
-  }
-
-  // Regular Desktop
-  @media screen and (max-width: @largeScreen - 1px) and (min-width: @regularScreen * 1px)
-  {
-    .regularScreen;
-  }
-
-  // Large
-  @media screen and (max-width: @extraLargeScreen - 1px) and (min-width: @largeScreen * 1px)
-  {
-    .largeScreen;
-  }
-
-  // X-Large
-  @media screen and (min-width: @extraLargeScreen * 1px)
-  {
-    .extraLargeScreen;
-  }
-}
-
-html .column{.column;}
-
-html .row{.row;}
-
-.gridLayout(@grid-width : @grid-width, @grid-columns: @grid-columns, @grid-gutter : @grid-gutter)
-{
-  .cf;
-  .gridWidth(@grid-width, @responsive);
-  .center;
-
-  > *{.row(@grid-width, @grid-columns, @grid-gutter);}
-
-  & .column.one {.column;}
-  & .column.two {.column(2);}
-  & .column.three {.column(3);}
-  & .column.four {.column(4);}
-  & .column.five {.column(5);}
-  & .column.six {.column(6);}
-  & .column.seven {.column(7);}
-  & .column.eight {.column(8);}
-  & .column.nine {.column(9);}
-  & .column.ten {.column(10);}
-  & .column.eleven {.column(11);}
-  & .column.twelve {.column(12);}
-  & .column.thirteen {.column(13);}
-  & .column.fourteen {.column(14);}
-  & .column.fifteen {.column(15);}
-  & .column.sixteen {.column(16);}
-
-  & .column.half {.column(half, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.third {.column(third, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.twoThirds {.column(twoThirds, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.quarter {.column(quarter, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.eighth {.column(eighth, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.threeQuarters {.column(threeQuarters, @grid-columns, @grid-width, @grid-gutter);}
-  & .column.whole {.column(whole, @grid-columns, @grid-width, @grid-gutter);}
-}
+/**
+* Global helpers
+**/
 
 // FROM http://nicolasgallagher.com/micro-clearfix-hack/
 .cf
@@ -962,10 +493,58 @@ html .row{.row;}
     }
 }
 
-.more:after{content: "\00A0\000BB";}
+.icon(@icon) {
+  .icon-FontAwesome();
+  content: @icon;
+}
 
-/*! normalize.css 2011-11-04T15:38 UTC - http://github.com/necolas/normalize.css AND  http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain)*/
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}[hidden]{display:none}html{font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}body,button,input,select,textarea{font-family:inherit}a:focus{outline:thin dotted}a:hover,a:active{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}pre,code,kbd,samp{font-family:inherit;_font-family:inherit;}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}ul,ol{margin-left:0;padding:0 0 0 40px}dd{margin:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;*overflow:visible}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+.icon-FontAwesome() {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+}
+
+.column-1 {#effortless > .makeColumn(1);}
+.column-2 {#effortless > .makeColumn(2);}
+.column-3 {#effortless > .makeColumn(3);}
+.column-4 {#effortless > .makeColumn(4);}
+.column-5 {#effortless > .makeColumn(5);}
+.column-6 {#effortless > .makeColumn(6);}
+.column-7 {#effortless > .makeColumn(7);}
+.column-8 {#effortless > .makeColumn(8);}
+.column-9 {#effortless > .makeColumn(9);}
+.column-10 {#effortless > .makeColumn(10);}
+.column-11 {#effortless > .makeColumn(11);}
+.column-12 {#effortless > .makeColumn(12);}
+
+.push-1 {#effortless > .push(1);}
+.push-2 {#effortless > .push(2);}
+.push-3 {#effortless > .push(3);}
+.push-4 {#effortless > .push(4);}
+.push-5 {#effortless > .push(5);}
+.push-6 {#effortless > .push(6);}
+.push-7 {#effortless > .push(7);}
+.push-8 {#effortless > .push(8);}
+.push-9 {#effortless > .push(9);}
+.push-10 {#effortless > .push(10);}
+.push-11 {#effortless > .push(11);}
+.push-12 {#effortless > .push(12);}
+
+.pull-1 {#effortless > .pull(1);}
+.pull-2 {#effortless > .pull(2);}
+.pull-3 {#effortless > .pull(3);}
+.pull-4 {#effortless > .pull(4);}
+.pull-5 {#effortless > .pull(5);}
+.pull-6 {#effortless > .pull(6);}
+.pull-7 {#effortless > .pull(7);}
+.pull-8 {#effortless > .pull(8);}
+.pull-9 {#effortless > .pull(9);}
+.pull-10 {#effortless > .pull(10);}
+.pull-11 {#effortless > .pull(11);}
+.pull-12 {#effortless > .pull(12);}
 
 *
 {
@@ -975,9 +554,3 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display
 }
 
 span{display: inline-block;}  // Fix for firefox
-
-@import "default.less";
-
-
-
-
