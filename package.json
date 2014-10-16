@@ -13,8 +13,7 @@
     "npm" : "1.2.x"
   },
   "scripts": {
-    "start": "node node_modules/grunt-cli/bin/grunt dev",
-    "postinstall" : "cd src/app/; node ../../node_modules/bower/bin/bower install"
+    "start": "node node_modules/grunt-cli/bin/grunt dev"
   },
   "dependencies": {
     "node-static": "^0.7.5"

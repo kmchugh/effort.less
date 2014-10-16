@@ -1,0 +1,17 @@
+// No need for normalize.css as it is used by bootstrap
+
+// Use bootstrap as the base (http://getbootstrap.com/css/#less)
+@import '@{path-bootstrap}';
+
+// Font-Awesome for font awesomeness (http://fortawesome.github.io/Font-Awesome/)
+@import "@{path-font-awesome}";
+
+@import "_typography";
+
+
+// Make sure we use the full height, this helps to plant the footer
+body, html
+{
+  height: 100%;
+  width: 100%;
+}

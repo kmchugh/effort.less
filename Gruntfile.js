@@ -5,21 +5,28 @@ module.exports = function(grunt) {
 
     // All roots should be configured here
     paths.roots = {
+        // Where the source less files are stored
         styles: './src/less/',
+        // Where we will place the intermediate build files
         build: './build/',
-        test: './src/test/'
+        // Where we will store the html,js for test pages
+        test: './src/test/',
+        // Where we will place the final distribution files
+        dist: './dist/'
     };
 //    paths.roots.views = paths.roots.app + 'Offline/';
 
     // Distribution paths
-    /*
     paths.dist = {
-        styles: paths.roots.dist + 'css/',
-        assets: paths.roots.dist + 'Images/',
-        views: paths.roots.dist + 'Offline/',
-        scripts: paths.roots.dist + 'scripts/',
+        less: paths.roots.dist + 'styles/less/',
+        css: paths.roots.dist + 'styles/css/',
+        resources: paths.roots.dist + 'resources'
     };
-    */
+
+    // Build paths
+    paths.build = {
+        css: paths.roots.build + 'css/'
+    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -33,7 +40,16 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true
                 }
+            },
+            // Changes to any of the test files should also update
+            tests: {
+                files: [paths.roots.test + '{,*/}*.*'],
+                tasks: ['clean', 'build'],
+                options: {
+                    livereload: true
+                }
             }
+
         },
 
         connect:{
@@ -65,36 +81,50 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: paths.roots.styles,
                     src: '{,**/}[^_]*.less',
-                    dest: paths.dist.styles,
-                    ext: '.css'
+                    dest: paths.build.css,
+                    ext: '.less.css'
+                },
+                {
+                    expand: true,
+                    cwd: paths.roots.test,
+                    src: '{,**/}[^_]*.less',
+                    dest: paths.build.css,
+                    ext: '-test.css'
                 }]
             },
         },
 
         // Cleanup task where to clean out the dist folder
         clean: {
-            styles: paths.dist.styles
+            build: paths.roots.build,
+            dist: paths.roots.dist,
+            styles: paths.dist.css
         },
 
-        // imagemin: {
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: paths.roots.assets,
-        //             src: ['{,**/}*.{png,jpg,gif}'],
-        //             dest: paths.dist.assets
-        //         }]
-        //     }
-        // },
+        imagemin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: paths.roots.styles,
+                    src: ['{,**/}*.{png,jpg,gif}'],
+                    dest: paths.dist.resources
+                }]
+            }
+        },
 
         copy: {
             main: {
                 files: [
-                    // includes files within path and its sub-directories
-                    // TODO: May want to minify the js rather than just copy
+                    // Copy the test files to the build folder
                     {
                         expand: true,
-                        src: [paths.roots.'./src/app/scripts/**'],
+                        src: [paths.roots.test + '*.html'],
+                        dest: paths.roots.build,
+                        flatten: true
+                    },
+                    {
+                        expand: true,
+                        src: [paths.roots.styles],
                         dest: './dist/'
                     }
                 ]
