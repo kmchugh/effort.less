@@ -1,0 +1,33 @@
+@linen: #f8ecde;
+@red-orange: #e8866c;
+@tundora: #494546;
+@robins-egg: #c5d0c1;
+@gunsmoke: #828e8c;
+
+
+
+
+body, html
+{
+  #effortless > #colours > .set(@color-foreground, @color-background);
+}
+
+
+
+.reverse
+{
+    background: red;
+    #effortless > #colours > .set(@color-background, @color-foreground);
+}
+
+#effortless
+{
+    #colours
+    {
+        .set(@foreground, @background)
+        {
+            background-color: @background;
+            color: @foreground;
+        }
+    }
+}

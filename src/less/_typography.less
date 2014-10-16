@@ -11,21 +11,28 @@
 @font-xsmall: (@font-base * .375);
 @font-xxsmall: (@font-base * .25);
 
+.font-emphasis{#effortless > #typography > .font-emphasis}
+
+.font-default{#effortless > #typography > .font-default}
+
+.font-header{#effortless > #typography > .font-header}
+
 html
 {
   body
   {
     @base-font-size: 2.5em;
+    .font-default;
 
     font-size: @font-size;
     line-height: 2em;
 
-    h1{.font-reset(@font-xxlarge);}
-    h2{.font-reset(@font-xlarge);}
-    h3{.font-reset(@font-large);}
-    h4{.font-reset(@font-medium);}
-    h5{.font-reset(@font-small);}
-    h6{.font-reset(@font-xsmall);}
+    h1{#effortless > #typography > .font-reset(@font-xxlarge);}
+    h2{#effortless > #typography > .font-reset(@font-xlarge);}
+    h3{#effortless > #typography > .font-reset(@font-large);}
+    h4{#effortless > #typography > .font-reset(@font-medium);}
+    h5{#effortless > #typography > .font-reset(@font-small);}
+    h6{#effortless > #typography > .font-reset(@font-xsmall);}
 
     // Font size of minimum 16px for body copy
     label, p, b, strong, ul, ol, a, form, pre, span, div
@@ -42,10 +49,29 @@ html
     aside, sup, sub, small{font-size: 0.9em;}
 
     strong, b{font-weight: bold;}
-    em, i{font-style: italic;}
+    em, i
+    {
+        font-style: italic;
+        .font-emphasis;
+    }
 
     p{margin-bottom: @font-medium;}
 
+    h1, h2, h3, h4, h5, h6
+    {
+        .font-header;
+        padding-top: 0px;
+        margin-top: 0px;
+        margin-bottom: (@font-medium/2);
+    }
+
+    label
+    {
+        b, strong
+        {
+            font-size: 1.2em;
+        }
+    }
 
     /*
 
@@ -114,26 +140,57 @@ html
 /***
 * Mixins
 ****/
-
-/**
- * Makes the text just a little bit cleaner
- */
-.antialiased()
+#effortless
 {
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
-    -o-font-smoothing: antialiased;
-    -ms-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-}
+    #typography
+    {
+        /**
+         * Makes the text just a little bit cleaner
+         */
+        .antialiased()
+        {
+            -webkit-font-smoothing: antialiased;
+            -moz-font-smoothing: antialiased;
+            -o-font-smoothing: antialiased;
+            -ms-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
 
-/**
-* resets the font size and line height
-**/
-.font-reset(@size : @font-medium, @base : @font-base)
-{
-  font-size: @size * 1em;
-  line-height: (@base/@size) * 1em;
-  margin-bottom: (@base/@size) * 1em;
-}
+        /**
+        * resets the font size and line height
+        **/
+        .font-reset(@size : @font-medium, @base : @font-base)
+        {
+          font-size: @size * 1em;
+          line-height: (@base/@size) * 1em;
+          margin-bottom: (@base/@size) * 1em;
+        }
 
+        /**
+        * Default font for all text
+        **/
+        .font-default
+        {
+          font-family: @font-family-default;
+          #effortless > #typography > .antialiased;
+        }
+
+        /**
+        * Emphasis and heading font
+        **/
+        .font-emphasis
+        {
+          font-family: @font-family-emphasis;
+          #effortless > #typography > .antialiased;
+        }
+
+        /**
+        * heading font
+        **/
+        .font-header
+        {
+            font-family: @font-family-header;
+            #effortless > #typography > .antialiased;
+        }
+    }
+}
