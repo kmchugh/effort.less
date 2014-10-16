@@ -1,0 +1,124 @@
+
+.grid
+{
+    > *
+    {
+        #effortless > #grid > .makeRow();
+
+        > span{#effortless > #grid > .makeColumn(12);}
+    }
+}
+
+// Setup for ensuring grids are simple
+.grid > * > span.one, .column.one{#effortless > #grid > .column-1;}
+.grid > * > span.two, .column.two{#effortless > #grid > .column-2;}
+.grid > * > span.quarter, .grid > * > span.three, .column.three, .column.quarter{#effortless > #grid > .column-3;}
+.grid > * > span.third, .grid > * > span.four, .column.four, .column.third{#effortless > #grid > .column-4;}
+.grid > * > span.five, .column.five{#effortless > #grid > .column-5;}
+.grid > * > span.half, .grid > * > span.six, .column.six, .column.half{#effortless > #grid > .column-6;}
+.grid > * > span.seven, .column.seven{#effortless > #grid > .column-7;}
+.grid > * > span.two-thirds, .grid > * > span.eight, .column.eight, .column.two-thirds{#effortless > #grid > .column-8;}
+.grid > * > span.three-quarters, .grid > * > span.nine, .column.nine, .column.three-quarters{#effortless > #grid > .column-9;}
+.grid > * > span.ten, .column.ten{#effortless > #grid > .column-10;}
+.grid > * > span.eleven, .column.eleven{#effortless > #grid > .column-11;}
+.grid > * > span.whole, .grid > * > span.twelve, .column.twelve, .column.whole{#effortless > #grid > .column-12;}
+
+.grid > * > span.push-one, .column.push-one{#effortless > #grid > .push-1}
+.grid > * > span.push-two, .column.push-two{#effortless > #grid > .push-2}
+.grid > * > span.push-three, .column.push-three{#effortless > #grid > .push-3}
+.grid > * > span.push-four, .column.push-four{#effortless > #grid > .push-4}
+.grid > * > span.push-five, .column.push-five{#effortless > #grid > .push-5}
+.grid > * > span.push-six, .column.push-six{#effortless > #grid > .push-6}
+.grid > * > span.push-seven, .column.push-seven{#effortless > #grid > .push-7}
+.grid > * > span.push-eight, .column.push-eight{#effortless > #grid > .push-8}
+.grid > * > span.push-nine, .column.push-nine{#effortless > #grid > .push-9}
+.grid > * > span.push-ten, .column.push-ten{#effortless > #grid > .push-10}
+.grid > * > span.push-eleven, .column.push-eleven{#effortless > #grid > .push-11}
+
+.grid > * > span.pull-one, .column.pull-one{#effortless > #grid > .pull-1}
+.grid > * > span.pull-two, .column.pull-two{#effortless > #grid > .pull-2}
+.grid > * > span.pull-three, .column.pull-three{#effortless > #grid > .pull-3}
+.grid > * > span.pull-four, .column.pull-four{#effortless > #grid > .pull-4}
+.grid > * > span.pull-five, .column.pull-five{#effortless > #grid > .pull-5}
+.grid > * > span.pull-six, .column.pull-six{#effortless > #grid > .pull-6}
+.grid > * > span.pull-seven, .column.pull-seven{#effortless > #grid > .pull-7}
+.grid > * > span.pull-eight, .column.pull-eight{#effortless > #grid > .pull-8}
+.grid > * > span.pull-nine, .column.pull-nine{#effortless > #grid > .pull-9}
+.grid > * > span.pull-ten, .column.pull-ten{#effortless > #grid > .pull-10}
+.grid > * > span.pull-eleven, .column.pull-eleven{#effortless > #grid > .pull-11}
+
+#effortless
+{
+    #grid
+    {
+        .column-1 {#effortless > #grid > .makeColumn(1);}
+        .column-2 {#effortless > #grid > .makeColumn(2);}
+        .column-3 {#effortless > #grid > .makeColumn(3);}
+        .column-4 {#effortless > #grid > .makeColumn(4);}
+        .column-5 {#effortless > #grid > .makeColumn(5);}
+        .column-6 {#effortless > #grid > .makeColumn(6);}
+        .column-7 {#effortless > #grid > .makeColumn(7);}
+        .column-8 {#effortless > #grid > .makeColumn(8);}
+        .column-9 {#effortless > #grid > .makeColumn(9);}
+        .column-10 {#effortless > #grid > .makeColumn(10);}
+        .column-11 {#effortless > #grid > .makeColumn(11);}
+        .column-12 {#effortless > #grid > .makeColumn(12);}
+
+        .push-1 {#effortless > #grid > .push(1);}
+        .push-2 {#effortless > #grid > .push(2);}
+        .push-3 {#effortless > #grid > .push(3);}
+        .push-4 {#effortless > #grid > .push(4);}
+        .push-5 {#effortless > #grid > .push(5);}
+        .push-6 {#effortless > #grid > .push(6);}
+        .push-7 {#effortless > #grid > .push(7);}
+        .push-8 {#effortless > #grid > .push(8);}
+        .push-9 {#effortless > #grid > .push(9);}
+        .push-10 {#effortless > #grid > .push(10);}
+        .push-11 {#effortless > #grid > .push(11);}
+        .push-12 {#effortless > #grid > .push(12);}
+
+        .pull-1 {#effortless > #grid > .pull(1);}
+        .pull-2 {#effortless > #grid > .pull(2);}
+        .pull-3 {#effortless > #grid > .pull(3);}
+        .pull-4 {#effortless > #grid > .pull(4);}
+        .pull-5 {#effortless > #grid > .pull(5);}
+        .pull-6 {#effortless > #grid > .pull(6);}
+        .pull-7 {#effortless > #grid > .pull(7);}
+        .pull-8 {#effortless > #grid > .pull(8);}
+        .pull-9 {#effortless > #grid > .pull(9);}
+        .pull-10 {#effortless > #grid > .pull(10);}
+        .pull-11 {#effortless > #grid > .pull(11);}
+        .pull-12 {#effortless > #grid > .pull(12);}
+
+
+        // Helper for twitter bootstrap make-row
+        .makeRow(@gutter: @grid-gutter-width)
+        {
+            .make-row(@gutter);
+        }
+
+        // Helper for twitter bootstrap make-column
+        .makeColumn(@columns)
+        {
+            .make-sm-column(@columns, @grid-gutter-width);
+            .make-md-column(@columns, @grid-gutter-width);
+            .make-lg-column(@columns, @grid-gutter-width);
+        }
+
+        // Helper for pushing columns using bootstrap
+        .push(@columns)
+        {
+            .make-sm-column-push(@columns);
+            .make-md-column-push(@columns);
+            .make-lg-column-push(@columns);
+        }
+
+        // Helper for pulling columns using bootstrap
+        .pull(@columns)
+        {
+            .make-sm-column-pull(@columns);
+            .make-md-column-pull(@columns);
+            .make-lg-column-pull(@columns);
+        }
+    }
+}

@@ -20,7 +20,7 @@
     <div class="container">
 
         <span class="row">
-            <h1>What is <strong>effort.less</strong> (in progress)</h1>
+            <h1>What is <strong>effort.less</strong></h1>
         </span>
 
         <span class="row">
@@ -33,8 +33,8 @@
 
         <span class="row">
             <label>Default Setup</label>
-            The <strong>effort.less</strong> grid system allows you to set your own grid parameters.  By default <strong>effort.less</strong> is configured for 12 columns, 768 pixel total width, and
-            3% gutters.  These settings can be overridden by simply setting them in your own .less files:
+            <p>The <strong>effort.less</strong> grid system allows you to set your own grid parameters.  By default <strong>effort.less</strong> is configured for 12 columns, 768 pixel total width, and
+            3% gutters.  These settings can be overridden by simply setting them in your own .less files:</p>
 
             <pre><code>
                 @import "../effort.less";
@@ -47,108 +47,279 @@
             </code></pre>
 
             The following is an example of the default grid:
-            
         </span>
 
-        <div class="contentArea grid">
+         <div class="grid example-default-grid">
+            <h1>Default Grid</h1>
 
-            <div class="row">
-                <span class="column twelve">12</span>
-            </div>
-            
-            <div class="row">
-                <span class="column one">1</span>
-                <span class="column eleven">11</span>
+            <div>
+                <span class="twelve">12</span>
             </div>
 
-            <div class="row">
-                <span class="column two">2</span>
-                <span class="column ten">10</span>
+            <div>
+                <span class="one">1</span>
+                <span class="eleven">11</span>
             </div>
 
-            <div class="row">
-                <span class="column three">3</span>
-                <span class="column nine">9</span>
+            <div>
+                <span class="two">2</span>
+                <span class="ten">10</span>
             </div>
 
-            <div class="row">
-                <span class="column four">4</span>
-                <span class="column eight">8</span>
+            <div>
+                <span class="three">3</span>
+                <span class="nine">9</span>
             </div>
 
-            <div class="row">
-                <span class="column five">5</span>
-                <span class="column seven">7</span>
+            <div>
+                <span class="four">4</span>
+                <span class="eight">8</span>
             </div>
 
-            <div class="row">
-                <span class="column six">6</span>
-                <span class="column six">6</span>
+            <div>
+                <span class="five">5</span>
+                <span class="seven">7</span>
             </div>
 
-            <div class="row">
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
+            <div>
+                <span class="six">6</span>
+                <span class="six">6</span>
             </div>
 
-            <div class="row">
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
+            <div>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
+                <span class="one">1</span>
             </div>
 
-            <div class="row">
-                <span class="column three">3</span>
-                <span class="column three">3</span>
-                <span class="column three">3</span>
-                <span class="column three">3</span>
+            <div>
+                <span class="two">2</span>
+                <span class="two">2</span>
+                <span class="two">2</span>
+                <span class="two">2</span>
+                <span class="two">2</span>
+                <span class="two">2</span>
             </div>
 
-            <div class="row">
-                <span class="column four">4</span>
-                <span class="column four">4</span>
-                <span class="column four">4</span>
+            <div>
+                <span class="three">3</span>
+                <span class="three">3</span>
+                <span class="three">3</span>
+                <span class="three">3</span>
             </div>
 
-            <div class="row">
-                <span class="column half">HALF</span>
-                <span class="column half">HALF</span>
+            <div>
+                <span class="four">4</span>
+                <span class="four">4</span>
+                <span class="four">4</span>
             </div>
 
-            <div class="row">
-                <span class="column third">THIRD</span>
-                <span class="column third">THIRD</span>
-                <span class="column third">THIRD</span>
+            <div>
+                <span class="whole">WHOLE</span>
             </div>
 
-            <div class="row">
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
+            <div>
+                <span class="three-quarters">THREE-QUARTERS</span>
+                <span class="quarter">QUARTER</span>
             </div>
 
-            <div class="row">
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column half">HALF</span>
+            <div>
+                <span class="two-thirds">TWO-THIRDS</span>
+                <span class="third">THIRD</span>
             </div>
 
-            
+            <div>
+                <span class="half">HALF</span>
+                <span class="half">HALF</span>
+            </div>
+
+            <div>
+                <span class="third">THIRD</span>
+                <span class="two-thirds">TWO-THIRDS</span>
+            </div>
+
+            <div>
+                <span class="quarter">QUARTER</span>
+                <span class="three-quarters">THREE-QUARTERS</span>
+            </div>
+
+            <div>
+                <span class="half">HALF</span>
+                <span class="quarter">QUARTER</span>
+                <span class="quarter">QUARTER</span>
+            </div>
         </div>
+
+        <div class="grid example-push-grid">
+            <h1>Grid using Push</h1>
+
+            <div>
+                <span class="one">1</span>
+                <span class="eleven">11</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-one ten">10</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-two nine">9</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-three eight">8</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-four seven">7</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-five six">6</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-six five">5</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-seven four">4</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-eight three">3</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-nine two">2</span>
+            </div>
+
+            <div>
+                <span class="one">1</span>
+                <span class="push-ten one">1</span>
+            </div>
+
+        </div>
+
+        <div class="grid example-pull-grid">
+            <h1>Grid using Pull/Pull</h1>
+
+            <div>
+                <span class="push-eleven one">1</span>
+                <span class="pull-one ten">10</span>
+            </div>
+
+            <div>
+                <span class="push-ten two">2</span>
+                <span class="pull-two nine">9</span>
+            </div>
+
+            <div>
+                <span class="push-nine three">3</span>
+                <span class="pull-three eight">8</span>
+            </div>
+
+            <div>
+                <span class="push-eight four">4</span>
+                <span class="pull-four seven">7</span>
+            </div>
+
+            <div>
+                <span class="push-seven five">5</span>
+                <span class="pull-five six">6</span>
+            </div>
+
+            <div>
+                <span class="push-six six">6</span>
+                <span class="pull-six five">5</span>
+            </div>
+
+            <div>
+                <span class="push-five seven">7</span>
+                <span class="pull-seven four">4</span>
+            </div>
+
+            <div>
+                <span class="push-four eight">8</span>
+                <span class="pull-eight three">3</span>
+            </div>
+
+            <div>
+                <span class="push-three nine">9</span>
+                <span class="pull-nine two">2</span>
+            </div>
+
+            <div>
+                <span class="push-two ten">10</span>
+                <span class="pull-ten one">1</span>
+            </div>
+
+        </div>
+
+        <div class="contentArea grid">
+            <div class="row">
+                <h1>Regular Text</h1>
+                <span class="third">
+                    <h1>Elements</h1>
+                    <span>
+                        <p>This is what a <label>label</label> looks like</p>
+                        <p>This is what <strong>strong text</strong> looks like </p>
+                        <p>This is what <em>emphasised text</em> looks like </p>
+                        <p>This is what <sup>super text</sup> looks like </p>
+                        <p>This is what <sub>sub text</sub> looks like </p>
+                        <p>This is what <small>small text</small> looks like </p>
+                        <p>This is what <i>italicised text</i> looks like </p>
+                        <p>This is what <b>bold text</b> looks like </p>
+                    </span>
+                </span>
+                <span class="third">
+                    <h1>Headers</h1>
+                    <span>
+                        <h1>Header 1</h1>
+                        <h2>Header 2</h2>
+                        <h3>Header 3</h3>
+                        <h4>Header 4</h4>
+                        <h5>Header 5</h5>
+                        <h6>Header 6</h6>
+                    </span>
+                </span>
+                
+                <span class="third">
+                    <h1>blockquotes</h1>
+                    <h1>author</h1>
+                    <p>This is what an <aside>aside</aside> looks like </p>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div><h1>Anchors</h1></div>
+        <div><h1>Buttons</h1></div>
+        <div><h1>Lists</h1></div>
+        
+
+
+
+       
 
         <span class="row">
             And an example of an overridden grid.  This has been overridden by
@@ -179,105 +350,7 @@
             </code></pre>
         </span>
 
-        <div class="contentArea grid large">
-
-            <div class="row">
-                <span class="column twelve">12</span>
-            </div>
-            
-            <div class="row">
-                <span class="column one">1</span>
-                <span class="column eleven">11</span>
-            </div>
-
-            <div class="row">
-                <span class="column two">2</span>
-                <span class="column ten">10</span>
-            </div>
-
-            <div class="row">
-                <span class="column three">3</span>
-                <span class="column nine">9</span>
-            </div>
-
-            <div class="row">
-                <span class="column four">4</span>
-                <span class="column eight">8</span>
-            </div>
-
-            <div class="row">
-                <span class="column five">5</span>
-                <span class="column seven">7</span>
-            </div>
-
-            <div class="row">
-                <span class="column six">6</span>
-                <span class="column six">6</span>
-            </div>
-
-            <div class="row">
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-                <span class="column one">1</span>
-            </div>
-
-            <div class="row">
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-                <span class="column two">2</span>
-            </div>
-
-            <div class="row">
-                <span class="column three">3</span>
-                <span class="column three">3</span>
-                <span class="column three">3</span>
-                <span class="column three">3</span>
-            </div>
-
-            <div class="row">
-                <span class="column four">4</span>
-                <span class="column four">4</span>
-                <span class="column four">4</span>
-            </div>
-
-            <div class="row">
-                <span class="column half">HALF</span>
-                <span class="column half">HALF</span>
-            </div>
-
-            <div class="row">
-                <span class="column third">THIRD</span>
-                <span class="column third">THIRD</span>
-                <span class="column third">THIRD</span>
-            </div>
-
-            <div class="row">
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-            </div>
-
-            <div class="row">
-                <span class="column quarter">QUARTER</span>
-                <span class="column quarter">QUARTER</span>
-                <span class="column half">HALF</span>
-            </div>
-
-            
-        </div>
+        
 
         <span class="row">
             <label>Alternate Column Setup</label>

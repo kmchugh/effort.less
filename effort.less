@@ -449,36 +449,6 @@
             box-shadow: inset @x @y @blur @spread @colour;
         }
     }
-
-    // Helper for twitter bootstrap make-row
-    .makeRow(@gutter: @grid-gutter-width)
-    {
-        .make-row(@gutter);
-    }
-
-    // Helper for twitter bootstrap make-column
-    .makeColumn(@columns)
-    {
-        .make-sm-column(@columns, @grid-gutter-width);
-        .make-md-column(@columns, @grid-gutter-width);
-        .make-lg-column(@columns, @grid-gutter-width);
-    }
-
-    // Helper for pushing columns using bootstrap
-    .push(@columns)
-    {
-        .make-sm-column-push(@columns);
-        .make-md-column-push(@columns);
-        .make-lg-column-push(@columns);
-    }
-
-    // Helper for pulling columns using bootstrap
-    .pull(@columns)
-    {
-        .make-sm-column-pull(@columns);
-        .make-md-column-pull(@columns);
-        .make-lg-column-pull(@columns);
-    }
 }
 
 /**

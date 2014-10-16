@@ -2,19 +2,21 @@
 * Core typographical rules for effort.less
 ***/
 
-@font-base: 3.2;
-@font-xxlarge: @font-base * 1;
-@font-xlarge: @font-base * .75;
-@font-large: @font-base * .585;
-@font-medium: @font-base * .5;
-@font-small: @font-base * .4125;
-@font-xsmall: @font-base * .375;
-@font-xxsmall: @font-base * .25;
+@font-base: 3.2em;
+@font-xxlarge: (@font-base * 1);
+@font-xlarge: (@font-base * .75);
+@font-large: (@font-base * .585);
+@font-medium: (@font-base * .5);
+@font-small: (@font-base * .4125);
+@font-xsmall: (@font-base * .375);
+@font-xxsmall: (@font-base * .25);
 
 html
 {
   body
   {
+    @base-font-size: 2.5em;
+
     font-size: @font-size;
     line-height: 2em;
 
@@ -26,22 +28,29 @@ html
     h6{.font-reset(@font-xsmall);}
 
     // Font size of minimum 16px for body copy
-    label, p, strong, aside, ul, ol, a, form, pre
+    label, p, b, strong, ul, ol, a, form, pre, span, div
     {
-      font-size: 1.6em;
+      font-size: @base-font-size;
 
-      button, label, p, strong, aside, ul, ol, a, pre{font-size: 1em;}
+      label, p, b, strong, ul, ol, a, form, pre, span, div
+      {
+        line-height: 1.05em;
+        font-size: 1em;
+      }
     }
 
-    em {font-size: 1.2em;}
+    aside, sup, sub, small{font-size: 0.9em;}
 
-    aside, sup, sub{font-size: 0.9em;}
-    small{font-size: @font-xxsmall;}
-
-    strong, bold{font-weight: bold;}
+    strong, b{font-weight: bold;}
     em, i{font-style: italic;}
 
-    p{margin-bottom: 1.875em;}
+    p{margin-bottom: @font-medium;}
+
+
+    /*
+
+
+    
 
     ul{list-style: square outside;}
 
@@ -73,6 +82,7 @@ html
     }
 
     p a{padding: 0;}
+    */
 /*
 
 
@@ -120,109 +130,10 @@ html
 /**
 * resets the font size and line height
 **/
-.font-reset(@size : 1.875, @base : 3.2)
+.font-reset(@size : @font-medium, @base : @font-base)
 {
   font-size: @size * 1em;
   line-height: (@base/@size) * 1em;
   margin-bottom: (@base/@size) * 1em;
 }
-
-
-/**
- * A default typgraphic application to each element.
- * The font and line-hights are based on the font size at the current element.
- */
-
- /*
-html
-{
-  background-color: @background;
-  > body
-  {
-      font-size: 62.5%;
-      line-height: 2em;
-      width: 100%;
-
-      h1{.font-reset(3.2);}
-      h2{.font-reset(2.4);}
-      h3{.font-reset(1.872);}
-      h4{.font-reset(1.6);}
-      h5{.font-reset(1.32);}
-      h6{.font-reset(1.2);}
-
-      .title
-      {
-        .font-reset(2.24);
-        font-weight: bold;
-      }
-
-      // Font size of minimum 16px for body copy
-      label, p, strong, aside, ul, ol, a, form
-      {
-        font-size: 1.6em;
-
-        button, label, p, strong, aside, ul, ol, a{font-size: 1em;}
-      }
-
-      em {font-size: 1.2em;}
-
-      aside, sup, sub{font-size: 0.9em;}
-      small{font-size: 0.7em;}
-
-      strong, bold{font-weight: bold;}
-      em, i{font-style: italic;}
-
-      p{margin-bottom: 1.875em;}
-
-      ul, ol
-      {
-          margin-bottom: 1.875em;
-          margin-left: 4 - @gutterSize * .5px;
-          font-size: 1.6em;
-      }
-
-      ul
-      {list-style: square outside;}
-
-      ol{list-style: decimal outside;}
-
-      li
-      {
-          padding-left: -4 + @gutterSize * .5em;
-
-          > ol, ul
-          {
-              margin-left: 4+ (@gutterSize * .5px) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns);
-          }
-      }
-
-      blockquote
-      {
-          margin: 1em 2em;
-          padding-left: 10px;
-          text-indent: -0.4em;
-          font-style: italic;
-          font-size: 1.6em;
-
-          author
-          {
-              display: block;
-              font-weight: bold;
-              font-style: normal;
-          }
-      }
-
-      a
-      {
-        cursor: pointer;
-        display: inline-block;
-        padding: .25em .5em;
-
-        > *{cursor: pointer;}
-      }
-
-      p a{padding: 0;}
-  }
-}
-*/
 

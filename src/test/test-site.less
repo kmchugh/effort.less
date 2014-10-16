@@ -1,7 +1,34 @@
 @import "../less/effort.less";
 
 
+.example-default-grid, .example-push-grid, .example-pull-grid
+{
+	> * > span
+	{
+		@base-red: red;
+		@base-green: green;
 
+		&.twelve{background: lighten(@base-red, 0);}
+		&.eleven{background: lighten(@base-red, 4);}
+		&.ten{background: lighten(@base-red, 8);}
+		&.nine{background: lighten(@base-red, 12);}
+		&.eight{background: lighten(@base-red, 16);}
+		&.seven{background: lighten(@base-red, 20);}
+		&.six{background: lighten(@base-red, 24);}
+		&.five{background: lighten(@base-red, 28);}
+		&.four{background: lighten(@base-red, 32);}
+		&.three{background: lighten(@base-red, 36);}
+		&.two{background: lighten(@base-red, 40);}
+		&.one{background: lighten(@base-red, 44);}
+
+		&.whole{background: lighten(@base-green, 0);}
+		&.three-quarters{background: lighten(@base-green, 4);}
+		&.two-thirds{background: lighten(@base-green, 8);}
+		&.half{background: lighten(@base-green, 12);}
+		&.third{background: lighten(@base-green, 16);}
+		&.quarter{background: lighten(@base-green, 20);}
+	}
+}
 
 /**
 * Set up the global grid system, leave the calculated measurements
