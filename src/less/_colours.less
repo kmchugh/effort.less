@@ -3,21 +3,152 @@
 @tundora: #494546;
 @robins-egg: #c5d0c1;
 @gunsmoke: #828e8c;
+@red:#b60419;
 
 
+@color-step1: 22;
+@color-step2: 34.5;
+@color-step3: 7.5;
+@color-spin2: 11;
+@color-spin1: 2;
+@color-light-divisor: 4.5;
+@color-extra-light-divisor: 3.08;
+
+// Greyscale variable defs
+@color-grey-light: greyscale(@color-base-light);
+@color-grey-extra-light: greyscale(@color-base-extra-light);
+@color-grey: greyscale(@color-base);
+@color-grey-dark: greyscale(@color-base-dark);
+@color-grey-extra-dark: greyscale(@color-base-extra-dark);
+
+@color-theme: @red;
+// base variable defs
+//@color-base: contrast(@color-theme, lighten(@color-theme, luma(@color-theme)), darken(@color-theme, luma(@color-theme)));
+@color-base:
+    contrast(@color-theme,
+            darken(@color-theme, 10),
+            lighten(@color-theme, 25), 30%);
+@color-base-light: saturate(lighten(spin(@color-base, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-base-extra-light: saturate(lighten(spin(@color-base, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-base-dark: desaturate(darken(spin(@color-base, @color-spin1), @color-step1), @color-step1);
+@color-base-extra-dark: desaturate(darken(spin(@color-base, @color-spin2), @color-step2), @color-step2);
+
+// complement variable defs
+@color-complement: spin(@color-base, 180);
+@color-complement-light: saturate(lighten(spin(@color-complement, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-complement-extra-light: saturate(lighten(spin(@color-complement, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-complement-dark: desaturate(darken(spin(@color-complement, @color-spin1), @color-step1), @color-step1);
+@color-complement-extra-dark: desaturate(darken(spin(@color-complement, @color-spin2), @color-step2), @color-step2);
+
+// Split complement variable defs
+@color-split-complement1: spin(@color-base, (180 + @color-split-angle));
+@color-split-complement1-light: saturate(lighten(spin(@color-split-complement1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-split-complement1-extra-light: saturate(lighten(spin(@color-split-complement1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-split-complement1-dark: desaturate(darken(spin(@color-split-complement1, @color-spin1), @color-step1), @color-step1);
+@color-split-complement1-extra-dark: desaturate(darken(spin(@color-split-complement1, @color-spin2), @color-step2), @color-step2);
+
+@color-split-complement2: spin(@color-base, (180 - @color-split-angle));
+@color-split-complement2-light: saturate(lighten(spin(@color-split-complement2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-split-complement2-extra-light: saturate(lighten(spin(@color-split-complement2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-split-complement2-dark: desaturate(darken(spin(@color-split-complement2, @color-spin1), @color-step1), @color-step1);
+@color-split-complement2-extra-dark: desaturate(darken(spin(@color-split-complement2, @color-spin2), @color-step2), @color-step2);
+
+// triad variable defs
+@color-triad1: spin(@color-base, 190);
+@color-triad1-light: saturate(lighten(spin(@color-triad1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-triad1-extra-light: saturate(lighten(spin(@color-triad1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-triad1-dark: desaturate(darken(spin(@color-triad1, @color-spin1), @color-step1), @color-step1);
+@color-triad1-extra-dark: desaturate(darken(spin(@color-triad1, @color-spin2), @color-step2), @color-step2);
+
+@color-triad2: spin(@color-base, 90);
+@color-triad2-light: saturate(lighten(spin(@color-triad2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-triad2-extra-light: saturate(lighten(spin(@color-triad2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-triad2-dark: desaturate(darken(spin(@color-triad2, @color-spin1), @color-step1), @color-step1);
+@color-triad2-extra-dark: desaturate(darken(spin(@color-triad2, @color-spin2), @color-step2), @color-step2);
+
+// triad variable defs
+@color-adjacent1: spin(@color-base, (-@color-split-angle));
+@color-adjacent1-light: saturate(lighten(spin(@color-adjacent1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-adjacent1-extra-light: saturate(lighten(spin(@color-adjacent1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-adjacent1-dark: desaturate(darken(spin(@color-adjacent1, @color-spin1), @color-step1), @color-step1);
+@color-adjacent1-extra-dark: desaturate(darken(spin(@color-adjacent1, @color-spin2), @color-step2), @color-step2);
+
+@color-adjacent2: spin(@color-base, (@color-split-angle));
+@color-adjacent2-light: saturate(lighten(spin(@color-adjacent2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
+@color-adjacent2-extra-light: saturate(lighten(spin(@color-adjacent2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
+@color-adjacent2-dark: desaturate(darken(spin(@color-adjacent2, @color-spin1), @color-step1), @color-step1);
+@color-adjacent2-extra-dark: desaturate(darken(spin(@color-adjacent2, @color-spin2), @color-step2), @color-step2);
 
 
 body, html
 {
-  #effortless > #colours > .set(@color-foreground, @color-background);
+  //#effortless > #colours > .set(@color-foreground, @color-background);
 }
 
+// Base colours
+.bg-base{background-color: @color-base;}
+.bg-base-lt{background-color: @color-base-light;}
+.bg-base-xlt{background-color: @color-base-extra-light;}
+.bg-base-dk{background-color: @color-base-dark;}
+.bg-base-xdk{background-color: @color-base-extra-dark;}
+
+// Greyscale colours
+.bg-grey{background-color: @color-grey;}
+.bg-grey-lt{background-color: @color-grey-light;}
+.bg-grey-xlt{background-color: @color-grey-extra-light;}
+.bg-grey-dk{background-color: @color-grey-dark;}
+.bg-grey-xdk{background-color: @color-grey-extra-dark;}
+
+// Complement colours
+.bg-comp{background-color: @color-complement;}
+.bg-comp-lt{background-color: @color-complement-light;}
+.bg-comp-xlt{background-color: @color-complement-extra-light;}
+.bg-comp-dk{background-color: @color-complement-dark;}
+.bg-comp-xdk{background-color: @color-complement-extra-dark;}
+
+// Split complementary colours
+.bg-sp-comp1{background-color: @color-split-complement1;}
+.bg-sp-comp1-lt{background-color: @color-split-complement1-light;}
+.bg-sp-comp1-xlt{background-color: @color-split-complement1-extra-light;}
+.bg-sp-comp1-dk{background-color: @color-split-complement1-dark;}
+.bg-sp-comp1-xdk{background-color: @color-split-complement1-extra-dark;}
+
+.bg-sp-comp2{background-color: @color-split-complement2;}
+.bg-sp-comp2-lt{background-color: @color-split-complement2-light;}
+.bg-sp-comp2-xlt{background-color: @color-split-complement2-extra-light;}
+.bg-sp-comp2-dk{background-color: @color-split-complement2-dark;}
+.bg-sp-comp2-xdk{background-color: @color-split-complement2-extra-dark;}
+
+// Triad colours
+.bg-triad1{background-color: @color-triad1;}
+.bg-triad1-lt{background-color: @color-triad1-light;}
+.bg-triad1-xlt{background-color: @color-triad1-extra-light;}
+.bg-triad1-dk{background-color: @color-triad1-dark;}
+.bg-triad1-xdk{background-color: @color-triad1-extra-dark;}
+
+.bg-triad2{background-color: @color-triad2;}
+.bg-triad2-lt{background-color: @color-triad2-light;}
+.bg-triad2-xlt{background-color: @color-triad2-extra-light;}
+.bg-triad2-dk{background-color: @color-triad2-dark;}
+.bg-triad2-xdk{background-color: @color-triad2-extra-dark;}
+
+// Adjacent colours
+.bg-adj1{background-color: @color-adjacent1;}
+.bg-adj1-lt{background-color: @color-adjacent1-light;}
+.bg-adj1-xlt{background-color: @color-adjacent1-extra-light;}
+.bg-adj1-dk{background-color: @color-adjacent1-dark;}
+.bg-adj1-xdk{background-color: @color-adjacent1-extra-dark;}
+
+.bg-adj2{background-color: @color-adjacent2;}
+.bg-adj2-lt{background-color: @color-adjacent2-light;}
+.bg-adj2-xlt{background-color: @color-adjacent2-extra-light;}
+.bg-adj2-dk{background-color: @color-adjacent2-dark;}
+.bg-adj2-xdk{background-color: @color-adjacent2-extra-dark;}
 
 
 .reverse
 {
-    background: red;
-    #effortless > #colours > .set(@color-background, @color-foreground);
+    //#effortless > #colours > .set(@color-background, @color-foreground);
 }
 
 #effortless

@@ -161,9 +161,9 @@ html
         **/
         .font-reset(@size : @font-medium, @base : @font-base)
         {
-          font-size: @size * 1em;
-          line-height: (@base/@size) * 1em;
-          margin-bottom: (@base/@size) * 1em;
+          font-size: unit(@size, em);
+          line-height: ((@base/@size) * 1em);
+          margin-bottom: ((@base/@size) * 1em);
         }
 
         /**
