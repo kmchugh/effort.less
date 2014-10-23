@@ -61,7 +61,7 @@ html
     {
         .font-header;
         padding-top: 0px;
-        margin-top: 0px;
+        margin-top: (@font-medium/4);
         margin-bottom: (@font-medium/2);
     }
 
@@ -73,30 +73,24 @@ html
         }
     }
 
+    blockquote
+    {
+        font-style: italic;
+        border-left: 4px solid @color;
+    }
+
+    author
+    {
+        display: block;
+        font-weight: bold;
+        font-style: normal;
+    }
+
     /*
-
-
-    
 
     ul{list-style: square outside;}
 
     ol{list-style: decimal outside;}
-
-    blockquote
-    {
-        margin: 1em 2em;
-        padding-left: 10px;
-        text-indent: -0.4em;
-        font-style: italic;
-        font-size: 1.6em;
-
-        author
-        {
-            display: block;
-            font-weight: bold;
-            font-style: normal;
-        }
-    }
 
     a
     {

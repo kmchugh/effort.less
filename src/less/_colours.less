@@ -21,7 +21,25 @@
 @color-grey-dark: greyscale(@color-base-dark);
 @color-grey-extra-dark: greyscale(@color-base-extra-dark);
 
-@color-theme: @red;
+@color-theme: @red-orange;
+@theme-style: light; // or dark
+
+// Themed variables
+@theme-background-light: @color-base;
+@theme-color-light: @color-base-extra-dark;
+
+// Specific variables
+@theme-background: "theme-background-@{theme-style}";
+@theme-color: "theme-color-@{theme-style}";
+
+@background: @@theme-background;
+@color: @@theme-color;
+
+body
+{
+    background: @background;
+    color: @color;
+}
 // base variable defs
 //@color-base: contrast(@color-theme, lighten(@color-theme, luma(@color-theme)), darken(@color-theme, luma(@color-theme)));
 @color-base:
@@ -148,7 +166,12 @@ body, html
 
 .reverse
 {
-    //#effortless > #colours > .set(@color-background, @color-foreground);
+    #effortless > #colours > .set(@background, @color);
+
+    .reverse
+    {
+        #effortless > #colours > .set(@color, @background);
+    }
 }
 
 #effortless
