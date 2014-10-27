@@ -1,178 +1,152 @@
-@linen: #f8ecde;
-@red-orange: #e8866c;
-@tundora: #494546;
-@robins-egg: #c5d0c1;
-@gunsmoke: #828e8c;
-@red:#b60419;
+@icatalyst-red:#b60419;
+@white: @color-white;
+@black: @color-black;
+@grey: @color-grey;
 
-
-@color-step1: 22;
-@color-step2: 34.5;
-@color-step3: 7.5;
-@color-spin2: 11;
-@color-spin1: 2;
-@color-light-divisor: 4.5;
-@color-extra-light-divisor: 3.08;
-
-// Greyscale variable defs
-@color-grey-light: greyscale(@color-base-light);
-@color-grey-extra-light: greyscale(@color-base-extra-light);
-@color-grey: greyscale(@color-base);
-@color-grey-dark: greyscale(@color-base-dark);
-@color-grey-extra-dark: greyscale(@color-base-extra-dark);
-
-@color-theme: @red-orange;
 @theme-style: light; // or dark
 
+@color-theme: @icatalyst-red;
+@theme-style: light; // or dark
+@color-theme-step: 20;
+@color-accent-step: 90;
+
+
+// Generated colours
+@color-accent1: spin(@color-theme, @color-accent-step);
+@color-accent2: spin(@color-theme, (@color-accent-step * 3));
+
+// Base colours
+@color-base: @color-theme;
+@color-xlight: lighten(@color-base, (@color-theme-step * 2));
+@color-light: lighten(@color-base, (@color-theme-step));
+@color-dark: darken(@color-base, (@color-theme-step /2));
+@color-xdark: darken(@color-base, (@color-theme-step));
+
+// Accent colours
+@color-accent1-base: @color-accent1;
+@color-accent1-xlight: lighten(@color-accent1-base, (@color-theme-step * 2));
+@color-accent1-light: lighten(@color-accent1-base, (@color-theme-step));
+@color-accent1-dark: darken(@color-accent1-base, (@color-theme-step /2));
+@color-accent1-xdark: darken(@color-accent1-base, (@color-theme-step));
+
+@color-accent2-base: @color-accent2;
+@color-accent2-xlight: lighten(@color-accent2-base, (@color-theme-step * 2));
+@color-accent2-light: lighten(@color-accent2-base, (@color-theme-step));
+@color-accent2-dark: darken(@color-accent2-base, (@color-theme-step /2));
+@color-accent2-xdark: darken(@color-accent2-base, (@color-theme-step));
+
+// Greyscales, whites and blacks
+@color-grey: greyscale(@color-base);
+@color-grey-xxlight: lighten(@color-grey, (@color-theme-step * 2.5));
+@color-grey-xlight: lighten(@color-grey, (@color-theme-step * 2));
+@color-grey-light: lighten(@color-grey, (@color-theme-step));
+@color-grey-dark: darken(@color-grey, (@color-theme-step / 2));
+@color-grey-xdark: darken(@color-grey, (@color-theme-step));
+@color-grey-xxdark: darken(@color-grey, (@color-theme-step * 1.25));
+@color-white: @color-grey-xxlight;
+@color-black: @color-grey-xxdark;
+
+
 // Themed variables
-@theme-background-light: @color-base;
-@theme-color-light: @color-base-extra-dark;
+@theme-background-light: @color-grey-xxlight;
+@theme-foreground-light: @color-base;
+@theme-footer-background-light: @color-grey-dark;
+@theme-footer-foreground-light: @color-white;
+@theme-link-light: @color-accent1-base;
+@theme-link-hover-light: @color-accent1-dark;
 
-// Specific variables
+
+// Theme specific variables
 @theme-background: "theme-background-@{theme-style}";
-@theme-color: "theme-color-@{theme-style}";
-
-@background: @@theme-background;
-@color: @@theme-color;
-
-body
-{
-    background: @background;
-    color: @color;
-}
-// base variable defs
-//@color-base: contrast(@color-theme, lighten(@color-theme, luma(@color-theme)), darken(@color-theme, luma(@color-theme)));
-@color-base:
-    contrast(@color-theme,
-            darken(@color-theme, 10),
-            lighten(@color-theme, 25), 30%);
-@color-base-light: saturate(lighten(spin(@color-base, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-base-extra-light: saturate(lighten(spin(@color-base, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-base-dark: desaturate(darken(spin(@color-base, @color-spin1), @color-step1), @color-step1);
-@color-base-extra-dark: desaturate(darken(spin(@color-base, @color-spin2), @color-step2), @color-step2);
-
-// complement variable defs
-@color-complement: spin(@color-base, 180);
-@color-complement-light: saturate(lighten(spin(@color-complement, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-complement-extra-light: saturate(lighten(spin(@color-complement, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-complement-dark: desaturate(darken(spin(@color-complement, @color-spin1), @color-step1), @color-step1);
-@color-complement-extra-dark: desaturate(darken(spin(@color-complement, @color-spin2), @color-step2), @color-step2);
-
-// Split complement variable defs
-@color-split-complement1: spin(@color-base, (180 + @color-split-angle));
-@color-split-complement1-light: saturate(lighten(spin(@color-split-complement1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-split-complement1-extra-light: saturate(lighten(spin(@color-split-complement1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-split-complement1-dark: desaturate(darken(spin(@color-split-complement1, @color-spin1), @color-step1), @color-step1);
-@color-split-complement1-extra-dark: desaturate(darken(spin(@color-split-complement1, @color-spin2), @color-step2), @color-step2);
-
-@color-split-complement2: spin(@color-base, (180 - @color-split-angle));
-@color-split-complement2-light: saturate(lighten(spin(@color-split-complement2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-split-complement2-extra-light: saturate(lighten(spin(@color-split-complement2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-split-complement2-dark: desaturate(darken(spin(@color-split-complement2, @color-spin1), @color-step1), @color-step1);
-@color-split-complement2-extra-dark: desaturate(darken(spin(@color-split-complement2, @color-spin2), @color-step2), @color-step2);
-
-// triad variable defs
-@color-triad1: spin(@color-base, 190);
-@color-triad1-light: saturate(lighten(spin(@color-triad1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-triad1-extra-light: saturate(lighten(spin(@color-triad1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-triad1-dark: desaturate(darken(spin(@color-triad1, @color-spin1), @color-step1), @color-step1);
-@color-triad1-extra-dark: desaturate(darken(spin(@color-triad1, @color-spin2), @color-step2), @color-step2);
-
-@color-triad2: spin(@color-base, 90);
-@color-triad2-light: saturate(lighten(spin(@color-triad2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-triad2-extra-light: saturate(lighten(spin(@color-triad2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-triad2-dark: desaturate(darken(spin(@color-triad2, @color-spin1), @color-step1), @color-step1);
-@color-triad2-extra-dark: desaturate(darken(spin(@color-triad2, @color-spin2), @color-step2), @color-step2);
-
-// triad variable defs
-@color-adjacent1: spin(@color-base, (-@color-split-angle));
-@color-adjacent1-light: saturate(lighten(spin(@color-adjacent1, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-adjacent1-extra-light: saturate(lighten(spin(@color-adjacent1, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-adjacent1-dark: desaturate(darken(spin(@color-adjacent1, @color-spin1), @color-step1), @color-step1);
-@color-adjacent1-extra-dark: desaturate(darken(spin(@color-adjacent1, @color-spin2), @color-step2), @color-step2);
-
-@color-adjacent2: spin(@color-base, (@color-split-angle));
-@color-adjacent2-light: saturate(lighten(spin(@color-adjacent2, (-@color-spin1)), (@color-step1/@color-light-divisor)), (@color-step1/@color-light-divisor));
-@color-adjacent2-extra-light: saturate(lighten(spin(@color-adjacent2, (-@color-spin2)), (@color-step2/@color-extra-light-divisor)), (@color-step2/@color-extra-light-divisor));
-@color-adjacent2-dark: desaturate(darken(spin(@color-adjacent2, @color-spin1), @color-step1), @color-step1);
-@color-adjacent2-extra-dark: desaturate(darken(spin(@color-adjacent2, @color-spin2), @color-step2), @color-step2);
+@theme-foreground: "theme-foreground-@{theme-style}";
+@theme-footer-background: "theme-footer-background-@{theme-style}";
+@theme-footer-foreground: "theme-footer-foreground-@{theme-style}";
+@theme-link: "theme-link-@{theme-style}";
+@theme-link-hover: "theme-link-hover-@{theme-style}";
 
 
 body, html
 {
-  //#effortless > #colours > .set(@color-foreground, @color-background);
+    #effortless > #colours > .set(@@theme-foreground, @@theme-background);
+
+    > header
+    {
+        .reverse;
+    }
+
+    > footer
+    {
+        #effortless > #colours > .set(@@theme-footer-foreground, @@theme-footer-background);
+    }
 }
-
-// Base colours
-.bg-base{background-color: @color-base;}
-.bg-base-lt{background-color: @color-base-light;}
-.bg-base-xlt{background-color: @color-base-extra-light;}
-.bg-base-dk{background-color: @color-base-dark;}
-.bg-base-xdk{background-color: @color-base-extra-dark;}
-
-// Greyscale colours
-.bg-grey{background-color: @color-grey;}
-.bg-grey-lt{background-color: @color-grey-light;}
-.bg-grey-xlt{background-color: @color-grey-extra-light;}
-.bg-grey-dk{background-color: @color-grey-dark;}
-.bg-grey-xdk{background-color: @color-grey-extra-dark;}
-
-// Complement colours
-.bg-comp{background-color: @color-complement;}
-.bg-comp-lt{background-color: @color-complement-light;}
-.bg-comp-xlt{background-color: @color-complement-extra-light;}
-.bg-comp-dk{background-color: @color-complement-dark;}
-.bg-comp-xdk{background-color: @color-complement-extra-dark;}
-
-// Split complementary colours
-.bg-sp-comp1{background-color: @color-split-complement1;}
-.bg-sp-comp1-lt{background-color: @color-split-complement1-light;}
-.bg-sp-comp1-xlt{background-color: @color-split-complement1-extra-light;}
-.bg-sp-comp1-dk{background-color: @color-split-complement1-dark;}
-.bg-sp-comp1-xdk{background-color: @color-split-complement1-extra-dark;}
-
-.bg-sp-comp2{background-color: @color-split-complement2;}
-.bg-sp-comp2-lt{background-color: @color-split-complement2-light;}
-.bg-sp-comp2-xlt{background-color: @color-split-complement2-extra-light;}
-.bg-sp-comp2-dk{background-color: @color-split-complement2-dark;}
-.bg-sp-comp2-xdk{background-color: @color-split-complement2-extra-dark;}
-
-// Triad colours
-.bg-triad1{background-color: @color-triad1;}
-.bg-triad1-lt{background-color: @color-triad1-light;}
-.bg-triad1-xlt{background-color: @color-triad1-extra-light;}
-.bg-triad1-dk{background-color: @color-triad1-dark;}
-.bg-triad1-xdk{background-color: @color-triad1-extra-dark;}
-
-.bg-triad2{background-color: @color-triad2;}
-.bg-triad2-lt{background-color: @color-triad2-light;}
-.bg-triad2-xlt{background-color: @color-triad2-extra-light;}
-.bg-triad2-dk{background-color: @color-triad2-dark;}
-.bg-triad2-xdk{background-color: @color-triad2-extra-dark;}
-
-// Adjacent colours
-.bg-adj1{background-color: @color-adjacent1;}
-.bg-adj1-lt{background-color: @color-adjacent1-light;}
-.bg-adj1-xlt{background-color: @color-adjacent1-extra-light;}
-.bg-adj1-dk{background-color: @color-adjacent1-dark;}
-.bg-adj1-xdk{background-color: @color-adjacent1-extra-dark;}
-
-.bg-adj2{background-color: @color-adjacent2;}
-.bg-adj2-lt{background-color: @color-adjacent2-light;}
-.bg-adj2-xlt{background-color: @color-adjacent2-extra-light;}
-.bg-adj2-dk{background-color: @color-adjacent2-dark;}
-.bg-adj2-xdk{background-color: @color-adjacent2-extra-dark;}
-
 
 .reverse
 {
-    #effortless > #colours > .set(@background, @color);
+    #effortless > #colours > .set(@@theme-background, @@theme-foreground);
 
     .reverse
     {
-        #effortless > #colours > .set(@color, @background);
+        #effortless > #colours > .set(@@theme-foreground, @@theme-background);
+    }
+
+    blockquote
+    {
+        border-left: 4px solid @@theme-background;
     }
 }
+
+blockquote
+{
+    border-left: 4px solid @@theme-foreground;
+}
+
+a
+{
+    color: @@theme-link;
+
+    &:hover
+    {
+        color: @@theme-link-hover;
+        text-decoration: none;
+    }
+}
+
+
+// Base colours
+.bg-base(@base: @color-base)
+{
+    background-color: @base;
+    color: contrast(@base, @white, @black);
+}
+
+.bg-base{.bg-base(@color-base);}
+.bg-base-lt{.bg-base(@color-light;)}
+.bg-base-xlt{.bg-base(@color-xlight;)}
+.bg-base-dk{.bg-base(@color-dark;)}
+.bg-base-xdk{.bg-base(@color-xdark;)}
+
+.bg-accent1{.bg-base(@color-accent1-base);}
+.bg-accent1-lt{.bg-base(@color-accent1-light;)}
+.bg-accent1-xlt{.bg-base(@color-accent1-xlight;)}
+.bg-accent1-dk{.bg-base(@color-accent1-dark;)}
+.bg-accent1-xdk{.bg-base(@color-accent1-xdark;)}
+
+.bg-accent2{.bg-base(@color-accent2-base);}
+.bg-accent2-lt{.bg-base(@color-accent2-light;)}
+.bg-accent2-xlt{.bg-base(@color-accent2-xlight;)}
+.bg-accent2-dk{.bg-base(@color-accent2-dark;)}
+.bg-accent2-xdk{.bg-base(@color-accent2-xdark;)}
+
+// Greyscale colours
+.bg-grey-xlt{.bg-base(@color-grey-xlight);}
+.bg-grey-lt{.bg-base(@color-grey-light);}
+.bg-grey{.bg-base(@color-grey);}
+.bg-grey-dk{.bg-base(@color-grey-dark);}
+.bg-grey-xdk{.bg-base(@color-grey-xdark);}
+
+// Black and white
+.bg-white{.bg-base(@color-white);}
+.bg-black{.bg-base(@color-black);}
 
 #effortless
 {

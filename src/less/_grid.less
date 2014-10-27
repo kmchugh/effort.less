@@ -1,51 +1,70 @@
+html, body
+{
+    > header, > section
+    {
+        > span, > section, > div
+        {
+            .grid;
+        }
+    }
+}
 
 .grid
 {
+    .container;
     > *
     {
         #effortless > #grid > .makeRow();
 
-        > span{#effortless > #grid > .makeColumn(12);}
+        > span, > div
+        {
+            //#effortless > #grid > .makeColumn(12);
+            .column;
+        }
     }
 }
 
-// Setup for ensuring grids are simple
-.grid > * > .one, .column.one{#effortless > #grid > .column-1;}
-.grid > * > .two, .column.two{#effortless > #grid > .column-2;}
-.grid > * > .quarter, .grid > * > .three, .column.three, .column.quarter{#effortless > #grid > .column-3;}
-.grid > * > .third, .grid > * > .four, .column.four, .column.third{#effortless > #grid > .column-4;}
-.grid > * > .five, .column.five{#effortless > #grid > .column-5;}
-.grid > * > .half, .grid > * > .six, .column.six, .column.half{#effortless > #grid > .column-6;}
-.grid > * > .seven, .column.seven{#effortless > #grid > .column-7;}
-.grid > * > .two-thirds, .grid > * > .eight, .column.eight, .column.two-thirds{#effortless > #grid > .column-8;}
-.grid > * > .three-quarters, .grid > * > .nine, .column.nine, .column.three-quarters{#effortless > #grid > .column-9;}
-.grid > * > .ten, .column.ten{#effortless > #grid > .column-10;}
-.grid > * > .eleven, .column.eleven{#effortless > #grid > .column-11;}
-.grid > * > .whole, .grid > * > .twelve, .column.twelve, .column.whole{#effortless > #grid > .column-12;}
+.column
+{
+    #effortless > #grid > .column-12;
 
-.grid > * > span.push-one, .column.push-one{#effortless > #grid > .push-1}
-.grid > * > span.push-two, .column.push-two{#effortless > #grid > .push-2}
-.grid > * > span.push-three, .column.push-three{#effortless > #grid > .push-3}
-.grid > * > span.push-four, .column.push-four{#effortless > #grid > .push-4}
-.grid > * > span.push-five, .column.push-five{#effortless > #grid > .push-5}
-.grid > * > span.push-six, .column.push-six{#effortless > #grid > .push-6}
-.grid > * > span.push-seven, .column.push-seven{#effortless > #grid > .push-7}
-.grid > * > span.push-eight, .column.push-eight{#effortless > #grid > .push-8}
-.grid > * > span.push-nine, .column.push-nine{#effortless > #grid > .push-9}
-.grid > * > span.push-ten, .column.push-ten{#effortless > #grid > .push-10}
-.grid > * > span.push-eleven, .column.push-eleven{#effortless > #grid > .push-11}
+    &.one{#effortless > #grid > .column-1;};
+    &.two{#effortless > #grid > .column-2;};
+    &.three, &.quarter{#effortless > #grid > .column-3;};
+    &.four, &.third{#effortless > #grid > .column-4;};
+    &.five{#effortless > #grid > .column-5;};
+    &.six, &.half{#effortless > #grid > .column-6;};
+    &.seven{#effortless > #grid > .column-7;};
+    &.eight, &.two-thirds{#effortless > #grid > .column-8;};
+    &.nine, &.three-quarters{#effortless > #grid > .column-9;};
+    &.ten{#effortless > #grid > .column-10;};
+    &.eleven{#effortless > #grid > .column-11;};
+    &.twelve, &.whole{#effortless > #grid > .column-12;};
 
-.grid > * > span.pull-one, .column.pull-one{#effortless > #grid > .pull-1}
-.grid > * > span.pull-two, .column.pull-two{#effortless > #grid > .pull-2}
-.grid > * > span.pull-three, .column.pull-three{#effortless > #grid > .pull-3}
-.grid > * > span.pull-four, .column.pull-four{#effortless > #grid > .pull-4}
-.grid > * > span.pull-five, .column.pull-five{#effortless > #grid > .pull-5}
-.grid > * > span.pull-six, .column.pull-six{#effortless > #grid > .pull-6}
-.grid > * > span.pull-seven, .column.pull-seven{#effortless > #grid > .pull-7}
-.grid > * > span.pull-eight, .column.pull-eight{#effortless > #grid > .pull-8}
-.grid > * > span.pull-nine, .column.pull-nine{#effortless > #grid > .pull-9}
-.grid > * > span.pull-ten, .column.pull-ten{#effortless > #grid > .pull-10}
-.grid > * > span.pull-eleven, .column.pull-eleven{#effortless > #grid > .pull-11}
+    &.push-one{#effortless > #grid > .push-1;};
+    &.push-two{#effortless > #grid > .push-2;};
+    &.push-three{#effortless > #grid > .push-3;};
+    &.push-four{#effortless > #grid > .push-4;};
+    &.push-five{#effortless > #grid > .push-5;};
+    &.push-six{#effortless > #grid > .push-6;};
+    &.push-seven{#effortless > #grid > .push-7;};
+    &.push-eight{#effortless > #grid > .push-8;};
+    &.push-nine{#effortless > #grid > .push-9;};
+    &.push-ten{#effortless > #grid > .push-10;};
+    &.push-eleven{#effortless > #grid > .push-11;};
+
+    &.pull-one{#effortless > #grid > .pull-1;};
+    &.pull-two{#effortless > #grid > .pull-2;};
+    &.pull-three{#effortless > #grid > .pull-3;};
+    &.pull-four{#effortless > #grid > .pull-4;};
+    &.pull-five{#effortless > #grid > .pull-5;};
+    &.pull-six{#effortless > #grid > .pull-6;};
+    &.pull-seven{#effortless > #grid > .pull-7;};
+    &.pull-eight{#effortless > #grid > .pull-8;};
+    &.pull-nine{#effortless > #grid > .pull-9;};
+    &.pull-ten{#effortless > #grid > .pull-10;};
+    &.pull-eleven{#effortless > #grid > .pull-11;};
+}
 
 #effortless
 {

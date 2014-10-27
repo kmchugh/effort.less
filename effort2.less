@@ -68,93 +68,6 @@
       }
     }
 
-    /**
-    * All dimension type modifiers should be placed within this namespace
-    */
-    #dimension
-    {
-        /**
-        *  Helper for setting the minimum size of an element
-        */
-        .min-size(@minSize)
-        {
-            #effortless > #dimension > .min-size(@minSize, @minSize);
-        }
-
-        /**
-        *  Helper for setting the minimum size of an element
-        */
-        .min-size(@minWidth, @minHeight)
-        {
-            #effortless > #dimension > .min-width(@minWidth);
-            #effortless > #dimension > .min-height(@minHeight);
-        }
-
-        /**
-        * Cross browser rules for setting the minimum width of an element
-        */
-        .min-width(@minWidth : 800)
-        {
-            min-width: ~"@{minWidth}px"; width:~"expression(document.body.clientWidth < @{minWidth} ? '@{minWidth}px': 'auto' )";
-        }
-
-
-        /**
-        * Cross browser rules for setting the minimum height of an element
-        */
-        .min-height(@minHeight : 600)
-        {
-            min-height: ~"@{minHeight}px"; height:~"expression(document.body.clientHeight < @{minHeight} ? '@{minHeight}px': 'auto' )";
-        }
-
-        /**
-        *  Helper for setting the maximum size of an element
-        */
-        .max-size(@maxSize)
-        {
-            #effortless > #dimension > .max-size(@maxSize, @maxSize);
-        }
-
-        /**
-        *  Helper for setting the maximum size of an element
-        */
-        .max-size(@maxWidth, @maxHeight)
-        {
-            #effortless > #dimension > .max-width(@maxWidth);
-            #effortless > #dimension > .max-height(@maxHeight);
-        }
-
-        /**
-        * Cross browser rules for setting the maximum height of an element
-        */
-        .max-height(@maxHeight : 600)
-        {
-            overflow: hidden;
-            max-height: ~"@{maxHeight}px"; height:~"expression(document.body.clientHeight > @{maxHeight} ? '@{maxHeight}px': 'auto' )";
-        }
-
-        /**
-        * Cross browser rules for setting the maximum width of an element
-        */
-        .max-width(@maxWidth : 600)
-        {
-            overflow: hidden;
-            max-width: ~"@{maxWidth}px"; width:~"expression(document.body.clientWidth > @{maxWidth} ? '@{maxWidth}px': 'auto' )";
-        }
-
-        .size(@width, @height)
-        {
-            width: @width;
-            height: @height;
-        }
-
-        .size(@size)
-        {
-            #effortless > #dimension > .size(@size, @size);
-        }
-    }
-
-    
     #transform
     {
         .matrix(@a  :1,  @b  :0, 
@@ -262,14 +175,6 @@
         }
     }
 }
-
-// Helper for centering
-.center{#effortless > #layout > .center();}
-
-
-.more:after{content: "\00A0\000BB";}
-
-@import "default.less";
 
 
 

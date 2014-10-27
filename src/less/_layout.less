@@ -11,5 +11,104 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .center-content-vertical()
+        {
+            text-align: center;
+
+            &:before{
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -0.25em;
+            }
+
+            > *
+            {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        /**
+        *  Helper for setting the minimum size of an element
+        */
+        .min-size(@minSize)
+        {
+            #effortless > #layout > .min-size(@minSize, @minSize);
+        }
+
+        /**
+        *  Helper for setting the minimum size of an element
+        */
+        .min-size(@minWidth, @minHeight)
+        {
+            #effortless > #layout > .min-width(@minWidth);
+            #effortless > #layout > .min-height(@minHeight);
+        }
+
+        /**
+        * Cross browser rules for setting the minimum width of an element
+        */
+        .min-width(@minWidth)
+        {
+            min-width: @minWidth;
+        }
+
+
+        /**
+        * Cross browser rules for setting the minimum height of an element
+        */
+        .min-height(@minHeight)
+        {
+            min-height: @minHeight;
+        }
+
+        /**
+        *  Helper for setting the maximum size of an element
+        */
+        .max-size(@maxSize)
+        {
+            #effortless > #layout > .max-size(@maxSize, @maxSize);
+        }
+
+        /**
+        *  Helper for setting the maximum size of an element
+        */
+        .max-size(@maxWidth, @maxHeight)
+        {
+            #effortless > #layout > .max-width(@maxWidth);
+            #effortless > #layout > .max-height(@maxHeight);
+        }
+
+        /**
+        * Cross browser rules for setting the maximum height of an element
+        */
+        .max-height(@maxHeight : 600)
+        {
+            overflow: hidden;
+            max-height: ~"@{maxHeight}px"; height:~"expression(document.body.clientHeight > @{maxHeight} ? '@{maxHeight}px': 'auto' )";
+        }
+
+        /**
+        * Cross browser rules for setting the maximum width of an element
+        */
+        .max-width(@maxWidth : 600)
+        {
+            overflow: hidden;
+            max-width: ~"@{maxWidth}px"; width:~"expression(document.body.clientWidth > @{maxWidth} ? '@{maxWidth}px': 'auto' )";
+        }
+
+        .size(@width, @height)
+        {
+            width: @width;
+            height: @height;
+        }
+
+        .size(@size)
+        {
+            #effortless > #layout > .size(@size, @size);
+        }
     }
 }

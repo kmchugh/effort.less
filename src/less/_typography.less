@@ -2,14 +2,18 @@
 * Core typographical rules for effort.less
 ***/
 
-@font-base: 3.2em;
-@font-xxlarge: (@font-base * 1);
-@font-xlarge: (@font-base * .75);
-@font-large: (@font-base * .585);
-@font-medium: (@font-base * .5);
-@font-small: (@font-base * .4125);
-@font-xsmall: (@font-base * .375);
-@font-xxsmall: (@font-base * .25);
+// Reset 1em to equal 10px
+@font-size: 62.5%;
+
+@font-xxlarge: 4.8em;
+@font-xlarge: 3.6em;
+@font-large: 2.4em;
+@font-medium: 2.1em;
+@font-small: 1.8em;
+@font-baseline: 1.6em;
+@font-xsmall: 1.4em;
+
+@font-line-height: 1.4em;
 
 .font-emphasis{#effortless > #typography > .font-emphasis}
 
@@ -21,76 +25,75 @@ html
 {
   body
   {
-    @base-font-size: 2.5em;
+    @base-font-size: @font-baseline;
     .font-default;
 
     font-size: @font-size;
-    line-height: 2em;
 
     h1{#effortless > #typography > .font-reset(@font-xxlarge);}
     h2{#effortless > #typography > .font-reset(@font-xlarge);}
     h3{#effortless > #typography > .font-reset(@font-large);}
     h4{#effortless > #typography > .font-reset(@font-medium);}
     h5{#effortless > #typography > .font-reset(@font-small);}
-    h6{#effortless > #typography > .font-reset(@font-xsmall);}
-
-    // Font size of minimum 16px for body copy
-    label, p, b, strong, ul, ol, a, form, pre, span, div
+    h6{#effortless > #typography > .font-reset(@font-baseline);}
+    h1, h2, h3, h4, h5, h6
     {
-      font-size: @base-font-size;
-
-      label, p, b, strong, ul, ol, a, form, pre, span, div
-      {
-        line-height: 1.05em;
-        font-size: 1em;
-      }
+        .font-header;
+        padding: 0em 1.5rem;
     }
 
-    aside, sup, sub, small{font-size: 0.9em;}
+    // Font size of minimum 16px for body copy
+    label, p, b, strong, ul, ol, a, form, pre, span, div, section, header, footer
+    {
+        #effortless > #typography > .font-reset(@font-baseline);
+        line-height: @font-line-height;
+
+        label, p, b, strong, ul, ol, a, form, pre, span, div, section, header, footer
+        {
+            font-size: 1em;
+            line-height: @font-line-height;
+        }
+    }
+
+    aside, sup, sub, small{#effortless > #typography > .font-reset(@font-xsmall);}
 
     strong, b{font-weight: bold;}
+
     em, i
     {
         font-style: italic;
         .font-emphasis;
     }
 
-    p{margin-bottom: @font-medium;}
-
-    h1, h2, h3, h4, h5, h6
+    author
     {
-        .font-header;
-        padding-top: 0px;
-        margin-top: (@font-medium/4);
-        margin-bottom: (@font-medium/2);
+        font-weight: bold;
+        .font-emphasis;
+        font-style:italic;
+        display: block;
     }
 
     label
     {
-        b, strong
+        display: block;
+
+        &.reverse
         {
-            font-size: 1.2em;
+            padding: 0em 1.5rem;
         }
     }
 
-    blockquote
-    {
-        font-style: italic;
-        border-left: 4px solid @color;
-    }
-
-    author
-    {
-        display: block;
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    /*
+    blockquote{margin-bottom: 0px;}
 
     ul{list-style: square outside;}
 
     ol{list-style: decimal outside;}
+
+    ul, ol
+    {
+        margin-bottom: @font-line-height;
+        font-size: 1.6em;
+    }
 
     a
     {
@@ -102,29 +105,6 @@ html
     }
 
     p a{padding: 0;}
-    */
-/*
-
-
-    ul, ol
-    {
-        margin-bottom: 1.875em;
-        margin-left: 4 - @gutterSize * .5px;
-        font-size: 1.6em;
-    }
-
-    li
-    {
-        padding-left: -4 + @gutterSize * .5em;
-
-        > ol, ul
-        {
-            margin-left: 4+ (@gutterSize * .5px) + (((@grid-width - (@gutterSize)) - ( @gutterSize * @grid-columns)) / @grid-columns);
-        }
-    }
-
-    
-    */
   }
 }
 
@@ -153,11 +133,11 @@ html
         /**
         * resets the font size and line height
         **/
-        .font-reset(@size : @font-medium, @base : @font-base)
+        .font-reset(@size : @font-medium)
         {
-          font-size: unit(@size, em);
-          line-height: ((@base/@size) * 1em);
-          margin-bottom: ((@base/@size) * 1em);
+          font-size: unit(@size, rem);
+          line-height: max((@size * .313), @font-line-height);
+          margin-bottom: 0em;
         }
 
         /**

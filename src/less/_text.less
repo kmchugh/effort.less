@@ -7,7 +7,7 @@
         	text-align: center;
         }
 
-        .columns(@columns: 2, @style : none, @colour : @color, @width : 1px, @gap: 2em)
+        .columns(@columns: 2, @style : none, @colour : @@theme-foreground, @width : 1px, @gap: 2em)
         {
 	        -webkit-column-count: @columns;
 	        -webkit-column-gap:@gap;
@@ -25,7 +25,47 @@
 	        -column-rule-width: @width;
 	        -column-rule-color: @colour;
         }
+
+        #shadow
+	    {
+	        .text(@colour : black){#effortless > #text > #shadow > .text(3px, 3px, 5px, @colour);}
+
+	        .text(@x: 3px, @y: 3px, @blur: 5px, @colour){text-shadow: @x @y @blur @colour;}
+
+	        .letterpress(@colour : white, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, @offset, fadeout(@colour, 10));}
+
+	        .hard(@colour: black, @offset : 2px){#effortless > #text > #shadow > .text(@offset, @offset, 0px, @colour);}
+
+	        // TODO: The rules below should be calling the base rule
+	        .double(@colour1 : white, @colour2: black, @offset : 2px)
+	        {
+	            text-shadow: @offset @offset 0px @colour1,
+	                                    @offset*2 @offset*2 0px @colour2;
+	        }
+
+	        .far(@colour : black, @x-offset : 0px, @y-offset : 2px)
+	        {
+	            text-shadow: @x-offset @y-offset 0px @colour,
+	                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  85),
+	                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90),
+	                                    @x-offset*3.5 @y-offset*3.5 @x-offset fadeout(@colour, 90);
+	        }
+
+	        .close(@colour : black, @x-offset : 0px, @y-offset : 2px)
+	        {
+	            text-shadow: @x-offset @y-offset 0px fadeout(@colour,  60),
+	                                    @x-offset*1.5 @y-offset*1.5 @x-offset fadeout(@colour,  90),
+	                                    @x-offset*2.5 @y-offset*2.5 @x-offset fadeout(@colour, 90);
+	        }
+
+	        .glow(@colour: white, @size : 6px){text-shadow: 0px 0px @size @colour, 0px 0px @size @colour;}
+	    }
     }
+}
+
+.text-center
+{
+    text-align: center;
 }
 
 .text-column
