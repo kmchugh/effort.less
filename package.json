@@ -1,0 +1,38 @@
+{
+  "name": "effort.less",
+  "description": "simple less mixins and styles for dynamic and beautiful mobile first sites",
+  "version": "0.14.0",
+  "private": true,
+  "author": "kmchugh",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/kmchugh/effort.less"
+  },
+  "engines" : {
+    "node" : "0.10.x",
+    "npm" : "1.2.x"
+  },
+  "scripts": {
+    "start": "node node_modules/grunt-cli/bin/grunt dev"
+  },
+  "dependencies": {
+    "node-static": "^0.7.5"
+  },
+  "devDependencies": {
+    "matchdep": "latest",
+
+    "bootstrap": "latest",
+
+    "grunt": "^0.4.5",
+
+    "grunt-concurrent": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-connect": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-newer": "^0.7.0"
+  }
+}

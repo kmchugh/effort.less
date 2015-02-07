@@ -1,0 +1,161 @@
+@icatalyst-red:#b60419;
+@white: @color-white;
+@black: @color-black;
+@grey: @color-grey;
+
+@theme-style: light; // or dark
+
+@color-theme: @icatalyst-red;
+@theme-style: light; // or dark
+@color-theme-step: 20;
+@color-accent-step: 90;
+
+
+// Generated colours
+@color-accent1: spin(@color-theme, @color-accent-step);
+@color-accent2: spin(@color-theme, (@color-accent-step * 3));
+
+// Base colours
+@color-base: @color-theme;
+@color-xlight: lighten(@color-base, (@color-theme-step * 2));
+@color-light: lighten(@color-base, (@color-theme-step));
+@color-dark: darken(@color-base, (@color-theme-step /2));
+@color-xdark: darken(@color-base, (@color-theme-step));
+
+// Accent colours
+@color-accent1-base: @color-accent1;
+@color-accent1-xlight: lighten(@color-accent1-base, (@color-theme-step * 2));
+@color-accent1-light: lighten(@color-accent1-base, (@color-theme-step));
+@color-accent1-dark: darken(@color-accent1-base, (@color-theme-step /2));
+@color-accent1-xdark: darken(@color-accent1-base, (@color-theme-step));
+
+@color-accent2-base: @color-accent2;
+@color-accent2-xlight: lighten(@color-accent2-base, (@color-theme-step * 2));
+@color-accent2-light: lighten(@color-accent2-base, (@color-theme-step));
+@color-accent2-dark: darken(@color-accent2-base, (@color-theme-step /2));
+@color-accent2-xdark: darken(@color-accent2-base, (@color-theme-step));
+
+// Greyscales, whites and blacks
+@color-grey: greyscale(@color-base);
+@color-grey-xxlight: lighten(@color-grey, (@color-theme-step * 2.5));
+@color-grey-xlight: lighten(@color-grey, (@color-theme-step * 2));
+@color-grey-light: lighten(@color-grey, (@color-theme-step));
+@color-grey-dark: darken(@color-grey, (@color-theme-step / 2));
+@color-grey-xdark: darken(@color-grey, (@color-theme-step));
+@color-grey-xxdark: darken(@color-grey, (@color-theme-step * 1.25));
+@color-white: @color-grey-xxlight;
+@color-black: @color-grey-xxdark;
+
+
+// Themed variables
+@theme-background-light: @color-grey-xxlight;
+@theme-foreground-light: @color-base;
+@theme-footer-background-light: @color-grey-dark;
+@theme-footer-foreground-light: @color-white;
+@theme-link-light: @color-accent1-base;
+@theme-link-hover-light: @color-accent1-dark;
+
+
+// Theme specific variables
+@theme-background: "theme-background-@{theme-style}";
+@theme-foreground: "theme-foreground-@{theme-style}";
+@theme-footer-background: "theme-footer-background-@{theme-style}";
+@theme-footer-foreground: "theme-footer-foreground-@{theme-style}";
+@theme-link: "theme-link-@{theme-style}";
+@theme-link-hover: "theme-link-hover-@{theme-style}";
+
+
+body, html
+{
+    #effortless > #colours > .set(@@theme-foreground, @@theme-background);
+
+    > header
+    {
+        .reverse;
+    }
+
+    > footer
+    {
+        #effortless > #colours > .set(@@theme-footer-foreground, @@theme-footer-background);
+    }
+}
+
+.reverse
+{
+    #effortless > #colours > .set(@@theme-background, @@theme-foreground);
+
+    .reverse
+    {
+        #effortless > #colours > .set(@@theme-foreground, @@theme-background);
+    }
+
+    blockquote
+    {
+        border-left: 4px solid @@theme-background;
+    }
+}
+
+blockquote
+{
+    border-left: 4px solid @@theme-foreground;
+}
+
+a
+{
+    color: @@theme-link;
+
+    &:hover
+    {
+        color: @@theme-link-hover;
+        text-decoration: none;
+    }
+}
+
+
+// Base colours
+.bg-base(@base: @color-base)
+{
+    background-color: @base;
+    color: contrast(@base, @white, @black);
+}
+
+.bg-base{.bg-base(@color-base);}
+.bg-base-lt{.bg-base(@color-light;)}
+.bg-base-xlt{.bg-base(@color-xlight;)}
+.bg-base-dk{.bg-base(@color-dark;)}
+.bg-base-xdk{.bg-base(@color-xdark;)}
+
+.bg-accent1{.bg-base(@color-accent1-base);}
+.bg-accent1-lt{.bg-base(@color-accent1-light;)}
+.bg-accent1-xlt{.bg-base(@color-accent1-xlight;)}
+.bg-accent1-dk{.bg-base(@color-accent1-dark;)}
+.bg-accent1-xdk{.bg-base(@color-accent1-xdark;)}
+
+.bg-accent2{.bg-base(@color-accent2-base);}
+.bg-accent2-lt{.bg-base(@color-accent2-light;)}
+.bg-accent2-xlt{.bg-base(@color-accent2-xlight;)}
+.bg-accent2-dk{.bg-base(@color-accent2-dark;)}
+.bg-accent2-xdk{.bg-base(@color-accent2-xdark;)}
+
+// Greyscale colours
+.bg-grey-xlt{.bg-base(@color-grey-xlight);}
+.bg-grey-lt{.bg-base(@color-grey-light);}
+.bg-grey{.bg-base(@color-grey);}
+.bg-grey-dk{.bg-base(@color-grey-dark);}
+.bg-grey-xdk{.bg-base(@color-grey-xdark);}
+
+// Black and white
+.bg-white{.bg-base(@color-white);}
+.bg-black{.bg-base(@color-black);}
+
+#effortless
+{
+    #colours
+    {
+        .set(@foreground, @background)
+        {
+            background-color: @background;
+            color: @foreground;
+        }
+    }
+}

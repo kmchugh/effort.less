@@ -1,8 +1,49 @@
-@import "../effort.less";
+@import "../less/effort.less";
+
+.grid
+{
+	> h1
+	{
+		.text-center;
+		.reverse;
+	}
+}
+
+
+.example-default-grid, .example-push-grid, .example-pull-grid
+{
+	> * > *
+	{
+		@base-red: @color-accent1-xdark;
+		@base-green: @color-accent2-xdark;
+
+		&.twelve{.bg-base(lighten(@base-red, 0));}
+		&.eleven{.bg-base(lighten(@base-red, 4));}
+		&.ten{.bg-base(lighten(@base-red, 8));}
+		&.nine{.bg-base(lighten(@base-red, 12));}
+		&.eight{.bg-base(lighten(@base-red, 16));}
+		&.seven{.bg-base(lighten(@base-red, 20));}
+		&.six{.bg-base(lighten(@base-red, 24));}
+		&.five{.bg-base(lighten(@base-red, 28));}
+		&.four{.bg-base(lighten(@base-red, 32));}
+		&.three{.bg-base(lighten(@base-red, 36));}
+		&.two{.bg-base(lighten(@base-red, 40));}
+		&.one{.bg-base(lighten(@base-red, 44));}
+
+		&.whole{.bg-base(lighten(@base-green, 0));}
+		&.three-quarters{.bg-base(lighten(@base-green, 4));}
+		&.two-thirds{.bg-base(lighten(@base-green, 8));}
+		&.half{.bg-base(lighten(@base-green, 12));}
+		&.third{.bg-base(lighten(@base-green, 16));}
+		&.quarter{.bg-base(lighten(@base-green, 20));}
+	}
+}
 
 /**
 * Set up the global grid system, leave the calculated measurements
 **/
+
+/*
 @grid-columns: 12;
 @grid-width: 768;
 @grid-gutter: .03;
@@ -150,4 +191,4 @@ strong
 		}
 	}
 }
-
+*/

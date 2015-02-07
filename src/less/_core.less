@@ -1,0 +1,149 @@
+// No need for normalize.css as it is used by bootstrap
+
+// Use bootstrap as the base (http://getbootstrap.com/css/#less)
+@import '@{path-bootstrap}';
+
+// Font-Awesome for font awesomeness (http://fortawesome.github.io/Font-Awesome/)
+@import "@{path-font-awesome}";
+
+@import "_typography";
+@import "_grid";
+@import "_colours";
+@import "_layout";
+@import "_text";
+@import "_shadow";
+@import "_button";
+
+
+// Make sure we use the full height, this helps to plant the footer
+body, html
+{
+  height: 100%;
+  width: 100%;
+}
+
+
+// Commonly used mixins
+.center
+{
+    #effortless > #layout > .center;
+}
+
+.block
+{
+  display: block;
+}
+
+.more:after{content: "\00A0\000BB";}
+
+*
+{
+    -moz-box-sizing : border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+span{display: inline-block;}  // Fix for firefox
+
+
+#effortless
+{
+	/**
+    * Background related modifiers
+    */
+    #background
+    {
+        .cover(@image)
+        {
+          background-image: url(@image);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+
+        .contain(@image)
+        {
+          background-image: url(@image);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+
+          -webkit-background-size: contain;
+          -moz-background-size: contain;
+          -o-background-size: contain;
+          background-size: contain;
+        }
+
+        /**
+        * Ensures the background area is rounded
+        */
+
+        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+
+        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
+        {
+            #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
+            background-color: @colour;
+        }
+
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
+
+        .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
+        {
+            -webkit-border-radius: @arguments;
+            -moz-border-radius: @arguments;
+            border-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-topLeft(@radius : @corner-radius)
+        {
+            -webkit-border-top-left-radius: @arguments;
+            -moz-border-top-left-radius: @arguments;
+            border-top-left-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-bottomLeft(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-left-radius: @arguments;
+            -moz-border-bottom-left-radius: @arguments;
+            border-bottom-left-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-topRight(@radius : @corner-radius)
+        {
+            -webkit-border-top-right-radius: @arguments;
+            -moz-border-top-right-radius: @arguments;
+            border-top-right-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-bottomRight(@radius : @corner-radius)
+        {
+            -webkit-border-bottom-right-radius: @arguments;
+            -moz-border-bottom-right-radius: @arguments;
+            border-bottom-right-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        
+    }
+}
+

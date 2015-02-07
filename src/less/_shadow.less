@@ -1,0 +1,178 @@
+#effortless
+{
+    #shadow
+    {
+        .shadow(@values)
+        {
+            -webkit-box-shadow : @values;
+            -moz-box-shadow : @values;
+            box-shadow : @values;
+        }
+
+        .shadow(@x, @y, @blur, @spread, @colour)
+        {
+            #effortless > #shadow > .drop(@x, @y, @blur, @spread, @colour);
+        }
+
+        .shadow(@x, @y, @blur, @spread, @colour, @inset)
+        {
+            #effortless > #shadow > .inner(@x, @y, @blur, @spread, @colour);
+        }
+
+        .drop(@colour : @black)
+        {
+            #effortless > #shadow > .drop(3px, 3px, 5px, 5px, @colour);
+        }
+
+        .drop(@x: 3px, @y: 3px, @blur: 5px, @spread : 5px, @colour)
+        {
+            -webkit-box-shadow: @x @y @blur @colour;
+            -moz-box-shadow: @x @y @blur @colour;
+            box-shadow: @x @y @blur @colour;
+
+            // TODO: Calculate angle from 0, 0 -> x, y;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* IE 8 */
+            filter: ~"progid:DXImageTransform.Microsoft.Shadow(Strength=@{blur}, Direction=135, Color='@{colour}')";/* For IE 5.5 - 7 */
+        }
+
+        .reset()
+        {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            -ms-filter: none;
+            filter: none;
+        }
+
+        .glow(@colour : white, @blur : 5px)
+        {
+            #effortless > #shadow > .drop(0, 0, @blur, 5px, @colour);
+        }
+
+        .inner(@colour : black)
+        {
+            #effortless > #shadow > .inner(2px, 2px, 3px, 3px, @colour);
+        }
+
+        .inner(@x, @y, @blur, @spread, @colour)
+        {
+            -webkit-box-shadow: inset @x @y @blur @spread @colour;
+            -moz-box-shadow: inset @x @y @blur @spread @colour;
+            box-shadow: inset @x @y @blur @spread @colour;
+        }
+    }
+
+    // TODO: Add support for multi value radii
+    #gradient
+    {
+        // TODO: implment 3 colour gradients
+        /**
+        * Applies a cross browser gradient to the element, ie falls back to using a filter
+        * current valid values for direction are horizontal, vertical, or the degrees, e.g. 45deg
+        */
+        // 2 colour
+        .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo)
+        {
+            background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%)"; /* FF3.6+ */
+            background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}))"; /* Chrome,Safari4+ */
+            background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Chrome10+,Safari5.1+ */
+            background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* Opera 11.10+ */
+            background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* IE10+ */
+            background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%)"; /* W3C */
+            filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourTwo}',GradientType=0 )"; /* IE6-8 */
+        }
+        // 4 colour
+        .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour)
+        {
+            // TODO : Add parsing for horizontal reverse, and vertical reverse
+            background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%)"; /* FF3.6+ */
+            background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}))"; /* Chrome,Safari4+ */
+            background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Chrome10+,Safari5.1+ */
+            background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* Opera 11.10+ */
+            background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* IE10+ */
+            background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%)"; /* W3C */
+            filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFour}',GradientType=0 )"; /* IE6-8 */
+        }
+        // 5 colour
+        .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive)
+        {
+            // TODO : Add parsing for horizontal reverse, and vertical reverse
+            background: ~"-moz-linear-gradient(center @{direction}, @{colourOne} @{percentOne}%, @{colourTwo} @{percentTwo}%, @{colourThree} @{percentThree}%, @{colourFour} @{percentFour}%, @{colourFive} @{percentFive}%)"; /* FF3.6+ */
+            background: ~"-webkit-gradient(linear, left top, left bottom, color-stop(@{percentOne}%,@{colourOne}), color-stop(@{percentTwo}%,@{colourTwo}), color-stop(@{percentThree}%,@{colourThree}), color-stop(@{percentFour}%,@{colourFour}), color-stop(@{percentFive}%,@{colourFive}))"; /* Chrome,Safari4+ */
+            background: ~"-webkit-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Chrome10+,Safari5.1+ */
+            background: ~"-o-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* Opera 11.10+ */
+            background: ~"-ms-linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* IE10+ */
+            background: ~"linear-gradient(@{direction}, @{colourOne} @{percentOne}%,@{colourTwo} @{percentTwo}%,@{colourThree} @{percentThree}%,@{colourFour} @{percentFour}%,@{colourFive} @{percentFive}%)"; /* W3C */
+            filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{colourOne}', endColorstr='@{colourFive}',GradientType=0 )"; /* IE6-8 */
+        }
+        // 2 colour
+        .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo);
+        }
+        .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo);
+        }
+
+        // 4 colour
+        .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(top, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+        }
+        .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(left, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+        }
+        .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour);
+        }
+        // 5 colour
+        .gradient(horizontal, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(horizontal, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+        }
+        .gradient(vertical, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(vertical, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+        }
+        .gradient(@direction, @baseColour, @colourOne, @percentOne, @colourTwo, @percentTwo, @colourThree, @percentThree, @colourFour, @percentFour, @colourFive, @percentFive)
+        {
+            background-color: @baseColour;
+            #effortless > #gradient > .standardArgs(@direction, @colourOne, @percentOne, @colourTwo, @percentTwo,@colourThree, @percentThree,@colourFour, @percentFour,@colourFive, @percentFive);
+        }
+
+        .pipe(@baseColour : #000000, @basePercent : 50, @modifier : 2, @direction : horizontal)
+        {
+            // TODO: Automate image Generation of pipe gradient
+            #effortless > #gradient > .gradient(@direction, @baseColour,
+                                    lighten(desaturate(@baseColour, 60%), 40%), 0,
+                                    lighten(desaturate(@baseColour, 40%), 15%), @basePercent / @modifier,
+                                    @baseColour, @basePercent,
+                                    lighten(desaturate(@baseColour, 30%), 10%), 100 - (@basePercent / @modifier),
+                                    lighten(desaturate(@baseColour, 50%), 30%), 100);
+        }
+        .fade(@topColour: #ffffff, @bottomColour: #000000, @direction : horizontal, @topPercent : 0, @bottomPercent : 100)
+        {
+            #effortless > #gradient > .gradient(@direction, @topColour,
+                                    @topColour, @topPercent, @bottomColour, @bottomPercent);
+        }
+
+        .gloss(@colour: #000000, @position: 50, @direction : horizontal)
+        {
+            #effortless > #gradient > .gradient(@direction, @colour,
+                                    darken(@colour, 7.5), 0,
+                                    @colour, @position,
+                                    darken(@colour, 17.5), @position,
+                                    @colour, 100);
+        }
+    }
+}
