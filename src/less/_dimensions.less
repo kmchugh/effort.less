@@ -1,0 +1,36 @@
+// Size of a thumb for touch screen
+@thumbSize: 5rem;
+
+
+/******************************************
+* Media query settings
+*******************************************/
+@break-xxs-max: @mobileMax;
+
+@break-xs-min: @break-xxs-max+1;
+@break-xs-max: @mobileLandscapeMax;
+
+@break-sm-min: @break-xs-max+1;
+@break-sm-max: @mobileMax;
+
+@break-md-min: @break-sm-max+1;
+@break-md-max: @desktopMax;
+
+@break-lg-min: @break-md-max+1;
+@break-lg-max: @ultraMax;
+
+@mq-highdensity:    ~"only screen and (-webkit-min-device-pixel-ratio: 1.5)",
+                                 ~"only screen and (min--moz-device-pixel-ratio: 1.5)",
+                                 ~"only screen and (-o-min-device-pixel-ratio: 3/2)",
+                                 ~"only screen and (min-device-pixel-ratio: 1.5)";
+@mq-mobile: ~"only screen and (max-width: @{break-xxs-max})";
+@mq-landscape: ~"only screen and (min-width: @{break-xs-min} ) and (max-width: @{break-xs-max})";
+@mq-tablet: ~"only screen and (min-width: @{break-sm-min} ) and (max-width: @{break-sm-max})";
+@mq-desktop: ~"only screen and (min-width: @{break-md-min} ) and (max-width: @{break-md-max})";
+@mq-ultra: ~"only screen and (min-width: @{break-lg-min} )";
+
+/******************************************
+* Padding and margin settings
+*******************************************/
+@vPadding: 1rem;
+@hPadding: 1.5rem;

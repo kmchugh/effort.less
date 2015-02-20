@@ -1,0 +1,28 @@
+// Horizontal Navbar
+
+//- creates a horizontal navbar
+    homeURL - the url to use for the home link
+mixin horizontalNavbar(homeURL, logoImage, appName)
+    - homeURL = homeURL || '/';
+    - logoImage = logoImage || '/images/logo.png';
+    header.navbar
+        .container
+            a.navbar-brand(href="#{homeURL}")
+                img.logo(src="#{logoImage}", alt="home")
+                span #{appName}
+
+            .clearfix
+                + toggleButton('Toggle Navigation', '.navbar-sidebar-collapse')
+
+                block
+                
+mixin horizontalNavSection()
+    .nav-no-collapse.navbar-left(class!=attributes.class)
+
+
+mixin toggleButton(target, srText)
+    - srText = srText || 'Toggle Navigation';
+    button.navbar-toggle(data-target="#{target}", data-toggle="collapse", type="button")
+        .span.sr-only #{srText}
+        .span.fa.fa-bars
+

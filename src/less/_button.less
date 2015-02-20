@@ -1,6 +1,3 @@
-@corner-radius: (@thumbsize / 2);
-@thumbsize: 50px;
-
 /**
  * Default button styles and shortcuts
  */
@@ -10,37 +7,19 @@
     {
         .default(@color : @@theme-background, @text : @@theme-foreground)
         {
-            @highlight : lighten(@color, 30);
-            @dark : darken(@color, 10);
-            @shadow : darken(@color, 30);
-            #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
-            #effortless > #text > #shadow > .hard(darken(@text, 50), .5px);
-
             vertical-align: middle;
-            #effortless > #layout > .min-size(@thumbsize);
             text-decoration: none;
-            padding : 0 1.5em;
-            line-height: @thumbsize;
+            cursor: pointer;
             text-align: center;
             font-weight: bold;
             border: none;
-
             background: @color;
             color: @text;
+            padding: 0 @hPadding;
 
-            &:hover, &:active, &:focus
-            {
-                text-decoration: none;
-            }
+            &:hover, &:active, &:focus{text-decoration: none;}
 
-            &:hover
-            {
-               color: lighten(@text, 10);
-               @highlight : lighten(@color, 50);
-               @dark : darken(@color, 5);
-               @shadow : darken(@color, 15);
-               #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
-            }
+            &:hover{color: lighten(@text, 10);}
 
             &:focus
             {
@@ -48,19 +27,32 @@
                 color: @text;
             }
 
-            &:active
-            {
-                #effortless > #text > #shadow > .hard(@text, .5px);
-                color: darken(@color, 50);
-                @highlight : darken(@color, 30);
-                @dark : lighten(@color, 10);
-                @shadow : lighten(@color, 30);
-                #effortless > #shadow > .shadow(~"inset 0px 1px 3px @{highlight}, inset 0px -5px 15px @{dark}, 0px 1px 1px @{shadow}");
-            }
+            &:active{color: darken(@color, 50);}
 
             &:visited{color: darken(@text, 90);}
-
         }
+
+        .reverse(@color : @@theme-header-background, @text : @@theme-header-foreground)
+        {
+            #effortless > #button > .default(@color, @text);
+            
+            &:hover
+            {
+                background: @text;
+                color: @color;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         .gloss(@color : @@theme-background, @text : @@theme-foreground)
         {
@@ -138,7 +130,7 @@
                 }
         }
 
-        .split(@color : @@theme-background, @text : @@theme-foreground, @leftRadius: @corner-radius,  @content: ">")
+        .split(@color : @@theme-background, @text : @@theme-foreground, @leftRadius: 50%,  @content: ">")
         {
             @lightColor : lighten(@color, 5);
             @dark : darken(@color, 15);
@@ -200,7 +192,6 @@
 
 button, .button
 {
-	margin: .25em;
     #effortless > #button > .default(@@theme-background, @@theme-foreground);
 
     &.rounded

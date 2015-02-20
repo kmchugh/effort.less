@@ -1,0 +1,99 @@
+#effortless
+{
+    /**
+    * Background related modifiers
+    */
+    #background
+    {
+        .cover(@image)
+        {
+          background-image: url(@image);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+
+        .contain(@image)
+        {
+          background-image: url(@image);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+
+          -webkit-background-size: contain;
+          -moz-background-size: contain;
+          -o-background-size: contain;
+          background-size: contain;
+        }
+
+        /**
+        * Ensures the background area is rounded
+        */
+
+        .rounded(@radius : 10%){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+
+        .rounded(@colour, @radius: 10%) when (iscolor(@colour))
+        {
+            #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
+            background-color: @colour;
+        }
+
+        .rounded(@left, @right){#effortless > #background > .rounded(@left, @right, @right, @left);}
+
+        .rounded(@topLeft, @topRight, @bottomRight, @bottomLeft)
+        {
+            -webkit-border-radius: @arguments;
+            -moz-border-radius: @arguments;
+            border-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-topLeft(@radius : 10%)
+        {
+            -webkit-border-top-left-radius: @arguments;
+            -moz-border-top-left-radius: @arguments;
+            border-top-left-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-bottomLeft(@radius : 10%)
+        {
+            -webkit-border-bottom-left-radius: @arguments;
+            -moz-border-bottom-left-radius: @arguments;
+            border-bottom-left-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-topRight(@radius : 10%)
+        {
+            -webkit-border-top-right-radius: @arguments;
+            -moz-border-top-right-radius: @arguments;
+            border-top-right-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .rounded-bottomRight(@radius : 10%)
+        {
+            -webkit-border-bottom-right-radius: @arguments;
+            -moz-border-bottom-right-radius: @arguments;
+            border-bottom-right-radius: @arguments;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+    }
+}
+

@@ -1,19 +1,22 @@
-/**
- * Declaration of all common variables
- */
+// No need for normalize.css as it is used by bootstrap
+@import "_variables";
 
-// Paths to libraries
-@path-font-awesome: '../libs/font-awesome-4.2.0/less/font-awesome';
-@path-bootstrap: '../../node_modules/bootstrap/less/bootstrap';
+// Use bootstrap as the base (http://getbootstrap.com/css/#less)
+@import '@{path-bootstrap}';
 
-@grid-width: 768;
+// Font-Awesome for font awesomeness (http://fortawesome.github.io/Font-Awesome/)
+@import "@{path-font-awesome}";
 
-@font-family-default: Geneva, Tahoma, Verdana, sans-serif;
-@font-family-emphasis: 'RomantiquesRegular', Georgia, Times, "Times New Roman", serif;
-@font-family-header: Tahoma, Verdana, Segoe, sans-serif;
+@import "_typography";
+@import "_layout";
+@import "_text";
+@import "_shadow";
+@import "_background";
+@import "_dimensions";
+
+@import "_grid";
+@import "_colours";
+@import "_button";
+@import "_animation";
 
 
-
-@color-split-angle: 30;
-
-@import "_core.less";

@@ -1,0 +1,26 @@
+doctype html
+// if lt IE 7
+  <html class='no-js lt-ie9 lt-ie8 lt-ie7' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:fb='https://www.facebook.com/2008/fbml' itemscope='itemscope' itemtype='http://schema.org/Product'>
+// if IE 7
+  <html class='no-js lt-ie9 lt-ie8' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:fb='https://www.facebook.com/2008/fbml' itemscope='itemscope' itemtype='http://schema.org/Product'>
+// if IE 8
+  <html class='no-js lt-ie9' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:fb='https://www.facebook.com/2008/fbml' itemscope='itemscope' itemtype='http://schema.org/Product'>
+<!--[if gt IE 8]><!-->
+
+//- Declare the variables required for the templaets
+block vars
+  - var angularApp = false
+  - var appTitle = Default Title
+
+- var attributes = {lang: 'en', xmlns: 'http://www.w3.org/1999/xhtml', 'xmlns:fb': 'https://www.facebook.com/2008/fbml', 'itemscope': 'itemscope', 'itemtype' : 'http://schema.org/Product'};
+- if (angularApp) {attributes['ng-app'] = angularApp;}
+
+
+html.no-js&attributes(attributes)
+  include ../includes/_head
+
+  body&attributes(bodyAttributes)
+    block content
+      include ../effort.less/defaultContent
+ 
+    include ../includes/_foot

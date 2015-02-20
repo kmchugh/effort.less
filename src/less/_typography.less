@@ -5,110 +5,91 @@
 // Reset 1em to equal 10px
 @font-size: 62.5%;
 
-@font-xxlarge: 4.8em;
-@font-xlarge: 3.6em;
-@font-large: 2.4em;
-@font-medium: 2.1em;
-@font-small: 1.8em;
-@font-baseline: 1.6em;
-@font-xsmall: 1.4em;
+@font-xxlarge: 4.8rem;
+@font-xlarge: 3.6rem;
+@font-large: 2.4rem;
+@font-medium: 2.1rem;
+@font-small: 1.8rem;
+@font-baseline: 1.6rem;
+@font-xsmall: 1.4rem;
+@font-xxsmall: 1.2rem;
 
 @font-line-height: 1.4em;
 
 .font-emphasis{#effortless > #typography > .font-emphasis}
-
 .font-default{#effortless > #typography > .font-default}
-
 .font-header{#effortless > #typography > .font-header}
 
 html
 {
-  body
-  {
-    @base-font-size: @font-baseline;
     .font-default;
-
     font-size: @font-size;
-
-    h1{#effortless > #typography > .font-reset(@font-xxlarge);}
-    h2{#effortless > #typography > .font-reset(@font-xlarge);}
-    h3{#effortless > #typography > .font-reset(@font-large);}
-    h4{#effortless > #typography > .font-reset(@font-medium);}
-    h5{#effortless > #typography > .font-reset(@font-small);}
-    h6{#effortless > #typography > .font-reset(@font-baseline);}
-    h1, h2, h3, h4, h5, h6
-    {
-        .font-header;
-        padding: 0em 1.5rem;
-    }
-
-    // Font size of minimum 16px for body copy
-    label, p, b, strong, ul, ol, a, form, pre, span, div, section, header, footer
-    {
-        #effortless > #typography > .font-reset(@font-baseline);
-        line-height: @font-line-height;
-
-        label, p, b, strong, ul, ol, a, form, pre, span, div, section, header, footer
-        {
-            font-size: 1em;
-            line-height: @font-line-height;
-        }
-    }
-
-    aside, sup, sub, small{#effortless > #typography > .font-reset(@font-xsmall);}
-
-    strong, b{font-weight: bold;}
-
-    em, i
-    {
-        font-style: italic;
-        .font-emphasis;
-    }
-
-    author
-    {
-        font-weight: bold;
-        .font-emphasis;
-        font-style:italic;
-        display: block;
-    }
-
-    label
-    {
-        display: block;
-
-        &.reverse
-        {
-            padding: 0em 1.5rem;
-        }
-    }
-
-    blockquote{margin-bottom: 0px;}
-
-    ul{list-style: square outside;}
-
-    ol{list-style: decimal outside;}
-
-    ul, ol
-    {
-        margin-bottom: @font-line-height;
-        font-size: 1.6em;
-    }
-
-    a
-    {
-      cursor: pointer;
-      display: inline-block;
-      padding: .25em .5em;
-
-      > *{cursor: pointer;}
-    }
-
-    p a{padding: 0;}
-  }
 }
 
+/**
+* Prepare the header sizes
+**/
+h1{#effortless > #typography > .font-reset(@font-xxlarge);}
+h2{#effortless > #typography > .font-reset(@font-xlarge);}
+h3{#effortless > #typography > .font-reset(@font-large);}
+h4{#effortless > #typography > .font-reset(@font-medium);}
+h5{#effortless > #typography > .font-reset(@font-small);}
+h6{#effortless > #typography > .font-reset(@font-baseline);}
 
+// Font size of minimum 16px for body copy
+label, p, b, strong, ul, ol, a, form, pre, span, div, section, header, footer
+{
+    #effortless > #typography > .font-reset(@font-baseline);
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    .font-header;
+    padding: 0em 1.5rem;
+ 
+    *
+    {
+        font-size: 1em;
+    }
+}
+
+aside, sup, sub, small{#effortless > #typography > .font-reset(@font-xsmall);}
+
+strong, b{font-weight: bold;}
+
+em, i{.font-emphasis;}
+
+author
+{
+    font-weight: bold;
+    .font-emphasis;
+    display: block;
+}
+
+label{display: block;}
+
+blockquote{margin-bottom: 0px;}
+
+ul{list-style: square outside;}
+
+ol{list-style: decimal outside;}
+
+ul, ol
+{
+    margin-bottom: @font-line-height;
+    font-size: @font-baseline;
+}
+
+a
+{
+    cursor: pointer;
+    display: inline-block;
+    padding: .25em .5em;
+
+    > *{cursor: pointer;}
+}
+
+p a{padding: 0;}
 
 
 /***
@@ -136,8 +117,7 @@ html
         .font-reset(@size : @font-medium)
         {
           font-size: unit(@size, rem);
-          line-height: max((@size * .313), @font-line-height);
-          margin-bottom: 0em;
+          line-height: max(unit((@size * .313), em), @font-line-height);
         }
 
         /**
@@ -156,6 +136,7 @@ html
         {
           font-family: @font-family-emphasis;
           #effortless > #typography > .antialiased;
+          font-style: italic;
         }
 
         /**
