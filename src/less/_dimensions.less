@@ -19,11 +19,15 @@
 @break-lg-min: @break-md-max+1;
 @break-lg-max: @ultraMax;
 
-@mq-mobile: ~"(max-width: @{break-xxs-max})";
-@mq-landscape: ~"(min-width: @{break-xs-min} ) and (max-width: @{break-xs-max})";
-@mq-tablet: ~"(min-width: @{break-sm-min} ) and (max-width: @{break-sm-max})";
-@mq-desktop: ~"(min-width: @{break-md-min} ) and (max-width: @{break-md-max})";
-@mq-ultra: ~"(min-width: @{break-lg-min} )";
+@mq-highdensity:    ~"only screen and (-webkit-min-device-pixel-ratio: 1.5)",
+                                 ~"only screen and (min--moz-device-pixel-ratio: 1.5)",
+                                 ~"only screen and (-o-min-device-pixel-ratio: 3/2)",
+                                 ~"only screen and (min-device-pixel-ratio: 1.5)";
+@mq-mobile: ~"only screen and (max-width: @{break-xxs-max})";
+@mq-landscape: ~"only screen and (min-width: @{break-xs-min} ) and (max-width: @{break-xs-max})";
+@mq-tablet: ~"only screen and (min-width: @{break-sm-min} ) and (max-width: @{break-sm-max})";
+@mq-desktop: ~"only screen and (min-width: @{break-md-min} ) and (max-width: @{break-md-max})";
+@mq-ultra: ~"only screen and (min-width: @{break-lg-min} )";
 
 /******************************************
 * Padding and margin settings
