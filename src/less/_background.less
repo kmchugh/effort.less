@@ -1,55 +1,6 @@
-// No need for normalize.css as it is used by bootstrap
-
-// Use bootstrap as the base (http://getbootstrap.com/css/#less)
-@import '@{path-bootstrap}';
-
-// Font-Awesome for font awesomeness (http://fortawesome.github.io/Font-Awesome/)
-@import "@{path-font-awesome}";
-
-@import "_typography";
-@import "_grid";
-@import "_colours";
-@import "_layout";
-@import "_text";
-@import "_shadow";
-@import "_button";
-@import "_animation";
-
-
-// Make sure we use the full height, this helps to plant the footer
-body, html
-{
-  height: 100%;
-  width: 100%;
-}
-
-
-// Commonly used mixins
-.center
-{
-    #effortless > #layout > .center;
-}
-
-.block
-{
-  display: block;
-}
-
-.more:after{content: "\00A0\000BB";}
-
-*
-{
-    -moz-box-sizing : border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-span{display: inline-block;}  // Fix for firefox
-
-
 #effortless
 {
-	/**
+    /**
     * Background related modifiers
     */
     #background
