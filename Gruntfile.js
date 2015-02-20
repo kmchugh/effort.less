@@ -6,20 +6,23 @@ module.exports = function(grunt) {
     // All roots should be configured here
     paths.roots = {
         // Where the source less files are stored
-        styles: './src/less/',
+        styles: 'src/less/',
         // Where we will place the intermediate build files
-        build: './build/',
+        build: 'build/',
         // Where we will store the html,js for test pages
-        test: './src/test/',
+        test: 'src/test/',
         // Where we will place the final distribution files
-        dist: './dist/'
+        dist: 'dist/'
     };
+
+    var livereloadPort = 35730;
+
 //    paths.roots.views = paths.roots.app + 'Offline/';
 
     // Distribution paths
     paths.dist = {
-        less: paths.roots.dist + 'styles/less/',
-        css: paths.roots.dist + 'styles/css/',
+        less: paths.roots.dist + 'less/',
+        css: paths.roots.dist + 'css/',
         resources: paths.roots.dist + 'resources'
     };
 
@@ -38,7 +41,7 @@ module.exports = function(grunt) {
                 files: [paths.roots.styles + '{,*/}*.less'],
                 tasks: ['clean:styles', 'less'],
                 options: {
-                    livereload: true
+                    livereload: livereloadPort
                 }
             },
             // Changes to any of the test files should also update
@@ -46,7 +49,7 @@ module.exports = function(grunt) {
                 files: [paths.roots.test + '{,*/}*.*'],
                 tasks: ['clean', 'build'],
                 options: {
-                    livereload: true
+                    livereload: livereloadPort
                 }
             }
 
@@ -59,7 +62,7 @@ module.exports = function(grunt) {
                         target: 'http://localhost:8000/index.html'
                     },
                     base: paths.roots.build,
-                    livereload: true
+                    livereload: livereloadPort
                 }
             }
         },
@@ -118,14 +121,22 @@ module.exports = function(grunt) {
                     // Copy the test files to the build folder
                     {
                         expand: true,
-                        src: [paths.roots.test + '*.html'],
+                        cwd: paths.roots.test,
+                        src: ['*.html'],
                         dest: paths.roots.build,
                         flatten: true
                     },
                     {
                         expand: true,
-                        src: [paths.roots.styles],
-                        dest: './dist/'
+                        cwd: paths.roots.styles,
+                        src: ['*.less'],
+                        dest: paths.dist.less,
+                    },
+                    {
+                        expand: true,
+                        cwd: paths.build.css,
+                        src: ['effort.less.css'],
+                        dest: paths.dist.css,
                     }
                 ]
             }
@@ -140,6 +151,9 @@ module.exports = function(grunt) {
 
     // Build task
     grunt.registerTask('build', ['newer:imagemin:dist', 'newer:less', 'newer:copy']);
+
+    // Build task
+    grunt.registerTask('dist', ['clean', 'build', 'uglify', 'copy']);
 
     // Default task
     grunt.registerTask('default', ['build']);

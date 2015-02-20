@@ -85,19 +85,21 @@
         /**
         * Cross browser rules for setting the maximum height of an element
         */
-        .max-height(@maxHeight : 600)
+        .max-height(@maxHeight : 600px)
         {
             overflow: hidden;
-            max-height: ~"@{maxHeight}px"; height:~"expression(document.body.clientHeight > @{maxHeight} ? '@{maxHeight}px': 'auto' )";
+            @unitless : unit(@maxHeight);
+            max-height: ~"@{maxHeight}"; height:~"expression(document.body.clientHeight > @{unitless} ? '@{maxHeight}': 'auto' )";
         }
 
         /**
         * Cross browser rules for setting the maximum width of an element
         */
-        .max-width(@maxWidth : 600)
+        .max-width(@maxWidth : 600px)
         {
             overflow: hidden;
-            max-width: ~"@{maxWidth}px"; width:~"expression(document.body.clientWidth > @{maxWidth} ? '@{maxWidth}px': 'auto' )";
+            @unitless : unit(@maxHeight);
+            max-width: ~"@{maxWidth}"; height:~"expression(document.body.clientWidth > @{unitless} ? '@{maxWidth}': 'auto' )";
         }
 
         .size(@width, @height)
