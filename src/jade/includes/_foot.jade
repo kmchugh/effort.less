@@ -1,0 +1,20 @@
+
+block scripts
+    //- remove the no-js from the document
+    script(type='text/javascript') document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+
+    script(type="text/javascript", src="../scripts/jquery.js")
+    script(type="text/javascript", src="../scripts/modernizr.js")
+    script(type="text/javascript", src="../scripts/bootstrap.js")
+
+    if (angularApp)
+        //- include angular scripts
+        script(type="text/javascript", src="../scripts/angular.js")
+        script(type="text/javascript", src="../scripts/angular-resource.js")
+        script(type="text/javascript", src="../scripts/angular-ui-router.js")
+        script(type="text/javascript", src="../scripts/angular-animate.js")
+        script(type="text/javascript", src="../scripts/ui-bootstrap.js")
+
+
+    
+

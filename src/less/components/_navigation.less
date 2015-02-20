@@ -1,0 +1,58 @@
+
+
+
+header.navbar
+{
+    background: @@theme-header-background;
+    border: 0 none;
+    #effortless > #background > .rounded(0);
+    margin: 0;
+    min-height: @thumbSize;
+    color: @@theme-header-foreground;
+    #effortless > #shadow > .drop(0px, 1px, 3px, 0px, fadeout(@@theme-header-background, 80%));
+
+    .container
+    {
+        max-width: 1920px;
+        width: 100%;
+    }
+
+    .navbar-brand
+    {
+        padding: @vPadding @hPadding;
+        width: (@thumbSize * 4.25);
+        background: yellow;
+
+        > img
+        {
+            display: inline-block;
+            height: 3rem;
+            line-height: 3rem;
+            
+        }
+
+        > span
+        {
+            margin-left: @hPadding;
+        }
+    }
+
+    .clearfix
+    {
+        .navbar-toggle
+        {
+            #effortless > #button > .reverse();
+            #effortless > #background > .rounded(0);
+            margin: 0;
+            padding: 0;
+            min-width: @thumbSize; 
+            height: @thumbSize;
+            line-height: @thumbSize;
+        }
+
+        .nav-no-collapse
+        {
+            background: purple;
+        }
+    }
+}

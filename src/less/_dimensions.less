@@ -1,0 +1,32 @@
+// Size of a thumb for touch screen
+@thumbSize: 5rem;
+
+
+/******************************************
+* Media query settings
+*******************************************/
+@break-xxs-max: @mobileMax;
+
+@break-xs-min: @break-xxs-max+1;
+@break-xs-max: @mobileLandscapeMax;
+
+@break-sm-min: @break-xs-max+1;
+@break-sm-max: @mobileMax;
+
+@break-md-min: @break-sm-max+1;
+@break-md-max: @desktopMax;
+
+@break-lg-min: @break-md-max+1;
+@break-lg-max: @ultraMax;
+
+@mq-mobile: ~"(max-width: @{break-xxs-max})";
+@mq-landscape: ~"(min-width: @{break-xs-min} ) and (max-width: @{break-xs-max})";
+@mq-tablet: ~"(min-width: @{break-sm-min} ) and (max-width: @{break-sm-max})";
+@mq-desktop: ~"(min-width: @{break-md-min} ) and (max-width: @{break-md-max})";
+@mq-ultra: ~"(min-width: @{break-lg-min} )";
+
+/******************************************
+* Padding and margin settings
+*******************************************/
+@vPadding: 1rem;
+@hPadding: 1.5rem;

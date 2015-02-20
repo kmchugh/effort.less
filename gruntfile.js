@@ -14,13 +14,15 @@ module.exports = function(grunt) {
         // Where we will place the final distribution files
         dist: 'dist/',
         // The library files
-        libs: 'src/libs/',
+        libs: 'bower_components/',
         // The script files
         scripts: 'src/scripts/',
         // The script files
         resources: 'src/resources/',
         // The node modules
-        nodeModules: 'node_modules/'
+        nodeModules: 'node_modules/',
+        // Jade source
+        jade: 'src/jade/'
     };
 
     var livereloadPort = 35730;
@@ -34,6 +36,7 @@ module.exports = function(grunt) {
         resources: paths.roots.dist + 'resources/',
         fonts: paths.roots.dist + 'fonts/',
         scripts: paths.roots.dist + 'scripts/',
+        jade: paths.roots.dist + 'jade/',
     };
 
     // Build paths
@@ -42,6 +45,7 @@ module.exports = function(grunt) {
         fonts: paths.roots.build + 'fonts/',
         scripts: paths.roots.build + 'scripts/',
         resources: paths.roots.build + 'resources/',
+        jade: paths.roots.build + 'jade/',
     };
 
     grunt.initConfig({
@@ -52,7 +56,7 @@ module.exports = function(grunt) {
             // Recompile the .css if there are any changes to any of the .less files
             styles: {
                 files: [paths.roots.styles + '{,*/}*.less'],
-                tasks: ['build'],
+                tasks: ['less', 'copy'],
                 options: {
                     livereload: livereloadPort
                 }
@@ -60,7 +64,7 @@ module.exports = function(grunt) {
             // Changes to any of the test files should also update
             tests: {
                 files: [paths.roots.test + '{,*/}*.*'],
-                tasks: ['build'],
+                tasks: ['jade', 'less', 'copy'],
                 options: {
                     livereload: livereloadPort
                 }
@@ -69,6 +73,14 @@ module.exports = function(grunt) {
             scripts: {
                 files: [paths.roots.scripts + '{,*/}*.js'],
                 tasks: ['build'],
+                options: {
+                    livereload: livereloadPort
+                }
+            },
+            // Changes to any of the jade files should reload
+            jade: {
+                files: [paths.roots.jade + '{,**/}*.jade'],
+                tasks: ['jade', 'copy:dist'],
                 options: {
                     livereload: livereloadPort
                 }
@@ -149,6 +161,25 @@ module.exports = function(grunt) {
             }
         },
 
+        jade: {
+            main : {
+                files: [{
+                    expand : true,
+                    cwd: paths.roots.jade,
+                    src: '{,**/}[^_]*.jade',
+                    dest: paths.build.jade,
+                    ext: '.html'
+                },
+                {
+                    expand : true,
+                    cwd: paths.roots.test,
+                    src: '{,**/}[^_]*.jade',
+                    dest: paths.roots.build,
+                    ext: '.html'
+                }]
+            }
+        },
+
         // Minify the js
         uglify : {
             dist : {
@@ -166,14 +197,6 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    // Copy the test index files to the build folder
-                    {
-                        expand: true,
-                        cwd: paths.roots.test,
-                        src: ['*.html'],
-                        dest: paths.roots.build,
-                        flatten: true
-                    },
                     // Copy the fonts
                     {
                         expand: true,
@@ -190,7 +213,7 @@ module.exports = function(grunt) {
                         dest: paths.build.fonts,
                         flatten: true
                     },
-                    // Copy the scripts
+                    // Copy the node module scripts
                     {
                         expand: true,
                         cwd: paths.roots.nodeModules + 'bootstrap/dist/js',
@@ -198,13 +221,45 @@ module.exports = function(grunt) {
                         dest: paths.build.scripts,
                         flatten: true
                     },
+                    // Copy the bower scripts
+                    {
+                        expand: true,
+                        cwd: paths.roots.libs,
+                        src: [
+                            'jquery/dist/jquery.js', 
+                            'modernizr/modernizr.js',
+                            'angular/angular.js',
+                            'angular-animate/angular-animate.js',
+                            'angular-bootstrap/ui-bootstrap.js',
+                            'angular-resource/angular-resource.js',
+                            'angular-ui-router/release/angular-ui-router.js'
+                            ],
+                        dest: paths.build.scripts,
+                        flatten: true
+                    },
+                    // Copy the custom effort.less scripts
                     {
                         expand: true,
                         cwd: paths.roots.scripts,
                         src: ['*.js'],
                         dest: paths.build.scripts,
                         flatten: true
-                    }
+                    },
+                    // Copy the jade
+                    {
+                        expand: true,
+                        cwd: paths.roots.jade,
+                        src: '{,**/}*.jade',
+                        dest: paths.dist.jade
+                    },
+                    // Copy the test scripts
+                    {
+                        expand: true,
+                        cwd: paths.roots.test,
+                        src: ['application.js'],
+                        dest: paths.roots.build,
+                        flatten: true
+                    },
                 ]
             },
             dist: {
@@ -247,7 +302,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dist', ['clean', 'build']);
 
     // Build task
-    grunt.registerTask('build', ['newer:imagemin', 'less', 'newer:cssmin', 'newer:copy', 'newer:uglify']);
+    grunt.registerTask('build', ['newer:imagemin', 'less', 'newer:cssmin', 'jade', 'newer:copy', 'newer:uglify']);
 
     // Default task
     grunt.registerTask('default', ['dev']);

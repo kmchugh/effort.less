@@ -13,13 +13,15 @@
     "npm" : "1.2.x"
   },
   "scripts": {
-    "start": "node node_modules/grunt-cli/bin/grunt dev"
+    "start": "node node_modules/grunt-cli/bin/grunt dev",
+    "postinstall": "bower install"
   },
   "dependencies": {
     "node-static": "^0.7.5"
   },
   "devDependencies": {
     "matchdep": "*",
+    "bower" : "*",
 
     "bootstrap": "*",
 
@@ -33,6 +35,7 @@
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "grunt-newer": "^0.7.0"
+    "grunt-newer": "^0.7.0",
+    "grunt-contrib-jade": "*"
   }
 }

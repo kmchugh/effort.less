@@ -35,9 +35,9 @@
         * Ensures the background area is rounded
         */
 
-        .rounded(@radius : @corner-radius){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
+        .rounded(@radius : 10%){#effortless > #background > .rounded(@radius, @radius, @radius, @radius);}
 
-        .rounded(@colour, @radius: @corner-radius) when (iscolor(@colour))
+        .rounded(@colour, @radius: 10%) when (iscolor(@colour))
         {
             #effortless > #background > .rounded(@radius, @radius, @radius, @radius);
             background-color: @colour;
@@ -55,7 +55,7 @@
             background-clip: padding-box;
         }
 
-        .rounded-topLeft(@radius : @corner-radius)
+        .rounded-topLeft(@radius : 10%)
         {
             -webkit-border-top-left-radius: @arguments;
             -moz-border-top-left-radius: @arguments;
@@ -65,7 +65,7 @@
             background-clip: padding-box;
         }
 
-        .rounded-bottomLeft(@radius : @corner-radius)
+        .rounded-bottomLeft(@radius : 10%)
         {
             -webkit-border-bottom-left-radius: @arguments;
             -moz-border-bottom-left-radius: @arguments;
@@ -75,7 +75,7 @@
             background-clip: padding-box;
         }
 
-        .rounded-topRight(@radius : @corner-radius)
+        .rounded-topRight(@radius : 10%)
         {
             -webkit-border-top-right-radius: @arguments;
             -moz-border-top-right-radius: @arguments;
@@ -85,7 +85,7 @@
             background-clip: padding-box;
         }
 
-        .rounded-bottomRight(@radius : @corner-radius)
+        .rounded-bottomRight(@radius : 10%)
         {
             -webkit-border-bottom-right-radius: @arguments;
             -moz-border-bottom-right-radius: @arguments;

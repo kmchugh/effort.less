@@ -1,0 +1,28 @@
+head
+  block meta
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(http-equiv='imagetoolbar', content='no')
+    meta(http-equiv='Content-Type', content='text/html;charset=UTF-8')
+    meta(name='language', content='en')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0')
+    meta(key-words name="keywords" content="Some default keywords for this page")
+    meta(description name="description", content="Default description of the page")
+
+  block title
+    if angularApp
+      title(page-title) #{appTitle}
+    else
+      title #{appTitle}
+
+  block icons
+    //- Apple touch icons and shortcut icons
+    link(href='/resources/icons/apple-touch-icon-57x57-precomposed.png', rel='shortcut icon', type='image/png')
+    link(href='/resources/icons/favicon.ico', rel='shortcut icon', type='image/x-icon')
+    link(href='/resources/icons/favicon.ico', type='image/x-icon')
+
+  block styles
+    link(href="/styles/base.css", rel="stylesheet")
+
+  //if lt IE 9
+    script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
