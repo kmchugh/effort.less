@@ -12,8 +12,9 @@ body, html
     box-sizing: border-box;
 }
 
-span{display: inline-block;}  // Fix for firefox
-
+// Fixes for firefox
+span{display: inline-block;}  
+@-moz-document url-prefix() {fieldset { display: table-cell; }}
 
 // Commonly used mixins
 .center

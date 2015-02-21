@@ -1,7 +1,7 @@
 
 
-
-header.navbar
+// Usually the main horizontal nav bar across the top of the page
+nav.navbar
 {
     background: @@theme-header-background;
     border: 0 none;
@@ -11,48 +11,93 @@ header.navbar
     color: @@theme-header-foreground;
     #effortless > #shadow > .drop(0px, 1px, 3px, 0px, fadeout(@@theme-header-background, 80%));
 
-    .container
-    {
-        max-width: 1920px;
-        width: 100%;
-    }
-
+    // The brand area for the navbar
     .navbar-brand
     {
         padding: @vPadding @hPadding;
         width: (@thumbSize * 4.25);
-        background: yellow;
+        background-color: darken(@@theme-header-background, 10%);
 
-        > img
+        //  The brand image
+        img
         {
             display: inline-block;
             height: 3rem;
-            line-height: 3rem;
-            
         }
 
-        > span
+        // The title area
+        span
         {
             margin-left: @hPadding;
+            color: @@theme-header-foreground;
+            font-weight: bold;
         }
     }
 
-    .clearfix
+    .dropdown
     {
-        .navbar-toggle
+        .dropdown-toggle
         {
-            #effortless > #button > .reverse();
-            #effortless > #background > .rounded(0);
-            margin: 0;
-            padding: 0;
-            min-width: @thumbSize; 
-            height: @thumbSize;
-            line-height: @thumbSize;
+            padding-right: (@hPadding / 2);
+            padding-left: (@hPadding / 2);
+
+            > i{padding: (@hPadding / 4);}
+
         }
 
-        .nav-no-collapse
+        &.icon
         {
-            background: purple;
+            .badge
+            {
+                background-color: fadeout(@@theme-header-foreground, 20%);
+                color: @@theme-header-background;
+                position: relative;
+                top: (-.9 * @font-xxsmall);
+                left: (-1.1 * @font-xxsmall);
+            }
+
+            .dropdown-toggle
+            {
+                padding: 0;
+            }
         }
+
+        &.profile
+        {
+            a > img
+            {
+                #effortless > #background > .rounded(50%);
+                border: 3px solid @@theme-header-foreground;
+                max-height: (@thumbSize*.8);
+                margin-right: @hPadding;
+            }
+
+            a > span
+            {
+                max-width: (@thumbSize * 2.5);
+                font-size: @font-xsmall;
+                .text-overflow();
+                vertical-align: inherit;
+            }
+
+        }
+    }
+
+    // All buttons displayed in the header
+    .button, button, ul li .button
+    {
+        #effortless > #button > .reverse();
+        #effortless > #background > .rounded(0);
+        margin: 0;
+        padding: 0;
+        min-width: @thumbSize; 
+        height: @thumbSize;
+        line-height: @thumbSize;
+    }
+
+    form
+    {
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
 }

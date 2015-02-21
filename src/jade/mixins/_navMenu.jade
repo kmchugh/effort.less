@@ -2,27 +2,128 @@
 
 //- creates a horizontal navbar
     homeURL - the url to use for the home link
-mixin horizontalNavbar(homeURL, logoImage, appName)
+mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
     - homeURL = homeURL || '/';
     - logoImage = logoImage || '/images/logo.png';
-    header.navbar
-        .container
-            a.navbar-brand(href="#{homeURL}")
-                img.logo(src="#{logoImage}", alt="home")
+
+    nav(role="navigation").navbar.navbar-default
+        .navbar-header
+            + toggleButton('Toggle Navigation', toggleClassID)(class="navbar-toggle collapsed")
+            a(href=homeURL ).navbar-brand
+                img.logo(src=logoImage, alt=appName)
                 span #{appName}
+        block
 
-            .clearfix
-                + toggleButton('Toggle Navigation', '.navbar-sidebar-collapse')
 
-                block
+mixin collapsibleNavSection(classID)
+    .collapse.navbar-collapse(class=classID)
+        block
+
+
                 
-mixin horizontalNavSection()
-    .nav-no-collapse.navbar-left(class!=attributes.class)
+mixin horizontalNavSection(left)
+    - var pull = left ? 'navbar-left' : 'navbar-right';
+    - attributes.class = attributes.class ? attributes.class += ' ' + pull : pull;
+
+    section.nav-no-collapse(class!=attributes.class)
+        ul.nav(class!=attributes.class)
 
 
 mixin toggleButton(target, srText)
-    - srText = srText || 'Toggle Navigation';
-    button.navbar-toggle(data-target="#{target}", data-toggle="collapse", type="button")
+    - srText = srText || 'Toggle';
+    button(data-target="#{target}", data-toggle="collapse", type="button")(class!=attributes.class ? attributes.class : '')
         .span.sr-only #{srText}
         .span.fa.fa-bars
 
+mixin navSection
+    ul.nav.navbar-nav(class!=attributes.class?attributes.class:'')
+        block
+
+mixin navIconDropdown(iconClass, srText, count)
+    li.dropdown.icon
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false")
+            i.fa(class=iconClass)
+            span.sr-only #{srText}
+            span.badge #{count}
+        ul.dropdown-menu(role="menu")
+                block
+
+mixin navDropdown(title)
+    li.dropdown
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
+            i.fa.fa-caret-down
+        ul.dropdown-menu(role="menu")
+            block
+
+mixin navDropdownIconItem(iconClass, title, href)
+    - href = href || '#';
+    li: a(href=href)
+        i.fa(class=iconClass)
+        | #{title}
+
+mixin navDropdownItem(title, href)
+    - href = href || '#';
+    li: a(href=href)
+        | #{title}
+
+mixin navDropdownHeader(text, href)
+    - href = href || '#';
+    li.header: a(href=href) #{text}
+
+mixin navDropdownFooter(text, href)
+    - href = href || '#';
+    li.footer: a(href=href) #{text}
+
+mixin navDropdownNotification(iconClass, text, time, href)
+    - href = href || '#';
+    li: a(href=href)
+        i.fa(class=iconClass)
+        section #{text}
+        span.time
+            i.fa.fa-clock-o
+            | #{time}
+
+mixin navDropdownMessage(imageSrc, title, text, time, href)
+    - href = href || '#';
+    li: a(href=href)
+        img(src=imageSrc, alt=title)
+        span.content
+            header #{title}
+            section  #{text}
+        span.time
+            i.fa.fa-clock-o
+            | #{time}
+
+mixin navSearch
+    li.dropdown.search
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
+            i.fa.fa-search
+        ul.dropdown-menu(role="menu")
+            li: form.navbar-form(role="search")
+                .form-group
+                    input.form-control(type="text", class="form-control", placeholder="Search...")
+                    i.fa.fa-search.nav-search-icon
+
+mixin navProfile(imageSrc, userName)
+    li.dropdown.profile
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
+            img(src=imageSrc, alt=userName)
+            span.hidden-xs #{userName}
+            i.fa.fa-caret-down
+        ul.dropdown-menu(role="menu")
+            li: a(href="#")
+                i.fa.fa-user
+                | Profile
+            li: a(href="#")
+                i.fa.fa-cog
+                | Settings
+            li: a(href="#")
+                i.fa.fa-envelope-0
+                | Messages
+            li: a(href="#")
+                i.fa.fa-power-off
+                | Logout
+
+mixin navLogout
+    li.hidden-xxs: a.button: i.fa.fa-power-off
+            
