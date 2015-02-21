@@ -4,22 +4,22 @@ include ../mixins/_navMenu
 div.theme-wrapper
     block header
         +horizontalNavbar('/', '/resources/effort.less.png', 'effort.less', 'navbar-side-collapse')
-            +collapsibleNavSection('navbar-header-main')
-                
-                // Toggle button to minimise the side nav
-                +toggleButton('Minimise Side Nav', 'navbar-side-collapse')(class='navbar-left')
-
+            +navContainer('navbar-header-main')
                 +navSection(class='hidden-sm')
-                    +navIconDropdown('fa-bell', 'notifications', 8)
+
+                    // Toggle button to minimise the side nav
+                    +toggleButton('Minimise Side Nav', 'navbar-side-collapse')(class='navbar-left')
+
+                    +navIconDropdown('fa-bell', 'notifications', 8)(class='notifications')
                         +navDropdownHeader('You have 6 new notifications')
-                        +navDropdownNotification('fa-comment', 'New comment on \'Awesome P...', '13 min.')
+                        +navDropdownNotification('fa-comment', 'New comment on \'Awesome Article\'', '13 min.')
                         +navDropdownNotification('fa-plus', 'New user registration', '13 min.')
                         +navDropdownNotification('fa-envelope', 'New message from George', '13 min.')
                         +navDropdownNotification('fa-shopping-cart', 'New purchase', '13 min.')
                         +navDropdownNotification('fa-eye', 'New order', '13 min.')
                         +navDropdownFooter('View all notifications')
 
-                    +navIconDropdown('fa-clock-o', 'messages', 16)
+                    +navIconDropdown('fa-clock-o', 'messages', 16)(class='messages')
                         +navDropdownMessage('/resources/profiles/a1.jpg', 'George Clooney', 'Look, just because I don\'t be givin\' no man a foot massage don\'t make it right for Marsellus to throw...', '13 min.')
                         +navDropdownMessage('/resources/profiles/a2.jpg', 'Emma Watson', 'Look, just because I don\'t be givin\' no man a foot massage don\'t make it right for Marsellus to throw...', '13 min.')
                         +navDropdownMessage('/resources/profiles/a3.jpg', 'Robert Downey Jr.', 'Look, just because I don\'t be givin\' no man a foot massage don\'t make it right for Marsellus to throw...', '13 min.')
@@ -36,7 +36,8 @@ div.theme-wrapper
                         +navDropdownItem('German')
                         +navDropdownItem('Italian')
 
-                +navSection(class='navbar-right')
+            +navContainerConstant('navbar-header-profile')
+                +navSection
                     +navSearch
                     +navProfile('/resources/profiles/a4.jpg', 'Scarlett Johansson')
                     +navLogout
@@ -55,8 +56,5 @@ div.theme-wrapper
         .row
 
             .content-wrapper
-                .row
-                    .col-lg-12
-                        .slide-main-container
-                            .slide-main-animation
+                
 

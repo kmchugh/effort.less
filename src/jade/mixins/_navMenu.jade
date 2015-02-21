@@ -7,26 +7,24 @@ mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
     - logoImage = logoImage || '/images/logo.png';
 
     nav(role="navigation").navbar.navbar-default
-        .navbar-header
+        .container-fluid
             + toggleButton('Toggle Navigation', toggleClassID)(class="navbar-toggle collapsed")
-            a(href=homeURL ).navbar-brand
-                img.logo(src=logoImage, alt=appName)
-                span #{appName}
+
+            .navbar-header
+                a(href=homeURL ).navbar-brand
+                    img.logo(src=logoImage, alt=appName)
+                    span #{appName}
+            block
+
+
+
+mixin navContainer(classID)
+    .collapse.navbar-collapse.navbar-left(class=classID)(class!=attributes.class?attributes.class:'')
         block
 
-
-mixin collapsibleNavSection(classID)
-    .collapse.navbar-collapse(class=classID)
+mixin navContainerConstant(classID)
+    .nav-no-collapse.pull-right(class=classID)(class!=attributes.class?attributes.class:'')
         block
-
-
-                
-mixin horizontalNavSection(left)
-    - var pull = left ? 'navbar-left' : 'navbar-right';
-    - attributes.class = attributes.class ? attributes.class += ' ' + pull : pull;
-
-    section.nav-no-collapse(class!=attributes.class)
-        ul.nav(class!=attributes.class)
 
 
 mixin toggleButton(target, srText)
@@ -39,20 +37,20 @@ mixin navSection
     ul.nav.navbar-nav(class!=attributes.class?attributes.class:'')
         block
 
-mixin navIconDropdown(iconClass, srText, count)
+mixin navIconDropdown(iconClass, srText, badgeText)
     li.dropdown.icon
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false")
             i.fa(class=iconClass)
             span.sr-only #{srText}
-            span.badge #{count}
-        ul.dropdown-menu(role="menu")
+            span.badge #{badgeText}
+        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
                 block
 
 mixin navDropdown(title)
     li.dropdown
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
             i.fa.fa-caret-down
-        ul.dropdown-menu(role="menu")
+        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
             block
 
 mixin navDropdownIconItem(iconClass, title, href)
@@ -76,30 +74,30 @@ mixin navDropdownFooter(text, href)
 
 mixin navDropdownNotification(iconClass, text, time, href)
     - href = href || '#';
-    li: a(href=href)
+    li.item: a(href=href)
         i.fa(class=iconClass)
-        section #{text}
+        .content #{text}
         span.time
             i.fa.fa-clock-o
             | #{time}
 
 mixin navDropdownMessage(imageSrc, title, text, time, href)
     - href = href || '#';
-    li: a(href=href)
+    li.item: a(href=href)
         img(src=imageSrc, alt=title)
         span.content
             header #{title}
-            section  #{text}
+            .content  #{text}
         span.time
             i.fa.fa-clock-o
             | #{time}
 
 mixin navSearch
-    li.dropdown.search
-        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
+    li.dropdown.nav-search
+        a.button
             i.fa.fa-search
-        ul.dropdown-menu(role="menu")
-            li: form.navbar-form(role="search")
+        .dropdown-search
+            form.navbar-form(role="search")
                 .form-group
                     input.form-control(type="text", class="form-control", placeholder="Search...")
                     i.fa.fa-search.nav-search-icon
@@ -109,8 +107,9 @@ mixin navProfile(imageSrc, userName)
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
             img(src=imageSrc, alt=userName)
             span.hidden-xs #{userName}
-            i.fa.fa-caret-down
+            i.fa.fa-caret-down.hidden-xs
         ul.dropdown-menu(role="menu")
+            +navDropdownHeader(userName)
             li: a(href="#")
                 i.fa.fa-user
                 | Profile
