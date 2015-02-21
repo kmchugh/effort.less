@@ -1,3 +1,74 @@
+@navWidth: (@thumbSize * 4.5);
+@navColor: darken(@@theme-header-background, 10%);
+
+.theme-wrapper
+{
+    min-height: 100%;
+    background: @navColor;
+}
+
+.content-wrapper
+{
+    min-height: (@thumbSize / 2);
+    margin-left: @navWidth;
+    background: url('/resources/whitey.jpg');
+    min-height: 500px;
+
+    @media @mq-mobile {
+        margin-left: 0;
+    }
+
+    @media @mq-landscape {
+        margin-left: 0;
+    }
+
+    @media @mq-tablet {
+        margin-left: 0;
+    }
+}
+
+nav.vertical
+{
+    width: @navWidth;
+    position: absolute;
+    background: @navColor;
+
+    >*
+    {
+        margin: 0;
+        display: block;
+        width: 100%;
+    }
+
+    .dropdown.profile
+    {
+        > a 
+        {
+            background: @navColor;
+            color: @@theme-header-foreground;
+            padding-bottom: 0px;
+            vertical-align: bottom;
+
+            > img
+            {
+                max-width: (@thumbSize * 1.5);
+                max-height: (@thumbSize * 1.5);
+                #effortless > #background > .rounded(15%);
+                margin: 0 @hPadding 0 0;
+            }
+
+            > span
+            {
+                max-width: (@thumbSize * 1.5);
+            }
+
+            > i
+            {
+                vertical-align: bottom;
+            }
+        }
+    }
+}
 
 // Indicates that this navigation section should not collapse
 .nav-no-collapse
@@ -183,6 +254,33 @@
     }
 }
 
+nav
+{
+    .dropdown.profile
+    {
+        a > img
+        {
+            .border-radius(50%);
+            border: 3px solid @@theme-header-foreground;
+            max-height: (@thumbSize*.8);
+            margin-right: @hPadding;
+        }
+
+        a > span
+        {
+            max-width: (@thumbSize * 2);
+            font-size: @font-xsmall;
+            .text-overflow();
+            vertical-align: inherit;
+        }
+
+        &.online a > img
+        {
+            border: 3px solid @brand-success;
+        }
+    }
+}
+
 // Usually the main horizontal nav bar across the top of the page
 nav.navbar
 {
@@ -203,8 +301,8 @@ nav.navbar
     .navbar-brand
     {
         padding: @vPadding @hPadding;
-        width: (@thumbSize * 4.25);
-        background-color: darken(@@theme-header-background, 10%);
+        width: @navWidth;
+        background-color: @navColor;
 
         //  The brand image
         img
@@ -253,25 +351,6 @@ nav.navbar
             .dropdown-toggle
             {
                 padding: 0;
-            }
-        }
-
-        &.profile
-        {
-            a > img
-            {
-                .border-radius(50%);
-                border: 3px solid @@theme-header-foreground;
-                max-height: (@thumbSize*.8);
-                margin-right: @hPadding;
-            }
-
-            a > span
-            {
-                max-width: (@thumbSize * 2);
-                font-size: @font-xsmall;
-                .text-overflow();
-                vertical-align: inherit;
             }
         }
     }

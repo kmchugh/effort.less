@@ -43,17 +43,12 @@ div.theme-wrapper
                     +navLogout
 
 
-
-
-
-
-
-
-            
-
     //- Wrap each individual page with the page wrapper
-    .container.page-wrapper
+    .container-fluid.page-wrapper
         .row
+            +verticalNavbar
+                +navSection
+                    +navProfile('/resources/profiles/a5.jpg', 'Scarlett Johansson', 'online')(class="hidden-sm hidden-xs", dropdownClass="dropdown-menu-right")
 
             .content-wrapper
                 

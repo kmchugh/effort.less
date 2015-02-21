@@ -1,4 +1,8 @@
-// Horizontal Navbar
+
+mixin verticalNavbar
+    nav.vertical.hidden-sm.hidden-xs
+        block
+
 
 //- creates a horizontal navbar
     homeURL - the url to use for the home link
@@ -102,13 +106,14 @@ mixin navSearch
                     input.form-control(type="text", class="form-control", placeholder="Search...")
                     i.fa.fa-search.nav-search-icon
 
-mixin navProfile(imageSrc, userName)
-    li.dropdown.profile
+mixin navProfile(imageSrc, userName, status)
+    - status = status || 'online';
+    li.dropdown.profile(class!=status + ' ' + (attributes.class || ''))
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
             img(src=imageSrc, alt=userName)
             span.hidden-xs #{userName}
             i.fa.fa-caret-down.hidden-xs
-        ul.dropdown-menu(role="menu")
+        ul.dropdown-menu(role="menu")(class!=attributes.dropdownClass || '')
             +navDropdownHeader(userName)
             li: a(href="#")
                 i.fa.fa-user
