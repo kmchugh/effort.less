@@ -7,6 +7,17 @@
         	text-align: center;
         }
 
+        /**
+        * Fix for placeholder colours
+        **/
+        .placeholder(@colour)
+        {
+            &::-webkit-input-placeholder{color: @colour;}
+            &::-moz-placeholder{color: @colour;}
+            &:-moz-placeholder{color: @colour;}
+            &:-ms-placeholder{color: @colour;}
+        }
+
         .columns(@columns: 2, @style : none, @colour : @@theme-foreground, @width : 1px, @gap: 2em)
         {
 	        -webkit-column-count: @columns;
