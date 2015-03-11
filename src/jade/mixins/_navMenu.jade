@@ -98,9 +98,9 @@ mixin navDropdownMessage(imageSrc, title, text, time, href)
 
 mixin navSearch
     li.dropdown.nav-search
-        a.button
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false")
             i.fa.fa-search
-        .dropdown-search
+        ul.dropdown-search.dropdown-menu.dropdown-menu-right
             form.navbar-form(role="search")
                 .form-group
                     input.form-control(type="text", class="form-control", placeholder="Search...")

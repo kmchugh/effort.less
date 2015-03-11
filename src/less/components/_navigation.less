@@ -82,6 +82,10 @@ nav.vertical
                 left: inherit;
                 margin-top: -1px;
                 padding-top: 0px;
+                position: fixed;
+                width: 100%;
+                left: 0px;
+                top: @thumbSize;
 
                 > li
                 {
@@ -123,6 +127,11 @@ nav.vertical
     font-weight: bold!important;
     font-size: @font-xxsmall;
     padding: (@vPadding / 2) (@hPadding / 2);
+
+    @media @mq-landscape-and-smaller
+    {
+        font-size: @font-baseline;
+    }
 
     &:hover
     {
@@ -245,17 +254,23 @@ nav.vertical
 
     .dropdown-search
     {
-        display: block;
-        right: 0;
-        position: absolute;
-        width: (@thumbSize * 4);
-        z-index: 1;
-        overflow: hidden;
-        width: 0;
+        border: none!important;
+        box-shadow: none!important;
+        background: transparent!important;
+
+        @media @mq-tablet-and-smaller
+        {
+            margin-top: -2px;
+        }
 
         form
         {
             padding: 0;
+
+            @media @mq-landscape-and-smaller
+            {
+                padding: 0 1em;
+            }
 
             .form-group
             {
@@ -273,6 +288,12 @@ nav.vertical
                 margin: 0;
                 border-radius: 0;
                 box-shadow: none !important;
+
+                @media @mq-tablet-and-smaller
+                {
+                    float:left;
+                    border: none;
+                }
             }
         }
 
