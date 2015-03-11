@@ -1,6 +1,6 @@
 
 mixin verticalNavbar
-    nav.vertical.hidden-sm.hidden-xs
+    nav.vertical.hidden-sm.hidden-xs(class!=attributes.class || '')
         block
 
 
@@ -23,19 +23,19 @@ mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
 
 
 mixin navContainer(classID)
-    .collapse.navbar-collapse.navbar-left(class=classID)(class!=attributes.class?attributes.class:'')
+    .collapse.navbar-collapse.navbar-left(class=classID, class!=attributes.class?attributes.class:'')
         block
 
 mixin navContainerConstant(classID)
-    .nav-no-collapse.pull-right(class=classID)(class!=attributes.class?attributes.class:'')
+    .nav-no-collapse.pull-right(class=classID, class!=attributes.class?attributes.class:'')
         block
 
 
 mixin toggleButton(target, srText)
     - srText = srText || 'Toggle';
-    button(data-target="#{target}", data-toggle="collapse", type="button")(class!=attributes.class ? attributes.class : '')
+    button(data-target="#{target}", data-toggle="collapse", type="button", class!=attributes.class ? attributes.class : '')
         .span.sr-only #{srText}
-        .span.fa.fa-bars
+        i.fa.fa-bars
 
 mixin navSection
     ul.nav.navbar-nav(class!=attributes.class?attributes.class:'')
@@ -47,14 +47,14 @@ mixin navIconDropdown(iconClass, srText, badgeText)
             i.fa(class=iconClass)
             span.sr-only #{srText}
             span.badge #{badgeText}
-        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
+        ul.dropdown-menu(role="menu", class!=attributes.class ? attributes.class : '')
                 block
 
 mixin navDropdown(title)
     li.dropdown
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
             i.fa.fa-caret-down
-        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
+        ul.dropdown-menu(role="menu", class!=attributes.class ? attributes.class : '')
             block
 
 mixin navDropdownIconItem(iconClass, title, href)
@@ -113,7 +113,7 @@ mixin navProfile(imageSrc, userName, status)
             img(src=imageSrc, alt=userName)
             span.hidden-xs #{userName}
             i.fa.fa-caret-down.hidden-xs
-        ul.dropdown-menu(role="menu")(class!=attributes.dropdownClass || '')
+        ul.dropdown-menu(role="menu", class!=attributes.dropdownClass || '')
             +navDropdownHeader(userName)
             li: a(href="#")
                 i.fa.fa-user
@@ -129,5 +129,5 @@ mixin navProfile(imageSrc, userName, status)
                 | Logout
 
 mixin navLogout
-    li.hidden-xxs: a.button: i.fa.fa-power-off
+    li.hidden-xs: a.button: i.fa.fa-power-off
             

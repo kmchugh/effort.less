@@ -1,0 +1,26 @@
+// Mixins to be referenced from the "global namespace"
+
+/**
+ * Defines the radii of all corners
+ */
+.border-radius(@radius)
+{
+    #effortless > #background > .rounded(@radius);
+}
+
+/**
+ * Sets the width and height
+ */
+.size(@size)
+{
+    .size(@size, @size);
+}
+
+
+/**
+ * Sets the width and height
+ */
+.size(@width, @height)
+{
+    #effortless > #layout > .size(@width, @height);
+}
