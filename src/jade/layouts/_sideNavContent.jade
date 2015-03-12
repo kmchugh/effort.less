@@ -3,8 +3,8 @@ include ../mixins/_navMenu
 //- Wrap the entire content with the theme wrapper
 div.theme-wrapper
     block header
-        +horizontalNavbar('/', '/resources/effort.less.png', 'effort.less', 'navbar-side-collapse')
-            +navContainer('navbar-header-main')
+        +horizontalNavbar('/', appLogo, appName, 'navbar-side-collapse')(class='verticalSpacer')
+            +navContainer
                 +navSection(class='hidden-sm')
 
                     // Toggle button to minimise the side nav

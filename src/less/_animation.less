@@ -3,14 +3,124 @@
  */
 #effortless
 {
-    #animation
+  #animation
+  {
+
+    /*
+    ease
+    linear
+    ease-in
+    ease-out
+    ease-in-out
+    step-start
+    step-end
+    cubic-bezier(0, 0, 0.58, 1)
+    steps(4, start)
+    */
+
+    .transition(@transitions)
     {
-      .animate()
-      {
-        -webkit-transition: background-color 500ms ease-out 1s;
-        -moz-transition: background-color 500ms ease-out 1s;
-        -o-transition: background-color 500ms ease-out 1s;
-        transition: background-color 500ms ease-out 1s;
-      }
+      -webkit-transition: @transitions;
+      -moz-transition: @transitions;
+      -o-transition: @transitions;
+      transition: @transitions;
     }
+
+    .animate(@property : all, @duration : 0.3s, @function : ease, @delay : 0s)
+    {
+      .transition(~"@{property} @{duration} @{function} @{delay}");
+    }
+  }
+
+  #transform
+  {
+      .matrix(@a  :1,  @b  :0, 
+              @c  :0,  @d  :1, 
+              @tx : 0, @ty :0)
+      {
+          transform: matrix(@a, @b, @c, @d, @tx, @ty);
+          -webkit-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+          -moz-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+          -o-transform: matrix(@a, @b, @c, @d, @tx, @ty);
+      }
+
+      .matrix3d(@lx :1, @ly : 0, @lz : 0,
+                @wx :0, @wy : 1, @wz : 0,
+                @ax :0, @ay : 0, @az : 1,
+                @sx :0, @sy : 0, @sz : 0)
+      {
+          transform: matrix3d(@lx, @ly, @lz, 0,
+                              @wx, @wy, @wz, 0,
+                              @ax, @ay, @az, 0,
+                              @sx, @sy, @sz, 1);
+          -webkit-transform: matrix3d(@lx, @ly, @lz, 0,
+                                      @wx, @wy, @wz, 0,
+                                      @ax, @ay, @az, 0,
+                                      @sx, @sy, @sz, 1);
+          -moz-transform: matrix3d(@lx, @ly, @lz, 0,
+                                   @wx, @wy, @wz, 0,
+                                   @ax, @ay, @az, 0,
+                                   @sx, @sy, @sz, 1);
+          -o-transform: matrix3d(@lx, @ly, @lz, 0,
+                                   @wx, @wy, @wz, 0,
+                                   @ax, @ay, @az, 0,
+                                   @sx, @sy, @sz, 1);
+      }
+
+      // TODO: Convert all transforms to direct matrix functions;
+      .rotate3D(X, @degrees: 180)
+      {
+          @actualDegrees : @degrees * 1deg;
+          transform: rotateX(@actualDegrees);
+          -webkit-transform: rotateX(@actualDegrees); /* Safari and Chrome */
+          -moz-transform: rotateX(@actualDegrees); /* Firefox */
+          -o-transform: rotateX(@actualDegrees); /* Opera */
+      }
+
+      // TODO: Convert all transforms to direct matrix functions;
+      .rotate3D(Y, @degrees: 180)
+      {
+          @actualDegrees : @degrees * 1deg;
+          transform: rotateY(@actualDegrees);
+          -webkit-transform: rotateY(@actualDegrees); /* Safari and Chrome */
+          -moz-transform: rotateY(@actualDegrees); /* Firefox */
+          -o-transform: rotateY(@actualDegrees); /* Opera */
+      }
+
+      .scale(@factor : 1.5){.scale(@factor, @factor);}
+
+      .scale(@Xfactor : 1.5, @Yfactor : 1.5)
+      {
+          transform: scale(@Xfactor, @Yfactor);
+          -webkit-transform: scale(@Xfactor, @Yfactor); /* Safari and Chrome */
+          -moz-transform: scale(@Xfactor, @Yfactor); /* Firefox */
+          -o-transform: scale(@Xfactor, @Yfactor);
+      }
+
+      // TODO: These is to be removed when implemented in the matrix3d;
+      .spin(@scaleFactor: 1, @degrees: 359.9)
+      {
+          transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+          -webkit-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+          -moz-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+          -o-transform: scale(@scaleFactor, @scaleFactor) rotate(@degrees);
+      }
+
+      .twist(@scaleFactor: 1, @degrees: 359.9)
+      {
+          transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+          -webkit-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+          -moz-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+          -o-transform: scale(@scaleFactor, @scaleFactor) rotateY(@degrees);
+      }
+
+      .transform(@rotate: 90deg, @scale: 1, @skew: 0deg, @translate: 0px) 
+      {
+          -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+          -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+          -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+          -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+          transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+      }
+  }
 }

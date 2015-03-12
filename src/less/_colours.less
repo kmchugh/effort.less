@@ -75,33 +75,13 @@ body, html
 
     > header
     {
-        .reverse;
+        .inverted;
     }
 
     > footer
     {
         #effortless > #colours > .set(@@theme-footer-foreground, @@theme-footer-background);
     }
-}
-
-.reverse
-{
-    #effortless > #colours > .set(@@theme-background, @@theme-foreground);
-
-    .reverse
-    {
-        #effortless > #colours > .set(@@theme-foreground, @@theme-background);
-    }
-
-    blockquote
-    {
-        border-left: 4px solid @@theme-background;
-    }
-}
-
-blockquote
-{
-    border-left: 4px solid @@theme-foreground;
 }
 
 a
@@ -160,6 +140,22 @@ a
         {
             background-color: @background;
             color: @foreground;
+
+            blockquote
+            {
+                border-left: 4px solid @foreground;
+            }
+
+            .inverted
+            {
+                background-color: @foreground; 
+                color: @background;
+
+                blockquote
+                {
+                    border-left: 4px solid @background;
+                }
+            }
         }
     }
 }
