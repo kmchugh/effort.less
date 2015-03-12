@@ -142,11 +142,21 @@ nav.navbar
 
 // Styling for the navigation dropdown menues
 
-.dropdown.open > .dropdown-menu
+.navbar-nav .dropdown.open > .dropdown-menu
 {
     .opacity(1);
     #effortless > #transform > .scale(1,1);
     visibility: visible;
+
+    @media @mq-landscape-and-smaller
+    {
+        position: fixed!important;
+        top: inherit!important;
+        width: 100%!important;
+        .border-radius(0);
+
+        a{line-height: @thumbSize;}
+    }
 }
 
 .dropdown .dropdown-menu
@@ -162,20 +172,20 @@ nav.navbar
 
     li a
     {
-        .setColor(@@theme-header-background, @@theme-header-foreground);
+        .setColor(@@theme-header-background, @@theme-header-foreground)!important;
 
-        &:hover{.inverted;}
+        &:hover{.inverted}
 
         > i{margin-right: (@hPadding/2);}
 
-        &{font-size: @font-xsmall;}
+        font-size: @font-xsmall;
     }
 
     .header, .footer
     {
         a
         {
-            .bg-base;
+            .bg-base!important;
             font-weight: bold;
         }
 
@@ -309,16 +319,27 @@ nav.navbar .dropdown.nav-search
                     height: @thumbSize;
                     padding-right: @thumbSize; 
                     border: 0;
-                    max-width: 160px;
+                    .border-radius(0);
+
+                    @media @mq-desktop-and-larger
+                    {
+                        width: 175px;
+                    }
+
+                    @media @mq-ultra
+                    {
+                        width: 375px;
+                    }
                 }
 
                 .nav-search-icon
                 {
-                    position: absolute;
+                    position: absolute!important;
                     .size(@thumbSize);
                     line-height: @thumbSize;
                     text-align: center;
                     right: 0;
+                    top: 0;
                 }
             }
         }
@@ -400,24 +421,6 @@ nav.navbar .dropdown.nav-search
 //         }
 //     }
 
-//     &.open
-//     {
-//         .dropdown-search
-//         {
-//             width: 150px;
-
-//             .form-control
-//             {
-//                 padding: 6px 0px 6px 12px;
-//                 display: inline-block;
-//             }
-
-//             .nav-search-icon
-//             {
-//                 display: inline-block;
-//             }
-//         }
-//     }
 // }
 
 
