@@ -6,7 +6,7 @@ mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
 
     nav(role="navigation").navbar.navbar-default(class!=attributes.class || '')
         .container-fluid
-            + toggleButton('Toggle Navigation', toggleClassID)(class="navbar-toggle collapsed")
+            + toggleButton(toggleClassID, 'Toggle Navigation')(class="navbar-toggle collapsed")
 
             .navbar-header
                 a(href=homeURL ).navbar-brand
@@ -33,20 +33,48 @@ mixin toggleButton(target, srText)
         .span.sr-only #{srText}
         i.fa.fa-bars
 
-
-
-
-mixin verticalNavbar
-    nav.vertical.hidden-sm.hidden-xs(class!=attributes.class || '')
-        block
-
-
-
-
-
+// Container for nav section
 mixin navSection
     ul.nav.navbar-nav(class!=attributes.class?attributes.class:'')
         block
+
+// Vertical Navigation Bar
+mixin verticalNavbar
+    nav.navbar-default.navbar-static-side
+        div.nav-wrapper(class!=attributes.class || '')
+            block
+
+// Header item for vertical navigation bars
+mixin navHeader(title)
+    li.header: span #{title}
+
+mixin verticalNavDropdown(title, iconClass, badgeContent)
+    +verticalNavItem(title, iconClass, badgeContent)&attributes(attributes)
+        if (!badgeContent)
+            i.fa.fa-caret-right.nav-indicator
+
+
+mixin verticalNavItem(title, iconClass, badgeContent, href)
+    li: a(href=href || "#")
+        +icon(iconClass)
+        span #{title}
+        +badge(badgeContent)&attributes(attributes)
+        block
+        
+
+mixin icon(iconClass)
+    if (iconClass)
+        i.fa(class=iconClass)
+
+mixin badge(text)
+    if (text)
+        span.badge(title=text, class!=attributes.badgeClass || '') #{text}
+
+
+
+
+
+
 
 mixin navIconDropdown(iconClass, srText, badgeText)
     li.dropdown.icon
