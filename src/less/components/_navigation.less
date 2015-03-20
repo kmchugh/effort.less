@@ -1,386 +1,470 @@
+@import "_core";
+
 @navWidth: (@thumbSize * 4.5);
-@navColor: darken(@@theme-header-background, 10%);
+@navBackground: darken(@@theme-header-background, 10%);
+@buttonSize: 3rem;
 
-.theme-wrapper
-{
-    min-height: 100%;
-    background: @navColor;
-}
-
+// If we have included the navigation then we need to offset for a leftnav if there is one
 .content-wrapper
 {
-    min-height: (@thumbSize / 2);
     margin-left: @navWidth;
-    background: url('/resources/whitey.jpg');
-    min-height: 500px;
-
-    @media @mq-mobile {
-        margin-left: 0;
-    }
-
-    @media @mq-landscape {
-        margin-left: 0;
-    }
-
-    @media @mq-tablet {
+    
+    @media @mq-landscape-and-smaller {
         margin-left: 0;
     }
 }
 
-nav.vertical
+// Also need to change the colour of the background to match the nav colour
+.theme-wrapper
 {
-    width: @navWidth;
-    position: absolute;
-    background: @navColor;
-
-    >*
-    {
-        margin: 0;
-        display: block;
-        width: 100%;
-    }
-
-    .dropdown.profile
-    {
-        > a 
-        {
-            background: @navColor;
-            color: @@theme-header-foreground;
-            padding-bottom: 0px;
-            vertical-align: bottom;
-
-            > img
-            {
-                max-width: (@thumbSize * 1.5);
-                max-height: (@thumbSize * 1.5);
-                #effortless > #background > .rounded(15%);
-                margin: 0 @hPadding 0 0;
-            }
-
-            > span
-            {
-                max-width: (@thumbSize * 1.5);
-            }
-
-            > i
-            {
-                vertical-align: bottom;
-            }
-        }
-    }
+    background: @navBackground;
 }
 
-// Indicates that this navigation section should not collapse
-.nav-no-collapse
-{
-    ul
-    {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .nav > li{float: left;}
-}
-
-.nav
-{
-    .dropdown-menu
-    {
-        padding-top: 0px;
-        padding-bottom: 0px;
-
-        .header, .footer, .header a, .footer a
-        {
-            .bg-base;
-            text-align: center;
-            font-weight: bold;
-            font-size: @font-xxsmall;
-            padding: (@vPadding / 2) (@hPadding / 2);
-
-            &:hover
-            {
-                .bg-base;
-            }
-        }
-
-        > li
-        {
-            a
-            {
-                padding: (@vPadding / 2) (@hPadding / 2);
-
-                &, & .content
-                {
-                    font-size: @font-xsmall;
-                }
-
-                > * 
-                {
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-
-                &:hover
-                {
-                    background: lighten(@@theme-header-background, 50%);
-                }
-
-                > i
-                {
-                    margin-right: (@hPadding / 2);
-                }
-            }
-        }
-
-        .item
-        {
-            a
-            {   
-                header
-                {
-                    font-size: @font-xxsmall;
-                    font-weight: bold;
-                }
-
-                .content
-                {
-                    margin: 0 (@thumbSize * 1.2) 0 0;
-                    max-width: (@thumbSize * 4);
-                    .text-overflow();
-                }
-
-                .time
-                {
-                    color: @color-accent1-base;
-                    position: absolute;
-                    right: @hPadding;
-                    font-size: @font-xxsmall;
-                    line-height: @font-small;
-                    height: @font-small;
-                    display: inline-block;
-                }
-            }
-
-            img
-            {
-                max-width: @thumbSize;
-                max-height: @thumbSize;
-                .border-radius(50%);
-                border: 3px solid @@theme-header-foreground;
-                margin-right: (@hPadding /2);
-            }
-        }
-
-        &.messages
-        {
-            .item 
-            {
-                .content
-                {
-                    overflow: visible;
-                    text-overflow: inherit;
-                    white-space: normal;
-                    margin: 0;
-                    font-size: @font-xxsmall;
-                    width: (@thumbSize * 6);
-                    max-width: (@thumbSize * 6);
-                }
-
-                .time
-                {
-                    display: block;
-                    position: static;
-                    text-align: right;
-                }
-            }
-        }
-    }
-}
-
-.nav-search
-{
-    //overflow: hidden;
-
-    .button
-    {
-        float: right;
-    }
-
-    .dropdown-search
-    {
-        display: block;
-        right: 0;
-        position: absolute;
-        width: (@thumbSize * 4);
-        z-index: 1;
-        overflow: hidden;
-        width: 0;
-        //.transition(left 0.25s ease-out 0s, right 0.25s ease-out 0s);
-
-        form
-        {
-            padding: 0;
-
-            .form-group
-            {
-                width: 100%;
-            }
-
-            .form-control
-            {
-                #effortless > #text > .placeholder(lighten(@@theme-header-background, 20%));
-                min-height: @thumbSize;
-                background-color: @@theme-header-foreground;
-                color: @@theme-header-background;
-                padding: @vPadding @thumbSize @vPadding @hPadding;
-                width: 100%;
-                margin: 0;
-                border-radius: 0;
-                box-shadow: none !important;
-            }
-        }
-
-        .nav-search-icon
-        {
-            color: @@theme-header-background;
-            position: absolute;
-            cursor: pointer;
-            .size(@thumbSize);
-            line-height: @thumbSize;
-            text-align: center;
-            right: 0;
-        }
-
-    }
-}
-
-nav
-{
-    .dropdown.profile
-    {
-        a > img
-        {
-            .border-radius(50%);
-            border: 3px solid @@theme-header-foreground;
-            max-height: (@thumbSize*.8);
-            margin-right: @hPadding;
-        }
-
-        a > span
-        {
-            max-width: (@thumbSize * 2);
-            font-size: @font-xsmall;
-            .text-overflow();
-            vertical-align: inherit;
-        }
-
-        &.online a > img
-        {
-            border: 3px solid @brand-success;
-        }
-    }
-}
-
-// Usually the main horizontal nav bar across the top of the page
+// Navigation bars
 nav.navbar
 {
-    background: @@theme-header-background;
-    border: 0 none;
-    #effortless > #background > .rounded(0);
-    margin: 0;
-    min-height: @thumbSize;
-    color: @@theme-header-foreground;
+    .setColor(@@theme-header-foreground, @@theme-header-background);
+    border: none;
+    .border-radius(0);
     #effortless > #shadow > .drop(0px, 1px, 3px, 0px, fadeout(@@theme-header-background, 80%));
+    min-height: @thumbSize;
+    margin-bottom: 0px;
 
+    // Common properties in the nav sections
+    .navbar-header, .navbar-container
+    {
+        img
+        {
+            .size(@buttonSize);
+            margin-right: 1rem; 
+        }
+
+        a
+        {
+            .navbar-button;
+            padding: 1rem;
+        }
+
+        button, .button
+        {
+            .navbar-button;
+        }
+    }
+
+    .navbar-brand
+    {
+        img
+        {
+            display: inline-block;
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
+    // Ensures the nav sections float cleanly
     .navbar-header
     {
         float: left;
     }
 
-    // The brand area for the navbar
-    .navbar-brand
-    {
-        padding: @vPadding @hPadding;
-        width: @navWidth;
-        background-color: @navColor;
-
-        //  The brand image
-        img
-        {
-            display: inline-block;
-            height: 3rem;
-        }
-
-        // The title area
-        span
-        {
-            margin-left: @hPadding;
-            color: @@theme-header-foreground;
-            font-weight: bold;
-        }
-    }
-
     .dropdown
     {
-        .dropdown-toggle
-        {
-            padding-right: (@hPadding / 2);
-            padding-left: (@hPadding / 2);
+        vertical-align: top;
 
-            > i{padding: (@hPadding / 4);}
-
-        }
+        a{.fa-caret-down{margin-left: .5rem;}}
 
         &.icon
         {
+            a{padding-right: 0rem;}
+
             .badge
             {
                 .bg-base;
+                font-size: @font-tiny;
+                line-height: (@font-xsmall - .1rem);
+                .size(@font-xsmall);
                 padding: 0;
-                .border-radius(50%);
-                display: block;
-                font-size: @font-xxsmall;
-                .size(@font-small);
-                line-height: @font-small;
-                position: absolute;
-                right: (@font-xxsmall * .6);
-                text-align: center;
-                top: (@font-xxsmall * .6);
-            }
-
-            .dropdown-toggle
-            {
-                padding: 0;
+                position: relative;
+                top: -@font-tiny;
+                left: -@font-tiny;
             }
         }
     }
 
-    // All buttons displayed in the header
-    .button, button, ul li .button
+    // Create a spacer so the vertical navbar fits in
+    &.verticalSpacer
     {
-        #effortless > #button > .reverse();
-        #effortless > #background > .rounded(0);
+        .navbar-brand
+        {
+            width: @navWidth;
+            background-color: @navBackground;
+        }
+    }
+
+    .navbar-toggle
+    {
+        .navbar-button;
         margin: 0;
-        padding: 0;
-        min-width: @thumbSize; 
-        height: @thumbSize;
-        line-height: @thumbSize;
-
-        // TODO: Fix the visited and hover so the colours do not need to be specified
-        &:visited
-        {
-            color: @@theme-header-foreground;
-        }
-
-        &:hover
-        {
-            color: @@theme-header-background;
-        }
-    }
-
-    form
-    {
-        margin-top: 0px;
-        margin-bottom: 0px;
+        border: none;
+        .border-radius(0);
     }
 }
+
+// Profile menues in the navbars
+.dropdown.profile
+{
+    a.button{line-height: 0;}
+}
+
+.navbar-button
+{
+    #effortless > #layout > .min-size(@thumbSize);
+    .setColor(@@theme-header-foreground, @@theme-header-background);
+    line-height: @buttonSize;
+
+    &:hover{.inverted;}
+    &:active{.setColor(@@theme-header-foreground, @@theme-header-background);}
+    &:focus{.setColor(@@theme-header-foreground, @@theme-header-background);}
+}
+
+// Used to mark navbar-navs that do not collapse when screen size is smaller
+.nav-no-collapse
+{
+    display: inline-block;
+    margin: 0;
+    
+    .navbar-nav
+    {
+        margin: 0;
+        
+        .dropdown{display: inline-block;}
+    }
+}
+
+// Styling for the navigation dropdown menues
+
+.navbar-nav .dropdown.open > .dropdown-menu
+{
+    .opacity(1);
+    #effortless > #transform > .scale(1,1);
+    visibility: visible;
+
+    @media @mq-landscape-and-smaller
+    {
+        position: fixed!important;
+        top: inherit!important;
+        width: 100%!important;
+        .border-radius(0);
+
+        a{line-height: @thumbSize;}
+    }
+}
+
+.dropdown .dropdown-menu
+{
+    .opacity(0);
+    #effortless > #transform > .scale(1,0);
+    transform-origin: top;
+    visibility: hidden;
+    display: block;
+    #effortless > #animation > .animate(all, 0.1s);
+    .setColor(@@theme-header-background, @@theme-header-foreground);
+    padding: 0;
+
+    li a
+    {
+        .setColor(@@theme-header-background, @@theme-header-foreground)!important;
+
+        &:hover{.inverted}
+
+        > i{margin-right: (@hPadding/2);}
+
+        font-size: @font-xsmall;
+    }
+
+    .header, .footer
+    {
+        a
+        {
+            .bg-base!important;
+            font-weight: bold;
+        }
+
+        .text-center;
+    }
+
+    .item
+    {
+        width: 100%;
+        margin-right: (@thumbSize * 2);
+
+        > a
+        {
+            display: block;
+
+            > *
+            {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            header
+            {
+                font-size: @font-xxsmall;
+                font-weight: bold;
+            }
+
+            .content
+            {
+                #effortless > #layout > .max-width((@thumbSize * 4));
+                font-size: @font-xxsmall;
+
+                .content
+                {
+                    text-overflow: initial;
+                    overflow: visible;
+                    white-space: normal;
+                }
+            }
+
+            .time
+            {
+                color: @color-accent1-base;
+                font-size: @font-tiny;
+                position: absolute;
+                right: 1rem;
+            }
+
+            img
+            {
+                .border-radius(50%);
+                 border: 3px solid @@theme-header-foreground;
+            }
+        }
+    }
+}
+
+
+.messages.dropdown-menu .item{margin-right: (@thumbSize * 3);}
+
+nav.navbar .dropdown.profile
+{
+    img
+    {
+        .border-radius(50%);
+        border: 3px solid @brand-danger;
+
+        // Remove the extra margin when the screen size is smaller
+        @media @mq-landscape-and-smaller
+        {
+            margin-right: 0;
+        }
+    }
+
+    .dropdown-toggle
+    {
+        span
+        {
+            max-width: (@thumbSize * 2);
+            .text-overflow();
+            font-size: @font-xxsmall;
+            vertical-align: bottom;
+            height: @buttonSize;
+            line-height: @buttonSize;
+        }
+    }
+
+    &.online
+    {
+        img{border-color: @brand-success;}
+    }
+
+    &.away
+    {
+        img{border-color: @brand-warning;}
+    }
+}
+
+// Search field in the nav menu
+nav.navbar .dropdown.nav-search
+{
+    &.open
+    {
+        .dropdown-search
+        {
+            #effortless > #transform > .scale(1,1);
+        }
+    }
+
+    .dropdown-search
+    {
+        border: 0;
+        #effortless > #transform > .scale(0,1);
+        .border-radius(0);
+        position: absolute;
+        top: 0;
+        transform-origin: right;
+        box-shadow: none;
+
+
+        form
+        {
+            padding: 0;
+            margin: 0;
+            border: 0;
+
+            .form-group
+            {
+                .form-control
+                {
+                    #effortless > #text > .placeholder(lighten(@@theme-header-background, 20%));
+                    height: @thumbSize;
+                    padding-right: @thumbSize; 
+                    border: 0;
+                    .border-radius(0);
+
+                    @media @mq-desktop-and-larger
+                    {
+                        width: 175px;
+                    }
+
+                    @media @mq-ultra
+                    {
+                        width: 375px;
+                    }
+                }
+
+                .nav-search-icon
+                {
+                    position: absolute!important;
+                    .size(@thumbSize);
+                    line-height: @thumbSize;
+                    text-align: center;
+                    right: 0;
+                    top: 0;
+                }
+            }
+        }
+    }
+}
+
+// Vertical navbar styling
+nav.navbar-static-side
+{
+    .navbar-nav
+    {
+        margin: 0;
+        padding-bottom: (@thumbSize * 1.5);
+        .setColor(@@theme-header-foreground, @navBackground);
+    }
+
+    > *
+    {
+        max-width: @navWidth;
+    }
+
+    img
+    {
+        #effortless > #layout > .max-size(@thumbSize);
+    }
+
+    > .nav-wrapper > .navbar-nav
+    {
+        > li
+        {
+            width: 100%;
+
+            &.header
+            {
+                border-bottom: 1px solid lighten(@@theme-header-background, 1%);
+                background-color: @@theme-header-background;
+                padding: @vPadding @hPadding;
+
+                span
+                {
+                    font-size: @font-xsmall;
+                    font-weight: bold;
+                }
+            }
+
+            &.profile
+            {
+                padding-top: (@vPadding * 2);
+                padding-bottom: (@vPadding * 2);
+
+                .fa-caret-down
+                {
+                    float: right;
+                }
+
+                .button
+                {
+                    text-align: left;
+                    .setColor(@@theme-header-foreground, @navBackground);
+
+                    img
+                    {
+                        #effortless > #layout > .max-size((@thumbSize * 1.5));
+                        margin-right: (@hPadding/2);
+                    }
+
+                    span
+                    {
+                        font-size: @font-xxsmall;
+                        max-width: 6em;
+                        vertical-align: top;
+                    }
+                }
+
+                .dropdown-menu
+                {
+                    margin-top: (-@thumbSize * .8);
+
+                }
+            }
+
+            .badge, .nav-indicator
+            {
+                float: right;
+                max-width: 5.25em;
+                .text-overflow();
+                margin-top: (@vPadding /2);
+            }
+
+            > a 
+            {
+                padding: 0 @hPadding;
+
+                > span
+                {
+                    max-width: 6.75em;
+                    .text-overflow();
+                    font-size: @font-xsmall;
+                    line-height: 2.5em;
+                }
+
+                > i
+                {
+                    margin-right: (@hPadding/2);
+                    vertical-align: top;
+                    font-size: @font-xsmall;
+                    line-height: 2.5em;
+                }
+
+                >.badge
+                {
+                    line-height: 1.4em;
+                    font-weight: normal;
+                    font-size: @font-xxsmall;
+                }
+
+                &:hover, &:focus
+                {
+                    background-color: @@theme-header-background;
+                    color: @@theme-header-foreground;
+                }
+            }
+        }
+    }
+}
+

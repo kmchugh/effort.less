@@ -1,0 +1,33 @@
+// Core contains all of the base rules effortless
+// Core makes no assumptions about any controls on the page
+
+// Bootstrap 3 removed badge colours for some reason.  We add them back here
+.badge
+{
+    background-color: @color-grey;
+
+    &.badge-primary
+    {
+        background-color: @brand-primary;
+    }
+
+    &.badge-success
+    {
+        background-color: @brand-success;
+    }
+
+    &.badge-info
+    {
+        background-color: @brand-info;
+    }
+
+    &.badge-warning
+    {
+        background-color: @brand-warning;
+    }
+
+    &.badge-danger
+    {
+        background-color: @brand-danger;
+    }
+}

@@ -13,25 +13,12 @@
 @import "_shadow";
 @import "_background";
 @import "_dimensions";
+@import "_effects";
+@import "_core";
 
 @import "_grid";
 @import "_colours";
 @import "_button";
 @import "_animation";
 
-
-// Shortcuts, TODO: separate to their own file
-.border-radius(@radius)
-{
-    #effortless > #background > .rounded(@radius);
-}
-
-.size(@size)
-{
-    .size(@size, @size);
-}
-
-.size(@width, @height)
-{
-    #effortless > #layout > .size(@width, @height);
-}
+@import "_mixins";
