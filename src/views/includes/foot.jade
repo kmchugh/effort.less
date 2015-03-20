@@ -1,0 +1,8 @@
+// Livereload script rendered if in development
+if (process.env.NODE_ENV == 'development')
+  script(type='text/javascript', src='http://localhost:35729/livereload.js')
+
+// remove the no-js from the document
+script(type='text/javascript') document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+
+

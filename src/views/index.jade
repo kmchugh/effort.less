@@ -1,0 +1,42 @@
+extends layouts/default
+
+mixin widget(title, footer)
+    .widget
+        header= title
+        .content
+            if block
+                block
+        footer= footer
+
+block content
+
+    .col-sx-6.col-sm-3.sidebar-offcanvas#sidebar(role="navigation")
+        ul.nav
+            li.active
+                a Home
+            li
+                a Link 1
+            li
+                a Link 1
+            li
+                a Link 1
+
+
+section.pane(data-ng-view)
+
++widget('Widget # 1', 'Footer # 1')
+    | This is the content for this widget
+
++widget('Widget # 2', 'Footer # 2')
+    | This is the content for this widget
+    | and there is a bit more than the first widget
+
++widget('Widget # 3', 'Footer # 3')
+    | This is the content for this widget
+    | This might be an unfuddle reporting widget as an example
+
++widget('Widget # 4', 'Footer # 4')
+    | This is the content for this widget
+    | This could be a resoure planning widget
+
+

@@ -358,6 +358,42 @@ nav.navbar-static-side
         .setColor(@@theme-header-foreground, @navBackground);
     }
 
+    .content:focus, .content:active
+    {
+        outline: none;
+        .submenu
+        {
+            #effortless > #transform > .scale(1,1);
+            height: inherit;
+            visibility: visible;
+            padding-bottom: .5em;
+        }
+    }
+
+    .submenu
+    {
+        display: block;
+        width: 100%;
+        list-style: none;
+        padding-left: 0;
+        visibility: hidden;
+        .opacity(.5);
+        height: 0;
+        #effortless > #transform > .scale(1,0);
+        transform-origin: top;
+        #effortless > #animation > .animate(all, 0.1s);
+        .setColor(@@theme-header-foreground, @navBackground);
+
+        > li
+        {
+            padding: .25em 0 .25em 1.5em;
+            &:hover
+            {
+                .inverted;
+            }
+        }
+    }
+
     > *
     {
         max-width: @navWidth;
@@ -418,8 +454,21 @@ nav.navbar-static-side
 
                 .dropdown-menu
                 {
-                    margin-top: (-@thumbSize * .8);
+                    margin-top: (-@thumbSize * 1.4);
+                }
 
+                img
+                {
+                    .border-radius(25%);
+                    border: 3px solid @brand-danger;
+                }
+
+                &.online
+                {
+                    img
+                    {
+                        border-color: @brand-success;
+                    }
                 }
             }
 
@@ -431,16 +480,15 @@ nav.navbar-static-side
                 margin-top: (@vPadding /2);
             }
 
-            > a 
+            > div 
             {
-                padding: 0 @hPadding;
-
                 > span
                 {
                     max-width: 6.75em;
                     .text-overflow();
                     font-size: @font-xsmall;
-                    line-height: 2.5em;
+                    line-height: 2em;
+                    padding-left: .25em;
                 }
 
                 > i
@@ -448,7 +496,8 @@ nav.navbar-static-side
                     margin-right: (@hPadding/2);
                     vertical-align: top;
                     font-size: @font-xsmall;
-                    line-height: 2.5em;
+                    line-height: 2em;
+                    padding-left: 1em;
                 }
 
                 >.badge

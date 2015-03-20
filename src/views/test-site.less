@@ -1,0 +1,221 @@
+@import "../less/effort.less";
+
+.grid
+{
+	> h1
+	{
+		.text-center;
+		.reverse;
+	}
+}
+
+
+.example-default-grid, .example-push-grid, .example-pull-grid
+{
+	> * > *
+	{
+		@base-red: @color-accent1-xdark;
+		@base-green: @color-accent2-xdark;
+
+		&.twelve{.bg-base(lighten(@base-red, 0));}
+		&.eleven{.bg-base(lighten(@base-red, 4));}
+		&.ten{.bg-base(lighten(@base-red, 8));}
+		&.nine{.bg-base(lighten(@base-red, 12));}
+		&.eight{.bg-base(lighten(@base-red, 16));}
+		&.seven{.bg-base(lighten(@base-red, 20));}
+		&.six{.bg-base(lighten(@base-red, 24));}
+		&.five{.bg-base(lighten(@base-red, 28));}
+		&.four{.bg-base(lighten(@base-red, 32));}
+		&.three{.bg-base(lighten(@base-red, 36));}
+		&.two{.bg-base(lighten(@base-red, 40));}
+		&.one{.bg-base(lighten(@base-red, 44));}
+
+		&.whole{.bg-base(lighten(@base-green, 0));}
+		&.three-quarters{.bg-base(lighten(@base-green, 4));}
+		&.two-thirds{.bg-base(lighten(@base-green, 8));}
+		&.half{.bg-base(lighten(@base-green, 12));}
+		&.third{.bg-base(lighten(@base-green, 16));}
+		&.quarter{.bg-base(lighten(@base-green, 20));}
+	}
+}
+
+/*
+
+Page expectations
+
+
+ */
+
+body
+{
+	@footer-height: 60px;
+
+	> .content
+	{
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		margin: 0 auto -@footer-height;
+		padding: 0 0 @footer-height;
+	}
+
+	> footer
+	{
+		height: @footer-height;
+
+	}
+}
+
+/**
+* Set up the global grid system, leave the calculated measurements
+**/
+
+/*
+@grid-columns: 12;
+@grid-width: 768;
+@grid-gutter: .03;
+
+@red: #9d1921;
+@grey: #999999;
+
+html 
+{
+	font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+}
+
+body
+{
+	background: @grey url('../icatalystlogo.png') no-repeat fixed top right;
+}
+
+strong
+{
+	color: @red;
+	background: lighten(@grey, 50);
+	font-weight: bold;
+	font-size: 110%;
+	padding: .15em .5em;
+	display: inline-block;
+	#effortless > #border > .rounded(1px, solid, @red, 6px);
+}
+
+.grid.large
+{
+	@grid-width: 976;
+
+	.gridLayout;
+}
+
+.container
+{
+	> span
+	{
+		font-size: 90%;
+		line-height: 120%;
+		color: lighten(@grey, 70);
+		padding: 15px 15px 10px 15px;
+		background-color: darken(@grey, 20);
+		margin-top: 10px;
+		#effortless > #border > .rounded(1px, solid, darken(@grey, 20), 6px);
+
+		label
+		{
+			margin: 0 0 10px 0;
+			padding: .5em .5em .5em 36px;
+			font-size: 120%;
+			font-weight: bold;
+			background: lighten(@grey, 20) url('../effort.less_16.png') no-repeat 10px center;
+			display: block;
+			color: @red;
+		}
+
+		pre
+		{
+			#effortless > #border > .rounded(1px, dashed, darken(@grey, 50), 6px);
+			background-color : lighten(@grey, 10);
+			font-size: 80%;
+			margin: 20px 0px 20px 0px;
+		}
+	}
+}
+
+.titleArea, .contentArea, .footerArea
+{
+	#effortless > #border > .rounded(1px, solid, darken(@grey, 20), 6px);
+}
+
+.titleArea, .footerArea
+{
+	#effortless > #background > #gradient > .gloss(lighten(white, 30));
+}
+
+.contentArea
+{
+	#effortless > #background > #gradient > .pipe(@grey);
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+
+// Title area is only 4 column
+.titleArea
+{
+	// Title area we want as 4 column rather than 12
+	@grid-columns: 4;
+
+	.row;
+
+	> div
+	{
+		
+		padding: 40px 0px;
+		margin-top: 20px;
+
+		.column;
+
+		#effortless > #background > .rounded;
+		#effortless > #background > #gradient > .pipe(@red, 50, .5);
+
+		.button
+		{
+			display: block;
+			cursor: pointer;
+			text-align: center;
+		}
+
+		&:hover
+		{
+			color: lighten(@grey, 30);
+			font-weight: bold;
+		}
+	}
+
+	div.reflected
+	{
+		margin-top: 2px;
+		margin-bottom: 10px;
+		padding: 20px 0px;
+		#effortless > #background > #gradient > .fade(fade(@red, 50), fade(lighten(@red, 30), 0));
+	}
+}
+
+.contentArea
+{
+
+	div
+	{
+		span
+		{
+			#effortless > #background > #gradient > .pipe(@red, 50, .5);
+			#effortless > #background > .rounded;
+			text-align: center;
+			display: inline-block;
+			margin-top: 10px;
+			padding: 5px 0px;
+
+			.column;
+
+		}
+	}
+}
+*/
