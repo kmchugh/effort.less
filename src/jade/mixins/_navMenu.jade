@@ -1,18 +1,12 @@
-
-mixin verticalNavbar
-    nav.vertical.hidden-sm.hidden-xs
-        block
-
-
 //- creates a horizontal navbar
     homeURL - the url to use for the home link
 mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
     - homeURL = homeURL || '/';
     - logoImage = logoImage || '/images/logo.png';
 
-    nav(role="navigation").navbar.navbar-default
+    nav(role="navigation").navbar.navbar-default(class!=attributes.class || '')
         .container-fluid
-            + toggleButton('Toggle Navigation', toggleClassID)(class="navbar-toggle collapsed")
+            + toggleButton(toggleClassID, 'Toggle Navigation')(class="navbar-toggle collapsed")
 
             .navbar-header
                 a(href=homeURL ).navbar-brand
@@ -21,25 +15,66 @@ mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
             block
 
 
-
+//- container for navigation areas within navbar
 mixin navContainer(classID)
-    .collapse.navbar-collapse.navbar-left(class=classID)(class!=attributes.class?attributes.class:'')
+    .collapse.navbar-container.navbar-collapse.navbar-left(class=classID, class!=attributes.class?attributes.class:'')
         block
 
+//- used for containers in the navbar that do not collapse
 mixin navContainerConstant(classID)
-    .nav-no-collapse.pull-right(class=classID)(class!=attributes.class?attributes.class:'')
+    .nav-no-collapse.navbar-container.pull-right(class=classID, class!=attributes.class?attributes.class:'')
         block
 
 
+//- toggle button for access navbar menu when in smaller screens
 mixin toggleButton(target, srText)
     - srText = srText || 'Toggle';
-    button(data-target="#{target}", data-toggle="collapse", type="button")(class!=attributes.class ? attributes.class : '')
+    button(data-target="#{target}", data-toggle="collapse", type="button", class!=attributes.class ? attributes.class : '')
         .span.sr-only #{srText}
-        .span.fa.fa-bars
+        i.fa.fa-bars
 
+// Container for nav section
 mixin navSection
     ul.nav.navbar-nav(class!=attributes.class?attributes.class:'')
         block
+
+// Vertical Navigation Bar
+mixin verticalNavbar
+    nav.navbar-default.navbar-static-side.hidden-xs
+        div.nav-wrapper(class!=attributes.class || '')
+            block
+
+// Header item for vertical navigation bars
+mixin navHeader(title)
+    li.header: span #{title}
+
+mixin verticalNavDropdown(title, iconClass, badgeContent)
+    +verticalNavItem(title, iconClass, badgeContent)&attributes(attributes)
+        if (!badgeContent)
+            i.fa.fa-caret-right.nav-indicator
+
+
+mixin verticalNavItem(title, iconClass, badgeContent, href)
+    li: a(href=href || "#")
+        +icon(iconClass)
+        span #{title}
+        +badge(badgeContent)&attributes(attributes)
+        block
+        
+
+mixin icon(iconClass)
+    if (iconClass)
+        i.fa(class=iconClass)
+
+mixin badge(text)
+    if (text)
+        span.badge(title=text, class!=attributes.badgeClass || '') #{text}
+
+
+
+
+
+
 
 mixin navIconDropdown(iconClass, srText, badgeText)
     li.dropdown.icon
@@ -47,14 +82,14 @@ mixin navIconDropdown(iconClass, srText, badgeText)
             i.fa(class=iconClass)
             span.sr-only #{srText}
             span.badge #{badgeText}
-        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
+        ul.dropdown-menu(role="menu", class!=attributes.class ? attributes.class : '')
                 block
 
 mixin navDropdown(title)
     li.dropdown
         a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false") #{title}
             i.fa.fa-caret-down
-        ul.dropdown-menu(role="menu")(class!=attributes.class ? attributes.class : '')
+        ul.dropdown-menu(role="menu", class!=attributes.class ? attributes.class : '')
             block
 
 mixin navDropdownIconItem(iconClass, title, href)
@@ -98,9 +133,9 @@ mixin navDropdownMessage(imageSrc, title, text, time, href)
 
 mixin navSearch
     li.dropdown.nav-search
-        a.button
+        a.dropdown-toggle.button(href="#", data-toggle="dropdown",role="button", aria-expanded="false")
             i.fa.fa-search
-        .dropdown-search
+        ul.dropdown-search.dropdown-menu.dropdown-menu-right
             form.navbar-form(role="search")
                 .form-group
                     input.form-control(type="text", class="form-control", placeholder="Search...")
@@ -113,7 +148,7 @@ mixin navProfile(imageSrc, userName, status)
             img(src=imageSrc, alt=userName)
             span.hidden-xs #{userName}
             i.fa.fa-caret-down.hidden-xs
-        ul.dropdown-menu(role="menu")(class!=attributes.dropdownClass || '')
+        ul.dropdown-menu(role="menu", class!=attributes.dropdownClass || '')
             +navDropdownHeader(userName)
             li: a(href="#")
                 i.fa.fa-user
@@ -122,12 +157,12 @@ mixin navProfile(imageSrc, userName, status)
                 i.fa.fa-cog
                 | Settings
             li: a(href="#")
-                i.fa.fa-envelope-0
+                i.fa.fa-envelope
                 | Messages
             li: a(href="#")
                 i.fa.fa-power-off
                 | Logout
 
 mixin navLogout
-    li.hidden-xxs: a.button: i.fa.fa-power-off
+    li.hidden-xs: a.button: i.fa.fa-power-off
             

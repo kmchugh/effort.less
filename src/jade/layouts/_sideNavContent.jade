@@ -1,14 +1,16 @@
 include ../mixins/_navMenu
 
+- var sidebarClass = 'navbar-side-collapse';
+
 //- Wrap the entire content with the theme wrapper
 div.theme-wrapper
     block header
-        +horizontalNavbar('/', '/resources/effort.less.png', 'effort.less', 'navbar-side-collapse')
-            +navContainer('navbar-header-main')
+        +horizontalNavbar('/', appLogo, appName, sidebarClass)(class='verticalSpacer')
+            +navContainer
                 +navSection(class='hidden-sm')
 
                     // Toggle button to minimise the side nav
-                    +toggleButton('Minimise Side Nav', 'navbar-side-collapse')(class='navbar-left')
+                    +toggleButton(sidebarClass, 'Minimise Side Nav')(class='navbar-left')
 
                     +navIconDropdown('fa-bell', 'notifications', 8)(class='notifications')
                         +navDropdownHeader('You have 6 new notifications')
@@ -39,16 +41,42 @@ div.theme-wrapper
             +navContainerConstant('navbar-header-profile')
                 +navSection
                     +navSearch
-                    +navProfile('/resources/profiles/a4.jpg', 'Scarlett Johansson')
+                    +navProfile('/resources/profiles/a4.jpg', 'Scarlett Johansson')(dropdownClass="dropdown-menu-right")
                     +navLogout
 
 
     //- Wrap each individual page with the page wrapper
     .container-fluid.page-wrapper
         .row
-            +verticalNavbar
+            +verticalNavbar(class=sidebarClass)
                 +navSection
                     +navProfile('/resources/profiles/a5.jpg', 'Scarlett Johansson', 'online')(class="hidden-sm hidden-xs", dropdownClass="dropdown-menu-right")
+
+                    +navHeader('Navigation')
+
+                    +verticalNavDropdown('Dashboard', 'fa-dashboard', '28')(badgeClass="badge-info")
+
+                    +verticalNavDropdown('Tables', 'fa-table')
+
+                    +verticalNavDropdown('Email', 'fa-envelope-o')
+
+                    +verticalNavDropdown('Graphs', 'fa-bar-chart')
+
+                    +verticalNavDropdown('Widgets', 'fa-th', 'New')(badgeClass="badge-success")
+
+                    +verticalNavDropdown('Pages', 'fa-copy')
+
+                    +navHeader('Components')
+
+                    +verticalNavDropdown('Forms', 'fa-edit')
+
+                    +verticalNavDropdown('UI Kit', 'fa-desktop')
+
+                    +verticalNavDropdown('Google Maps', 'fa-table', 'Updated')(badgeClass="badge-danger")
+
+                    +verticalNavDropdown('Extra Pages', 'fa-file')
+
+                    +verticalNavDropdown('Extra Long Menu Item', 'fa-file', 'extra long badge content')(badgeClass="badge-danger")
 
             .content-wrapper
                 

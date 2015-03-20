@@ -1,0 +1,20 @@
+// components/_core is the base for any components that are on a page-break-before: // all common rules hsould be placed in this file
+
+// import effortless in case it hasn't been
+@import "../effort.less";
+
+// Theme wrapper is used to wrap all of the content including menus on the page
+// it should be the outermost element
+.theme-wrapper
+{
+    min-height: 100%;
+    #effortless > #colours > .set(@@theme-foreground, @@theme-background);
+}
+
+// The content-wrapper is the wrapper for the actual page content, this does not include
+// the global navigation controls
+.content-wrapper
+{
+    background: url('/resources/whitey.jpg');
+    min-height: @break-xxs-max;
+}

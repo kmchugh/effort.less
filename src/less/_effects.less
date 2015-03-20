@@ -1,0 +1,16 @@
+#effortless
+{
+    #effects
+    {
+        .opacity(@opacity : .5)
+        {
+            @intOpacity: @opacity * 100;
+            -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{intOpacity})";/* IE 8 */
+            filter: ~"alpha(opacity=@{intOpacity})"; /* IE 5-7 */
+            -moz-opacity: @opacity; /* Netscape */
+            -khtml-opacity: @opacity; /* Safari 1.x */
+            -o-opacity: @opacity; /* Opera */
+            opacity: @opacity; /* Good browsers */
+        }
+    }
+}

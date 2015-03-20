@@ -1,0 +1,71 @@
+// Mixins to be referenced from the "global namespace"
+
+/**
+ * Defines the radii of all corners
+ */
+.border-radius(@radius){#effortless > #background > .rounded(@radius);}
+
+/**
+ * Sets the width and height
+ */
+.size(@size){.size(@size, @size);}
+
+/**
+ * Sets the width and height
+ */
+.size(@width, @height){#effortless > #layout > .size(@width, @height);}
+
+/**
+* inverted reversed the colours of the element
+**/
+.inverted
+{
+    #effortless > #colours > .set(@@theme-background, @@theme-foreground);
+
+    blockquote
+    {
+        border-left: 4px solid @@theme-background;
+    }
+}
+
+/**
+* Horizontally centers the element
+**/
+.center{#effortless > #layout > .center;}
+
+/**
+* Block display
+**/
+.block{display: block;}
+
+/**
+* Centers the text in the given element
+**/
+.text-center{text-align: center;}
+
+// Set the colours of the element
+.setColor(@foreground: @@theme-foreground, @background: @@theme-background)
+{
+    #effortless > #colours > .set(@foreground, @background);
+}
+
+.opacity(@opacity)
+{
+    #effortless > #effects > .opacity(@opacity);
+}
+
+.text-column
+{
+    &.two{#effortless > #text > .columns(2);}
+
+    &.three{#effortless > #text > .columns(3);}
+
+    &.four{#effortless > #text > .columns(4);}
+
+    &.two.rule{#effortless > #text > .columns(2, solid);}
+
+    &.three.rule{#effortless > #text > .columns(3, solid);}
+
+    &.four.rule{#effortless > #text > .columns(4, solid);}
+}
+
