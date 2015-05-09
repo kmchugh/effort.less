@@ -54,29 +54,81 @@ div.theme-wrapper
 
                     +navHeader('Navigation')
 
-                    +verticalNavDropdown('Dashboard', 'fa-dashboard', '28')(badgeClass="badge-info")
+                    +verticalNavItem('Dashboard', 'fa-dashboard', '28')(badgeClass="badge-info")
 
                     +verticalNavDropdown('Tables', 'fa-table')
+                        +verticalNavItem('Simple')
+                        +verticalNavItem('Advanced')
+                        +verticalNavItem('Users')
+                        +verticalNavItem('FooTables')
 
                     +verticalNavDropdown('Email', 'fa-envelope-o')
+                        +verticalNavItem('Inbox')
+                        +verticalNavItem('Detail')
+                        +verticalNavItem('Compose')
 
                     +verticalNavDropdown('Graphs', 'fa-bar-chart')
+                        +verticalNavItem('Morris & Mixed')
+                        +verticalNavItem('Flot')
+                        +verticalNavItem('Dygraphs')
+                        +verticalNavItem('xCharts')
 
-                    +verticalNavDropdown('Widgets', 'fa-th', 'New')(badgeClass="badge-success")
+                    +verticalNavItem('Widgets', 'fa-th', 'New')(badgeClass="badge-success")
 
                     +verticalNavDropdown('Pages', 'fa-copy')
+                        +verticalNavItem('Calendar')
+                        +verticalNavItem('Gallery')
+                        +verticalNavItem('Gallery v2')
+                        +verticalNavItem('Pricing')
+                        +verticalNavItem('Projects')
+                        +verticalNavItem('Team Members')
+                        +verticalNavItem('Timeline')
+                        +verticalNavItem('Timeline Grid')
+                        +verticalNavItem('User Profile')
+                        +verticalNavItem('Search Results')
+                        +verticalNavItem('Invoice')
+                        +verticalNavItem('Tour Layout')
 
                     +navHeader('Components')
 
                     +verticalNavDropdown('Forms', 'fa-edit')
+                        +verticalNavItem('Elements')
+                        +verticalNavItem('X-Editable')
+                        +verticalNavItem('Wizard')
+                        +verticalNavItem('Wizard popup')
+                        +verticalNavItem('WYSIWG')
+                        +verticalNavItem('WYSIWG Summernote')
+                        +verticalNavItem('WYSIWG CKEditor')
+                        +verticalNavItem('Multiple File Upload')
 
                     +verticalNavDropdown('UI Kit', 'fa-desktop')
+                        +verticalNavItem('Elements')
+                        +verticalNavItem('Notifications & Alerts')
+                        +verticalNavItem('Modals')
+                        +verticalNavItem('Video')
+                        +verticalNavItem('Icons')
+                        +verticalNavItem('Nestable List')
+                        +verticalNavItem('Typography')
+                        +verticalNavItem('3 Level Menu')
 
-                    +verticalNavDropdown('Google Maps', 'fa-table', 'Updated')(badgeClass="badge-danger")
+                    +verticalNavItem('Google Maps', 'fa-table', 'Updated')(badgeClass="badge-danger")
 
                     +verticalNavDropdown('Extra Pages', 'fa-file')
+                        +verticalNavItem('FAQ')
+                        +verticalNavItem('Login')
+                        +verticalNavItem('Login Full')
+                        +verticalNavItem('Registration')
+                        +verticalNavItem('Registration Full')
+                        +verticalNavItem('Forgot Password')
+                        +verticalNavItem('Forgot Password Full')
+                        +verticalNavItem('Lock Screen')
+                        +verticalNavItem('Lock Screen Full')
+                        +verticalNavItem('Error 404')
+                        +verticalNavItem('Error 404 Nested')
+                        +verticalNavItem('Error 500')
+                        +verticalNavItem('Grid')
 
-                    +verticalNavDropdown('Extra Long Menu Item', 'fa-file', 'extra long badge content')(badgeClass="badge-danger")
+                    +verticalNavItem('Extra Long Menu Item', 'fa-file', 'extra long badge content')(badgeClass="badge-danger")
 
             .content-wrapper
                 

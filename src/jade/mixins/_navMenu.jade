@@ -4,7 +4,7 @@ mixin horizontalNavbar(homeURL, logoImage, appName, toggleClassID)
     - homeURL = homeURL || '/';
     - logoImage = logoImage || '/images/logo.png';
 
-    nav(role="navigation").navbar.navbar-default(class!=attributes.class || '')
+    nav.navbar.navbar-default(class!=attributes.class || '', role="navigation")
         .container-fluid
             + toggleButton(toggleClassID, 'Toggle Navigation')(class="navbar-toggle collapsed")
 
@@ -50,17 +50,21 @@ mixin navHeader(title)
 
 mixin verticalNavDropdown(title, iconClass, badgeContent)
     +verticalNavItem(title, iconClass, badgeContent)&attributes(attributes)
-        if (!badgeContent)
-            i.fa.fa-caret-right.nav-indicator
+        i.fa.fa-caret-right.nav-indicator
+        ul.submenu
+            block
 
 
 mixin verticalNavItem(title, iconClass, badgeContent, href)
-    li: a(href=href || "#")
-        +icon(iconClass)
-        span #{title}
-        +badge(badgeContent)&attributes(attributes)
-        block
-        
+    li
+        .content(tabindex="0")
+            +icon(iconClass)
+            if (href)
+                a(href=href)
+            else
+                span #{title}
+            +badge(badgeContent)&attributes(attributes)
+            block
 
 mixin icon(iconClass)
     if (iconClass)

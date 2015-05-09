@@ -1,0 +1,71 @@
+// Bootstrap overrides
+
+@color-step: 10%;
+
+// Override the bootstrap default colours
+@gray-darker:            @color-grey-xxdark;
+@gray-dark:              @color-grey-xdark;
+@gray:                   @color-grey;
+@gray-light:             @color-grey-light;
+@gray-lighter:           @color-grey-xxlight;
+
+@brand-primary:         @color-base;
+@brand-success:         #5cb85c;
+@brand-info:            #5bc0de;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+
+@body-bg:               @@theme-background;
+@text-color:            @@theme-foreground;
+@link-color:            @@theme-link;
+@link-hover-color:      @@theme-link-hover;
+
+
+// Navbar
+@navbar-default-color:             @@theme-foreground;
+@navbar-default-bg:                @@theme-background;
+@navbar-default-border:            darken(@navbar-default-bg, 6.5%);
+
+// Navbar links
+@navbar-default-link-color:                contrast(@navbar-default-bg, @@theme-foreground, @@theme-background, 40);
+@navbar-default-link-hover-color:          contrast(@navbar-default-bg, darken(@@theme-foreground, @color-step), darken(@@theme-background, @color-step), 40);
+@navbar-default-link-hover-bg:             transparent;
+@navbar-default-link-active-color:         @navbar-default-link-hover-color;
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, @color-step);
+@navbar-default-link-disabled-color:       @navbar-default-link-active-bg;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           @navbar-default-link-active-bg;
+@navbar-default-toggle-icon-bar-bg:        @navbar-default-link-color;
+@navbar-default-toggle-border-color:       @navbar-default-link-color;
+
+
+// Inverted navbar
+@navbar-inverse-color:                      @@theme-background;
+@navbar-inverse-bg:                         @@theme-foreground;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, @color-step);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 contrast(@navbar-inverse-bg, @@theme-foreground, @@theme-background, 40);
+@navbar-inverse-link-hover-color:           contrast(@navbar-inverse-bg, darken(@@theme-foreground, @color-step), darken(@@theme-background, @color-step), 40);
+@navbar-inverse-link-hover-bg:              transparent;
+@navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, @color-step);
+@navbar-inverse-link-disabled-color:        @navbar-inverse-link-active-bg;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            @navbar-inverse-link-active-bg;
+@navbar-inverse-toggle-icon-bar-bg:         @navbar-inverse-link-color;
+@navbar-inverse-toggle-border-color:        @navbar-inverse-link-color;
+
+
+
+// Reset rules for bootstrap elements
+.navbar-toggle
+{
+	min-width: inherit;
+	min-height: inherit;
+	
+}
