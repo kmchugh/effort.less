@@ -1,7 +1,7 @@
 {
   "name": "effort.less",
   "description": "simple less mixins and styles for dynamic and beautiful mobile first sites",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "private": true,
   "author": "kmchugh",
   "repository": {
